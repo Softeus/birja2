@@ -1,6 +1,4 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
+# ── зависимости ───────────────────────────────────────
 /node_modules
 /.pnp
 .pnp.*
@@ -10,40 +8,55 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
-
-# next.js
+# ── сборка Next.js ────────────────────────────────────
 /.next/
 /out/
-
-# production
 /build
+/dist
 
-# misc
+# ── тесты ─────────────────────────────────────────────
+/coverage
+
+# ── рабочая папка пайплайна (скриншоты, логи, скрипты) ─
+/_meta
+
+# ── окружение и секреты ───────────────────────────────
+.env
+.env.*
+.env.local
+.env.*.local
+!.env.example
+
+# ── внешние документы (не коммитим) ───────────────────
+/docs/
+/moex_market_pulse_sentiment_concept_analysis.md
+
+# ── IDE и ОС ──────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
 .DS_Store
-*.pem
+Thumbs.db
+desktop.ini
 
-# debug
+# ── логи ──────────────────────────────────────────────
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
+# ── vercel ────────────────────────────────────────────
 .vercel
 
-# typescript
+# ── typescript ────────────────────────────────────────
 *.tsbuildinfo
 next-env.d.ts
 
-# рабочая папка пайплайна (скриншоты, логи, отчёты прогонов)
-/_meta
-*.log
-
-# локальные секреты
-.env
-.env.local
+# ── ключи и сертификаты ───────────────────────────────
+*.pem
+*.key
+*.p12
+*.pfx
