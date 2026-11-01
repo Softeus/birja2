@@ -30,7 +30,7 @@ ds/screens/*.ast.json ──► validate ──► Pixso screens ─┐
 | `ds/library.spec.json` | декларативный спек компонентов (оси, размеры, токены, страница уровня) |
 | `ds/screens/*.ast.json` | экраны как UI-AST, единственный вход для сборки |
 | `ds-manifest.json` | опубликованный контракт: ключи компонентов, пропсы, слоты |
-| `tokens.json` | сгенерированные токены (не править руками) |
+| `tokens.json` | сгенерированные токены (не править руками): цвета Light/Dark, шкала `radius/*`, числовая `space/*`, `font/*`, `stroke/1` |
 | `scripts/ds/*` | пайплайн: токены, генератор библиотеки, валидатор, сборщик |
 | `scripts/pixso-scripts/*` | скрипты, исполняемые в Pixso через `eval_script` |
 | `components/ui/*` | кодовая библиотека (shadcn/ui) |
