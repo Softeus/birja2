@@ -5,8 +5,8 @@
   "tokensCollection": "Semantic",
   "components": {
     "Button": {
-      "key": "f8afde0f53714a7df544ab42a73b103c4303c39a",
-      "nodeId": "7:73",
+      "key": "bc47b680b421d2cf3d05bd6b14d6fb344e9f4758",
+      "nodeId": "7:1044",
       "type": "COMPONENT_SET",
       "axes": [
         "variant",
@@ -32,8 +32,8 @@
       }
     },
     "Badge": {
-      "key": "4a43e4da1b7b5f7432ed4ad05901ce68993cd810",
-      "nodeId": "7:82",
+      "key": "51e6b6d128ea49dfe36674652c560fc948321c37",
+      "nodeId": "7:1053",
       "type": "COMPONENT_SET",
       "axes": [
         "variant"
@@ -51,8 +51,8 @@
       }
     },
     "Input": {
-      "key": "d02b64b4ccbce1ceff2b527d8fdb12085f6e04a1",
-      "nodeId": "7:89",
+      "key": "e0fdd97030667151d4a8154bd2a3c068af345b78",
+      "nodeId": "7:1060",
       "type": "COMPONENT_SET",
       "axes": [
         "state"
@@ -69,8 +69,8 @@
       }
     },
     "Checkbox": {
-      "key": "fbaaec06d4a18209ea7f1edff0c0a006462eee73",
-      "nodeId": "7:93",
+      "key": "5f477b7eaa2616e7c07140eb07454a946b7697f8",
+      "nodeId": "7:1064",
       "type": "COMPONENT_SET",
       "axes": [
         "checked"
@@ -84,8 +84,8 @@
       "slots": {}
     },
     "Separator": {
-      "key": "d448c7b49be11e42048bfedcfd67f13f4700c84e",
-      "nodeId": "7:96",
+      "key": "b58165fc1c52ef9dc88ee4d10dfd9c069f59c178",
+      "nodeId": "7:1067",
       "type": "COMPONENT_SET",
       "axes": [
         "orientation"
@@ -99,8 +99,8 @@
       "slots": {}
     },
     "Label": {
-      "key": "8ca82d35b628eb00b8230f7315bb85a24c8c781a",
-      "nodeId": "7:97",
+      "key": "16c2db2ff7174f897831c6ceaf557b4100fe22d8",
+      "nodeId": "7:1068",
       "type": "COMPONENT",
       "axes": [],
       "props": {},
@@ -109,8 +109,8 @@
       }
     },
     "Card": {
-      "key": "da84516cb253db14d2f613d8bd0dfad42f793b05",
-      "nodeId": "7:99",
+      "key": "4644ca8a65323ce0792fdc1f55f4af5e1c553674",
+      "nodeId": "7:1070",
       "type": "COMPONENT",
       "axes": [],
       "props": {},
@@ -120,8 +120,8 @@
       }
     },
     "Heading": {
-      "key": "a79337e37e8032badc40728773b6a8b0ea3ceef8",
-      "nodeId": "7:108",
+      "key": "e3784b5a583f28bf88b7287d292d93be5a37f20b",
+      "nodeId": "7:1079",
       "type": "COMPONENT_SET",
       "axes": [
         "level"
@@ -138,8 +138,8 @@
       }
     },
     "Text": {
-      "key": "822dd12b92d88d86da8f0b93251eb94804535b8d",
-      "nodeId": "7:113",
+      "key": "c24d6201d7ae3b3c4556612aedccbba9d1977cfc",
+      "nodeId": "7:1084",
       "type": "COMPONENT_SET",
       "axes": [
         "variant"
@@ -155,8 +155,8 @@
       }
     },
     "Textarea": {
-      "key": "e74c692768901f30dce60ffbb29cff3d5ec89e8b",
-      "nodeId": "7:118",
+      "key": "8967ea2fb4328b329cda95bca2bb334124e20451",
+      "nodeId": "7:1089",
       "type": "COMPONENT_SET",
       "axes": [
         "state"
@@ -172,8 +172,8 @@
       }
     },
     "Switch": {
-      "key": "60c172c5177bdd2d5b8bc907b0f7469ad53f5f45",
-      "nodeId": "7:123",
+      "key": "93e0c9ea219c8abe46d2defd8e3dfc1a8d86a652",
+      "nodeId": "7:1094",
       "type": "COMPONENT_SET",
       "axes": [
         "checked"
@@ -187,8 +187,8 @@
       "slots": {}
     },
     "Radio": {
-      "key": "8a0192c48325066eefc8af9a5cc44263cdbf2d6e",
-      "nodeId": "7:127",
+      "key": "1d559a84a1e8de6050120b4bce65b677442d2cc6",
+      "nodeId": "7:1098",
       "type": "COMPONENT_SET",
       "axes": [
         "checked"
@@ -202,8 +202,8 @@
       "slots": {}
     },
     "Dialog": {
-      "key": "a027edfff73c9fbfa7d53e82035822ff4435e82c",
-      "nodeId": "7:128",
+      "key": "602623d19937ac40000dc2f859b6f18eb8252086",
+      "nodeId": "7:1099",
       "type": "COMPONENT",
       "axes": [],
       "props": {},
@@ -213,8 +213,8 @@
       }
     },
     "Icon": {
-      "key": "ac9e00a3935992ea40542a7682b674ee16ffdd95",
-      "nodeId": "7:204",
+      "key": "dd698edacc6c3f4bc46f0b1c674e3269cf41c6ad",
+      "nodeId": "7:1211",
       "type": "COMPONENT_SET",
       "axes": [
         "name",
@@ -238,6 +238,63 @@
         ]
       },
       "slots": {}
+    },
+    "PulseGauge": {
+      "key": "c58547a299bbb96408b43c729f64c49d068be515",
+      "nodeId": "7:1142",
+      "type": "COMPONENT_SET",
+      "axes": [
+        "zone"
+      ],
+      "props": {
+        "zone": [
+          "fear",
+          "caution",
+          "neutral",
+          "optimism",
+          "greed"
+        ]
+      },
+      "slots": {
+        "value": "TEXT"
+      }
+    },
+    "Sparkline": {
+      "key": "46652387250ce69f2ff75d3f3ecd57860a375890",
+      "nodeId": "7:1147",
+      "type": "COMPONENT_SET",
+      "axes": [
+        "direction"
+      ],
+      "props": {
+        "direction": [
+          "up",
+          "down"
+        ]
+      },
+      "slots": {}
+    },
+    "StockTile": {
+      "key": "7bcfdcfc77b0d74fad6e91c808d8f386a8cf5923",
+      "nodeId": "7:1162",
+      "type": "COMPONENT_SET",
+      "axes": [
+        "level"
+      ],
+      "props": {
+        "level": [
+          "bullish-1",
+          "bullish-2",
+          "bullish-3",
+          "bearish-1",
+          "bearish-2",
+          "bearish-3",
+          "neutral"
+        ]
+      },
+      "slots": {
+        "ticker": "TEXT"
+      }
     }
   }
 }

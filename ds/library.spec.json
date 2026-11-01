@@ -654,6 +654,147 @@
           "24"
         ]
       }
+    },
+    {
+      "name": "PulseGauge",
+      "page": "5 Domain",
+      "axes": {
+        "zone": [
+          "fear",
+          "caution",
+          "neutral",
+          "optimism",
+          "greed"
+        ]
+      },
+      "variantAxis": "zone",
+      "layout": {
+        "mode": "NONE"
+      },
+      "width": 120,
+      "height": 60,
+      "autoWidth": false,
+      "children": [
+        {
+          "type": "vector",
+          "name": "arc",
+          "path": "M 6 54 A 54 54 0 0 1 114 54",
+          "strokeWeight": 9,
+          "center": true,
+          "colorByVariant": {
+            "fear": "color/sentiment-fear",
+            "caution": "color/sentiment-fear",
+            "neutral": "color/sentiment-neutral",
+            "optimism": "color/sentiment-greed",
+            "greed": "color/sentiment-greed"
+          }
+        },
+        {
+          "type": "text",
+          "name": "value",
+          "value": "67",
+          "fontFamily": "Inter",
+          "fontStyle": "Semi Bold",
+          "fontSize": "font/28",
+          "color": "color/foreground",
+          "center": true
+        }
+      ]
+    },
+    {
+      "name": "Sparkline",
+      "page": "5 Domain",
+      "axes": {
+        "direction": [
+          "up",
+          "down"
+        ]
+      },
+      "variantAxis": "direction",
+      "layout": {
+        "mode": "NONE"
+      },
+      "width": 120,
+      "height": 32,
+      "autoWidth": false,
+      "children": [
+        {
+          "type": "vector",
+          "name": "line",
+          "path": "M 0 24 L 20 18 L 40 22 L 60 10 L 80 14 L 100 4 L 120 8",
+          "strokeWeight": 2,
+          "colorByVariant": {
+            "up": "color/bullish-2",
+            "down": "color/bearish-2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "StockTile",
+      "page": "5 Domain",
+      "axes": {
+        "level": [
+          "bullish-1",
+          "bullish-2",
+          "bullish-3",
+          "bearish-1",
+          "bearish-2",
+          "bearish-3",
+          "neutral"
+        ]
+      },
+      "variantAxis": "level",
+      "layout": {
+        "mode": "NONE"
+      },
+      "width": 120,
+      "height": 56,
+      "autoWidth": false,
+      "radiusPx": 3,
+      "variants": {
+        "bullish-1": {
+          "fill": "color/bullish-1",
+          "text": "color/foreground"
+        },
+        "bullish-2": {
+          "fill": "color/bullish-2",
+          "text": "color/background"
+        },
+        "bullish-3": {
+          "fill": "color/bullish-3",
+          "text": "color/background"
+        },
+        "bearish-1": {
+          "fill": "color/bearish-1",
+          "text": "color/foreground"
+        },
+        "bearish-2": {
+          "fill": "color/bearish-2",
+          "text": "color/background"
+        },
+        "bearish-3": {
+          "fill": "color/bearish-3",
+          "text": "color/background"
+        },
+        "neutral": {
+          "fill": "color/neutral",
+          "text": "color/foreground"
+        }
+      },
+      "children": [
+        {
+          "type": "text",
+          "name": "ticker",
+          "value": "SBER",
+          "fontFamily": "Inter",
+          "fontStyle": "Medium",
+          "fontSize": "font/12",
+          "colorFromVariant": true,
+          "x": 6,
+          "y": 6
+        }
+      ]
     }
   ],
   "pages": [

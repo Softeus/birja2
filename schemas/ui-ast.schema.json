@@ -63,6 +63,9 @@
         },
         {
           "$ref": "#/definitions/component"
+        },
+        {
+          "$ref": "#/definitions/heatmap"
         }
       ]
     },
@@ -140,6 +143,107 @@
         "grow": {
           "type": "number",
           "minimum": 0
+        }
+      }
+    },
+    "heatmap": {
+      "type": "object",
+      "required": [
+        "type",
+        "width",
+        "height",
+        "sectors"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "heatmap"
+          ]
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "sectors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/heatmapSector"
+          }
+        }
+      }
+    },
+    "heatmapSector": {
+      "type": "object",
+      "required": [
+        "sector",
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sector": {
+          "type": "string"
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "tiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/heatmapTile"
+          }
+        }
+      }
+    },
+    "heatmapTile": {
+      "type": "object",
+      "required": [
+        "secId",
+        "x",
+        "y",
+        "width",
+        "height",
+        "level"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "secId": {
+          "type": "string"
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "level": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
         }
       }
     }

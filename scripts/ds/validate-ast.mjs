@@ -41,6 +41,30 @@ for (const file of files) {
       return;
     }
 
+    if (node.type === "heatmap") {
+      if (typeof node.width !== "number" || typeof node.height !== "number") {
+        problems.push(`${where(path)}: heatmap без width/height`);
+      }
+      if (!Array.isArray(node.sectors) || !node.sectors.length) {
+        problems.push(`${where(path)}: heatmap без sectors`);
+        return;
+      }
+      node.sectors.forEach((s, i) => {
+        const p = `${path}.sectors[${i}]`;
+        if (!s.sector || typeof s.x !== "number" || typeof s.y !== "number" || typeof s.width !== "number" || typeof s.height !== "number") {
+          problems.push(`${where(p)}: неполные поля сектора`);
+        }
+        if (Array.isArray(s.tiles)) {
+          s.tiles.forEach((t, j) => {
+            if (!t.secId || typeof t.x !== "number" || typeof t.y !== "number" || typeof t.width !== "number" || typeof t.height !== "number" || typeof t.level !== "string") {
+              problems.push(`${where(p)}.tiles[${j}]: неполные поля плитки`);
+            }
+          });
+        }
+      });
+      return;
+    }
+
     if (!node.component) {
       problems.push(`${where(path)}: нет component`);
       return;

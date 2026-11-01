@@ -36,6 +36,19 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-bullish-1: var(--bullish-1);
+  --color-bullish-2: var(--bullish-2);
+  --color-bullish-3: var(--bullish-3);
+  --color-bearish-1: var(--bearish-1);
+  --color-bearish-2: var(--bearish-2);
+  --color-bearish-3: var(--bearish-3);
+  --color-neutral: var(--neutral);
+  --color-data-live: var(--data-live);
+  --color-data-stale: var(--data-stale);
+  --color-sentiment-fear: var(--sentiment-fear);
+  --color-sentiment-neutral: var(--sentiment-neutral);
+  --color-sentiment-greed: var(--sentiment-greed);
+  --text-28: 1.75rem;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -79,6 +92,18 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --bullish-1: oklch(0.9 0.05 155);
+  --bullish-2: oklch(0.82 0.09 152);
+  --bullish-3: oklch(0.74 0.13 150);
+  --bearish-1: oklch(0.9 0.05 22);
+  --bearish-2: oklch(0.82 0.09 20);
+  --bearish-3: oklch(0.74 0.13 18);
+  --neutral: oklch(0.75 0 0);
+  --data-live: oklch(0.62 0.12 150);
+  --data-stale: oklch(0.72 0.12 75);
+  --sentiment-fear: oklch(0.68 0.16 22);
+  --sentiment-neutral: oklch(0.7 0 0);
+  --sentiment-greed: oklch(0.62 0.14 145);
 }
 
 .dark {
@@ -114,6 +139,18 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --bullish-1: oklch(0.34 0.06 155);
+  --bullish-2: oklch(0.46 0.11 152);
+  --bullish-3: oklch(0.58 0.15 150);
+  --bearish-1: oklch(0.34 0.07 22);
+  --bearish-2: oklch(0.46 0.13 20);
+  --bearish-3: oklch(0.58 0.19 18);
+  --neutral: oklch(0.38 0 0);
+  --data-live: oklch(0.7 0.14 150);
+  --data-stale: oklch(0.78 0.14 75);
+  --sentiment-fear: oklch(0.62 0.16 22);
+  --sentiment-neutral: oklch(0.7 0 0);
+  --sentiment-greed: oklch(0.66 0.14 145);
 }
 
 @layer base {

@@ -25,7 +25,34 @@ export type AstStack = {
   children: AstNode[]
 }
 
-export type AstNode = AstComponent | AstStack
+export type AstHeatmapTile = {
+  secId: string
+  x: number
+  y: number
+  width: number
+  height: number
+  level: string
+  label?: string
+  price?: string
+}
+
+export type AstHeatmapSector = {
+  sector: string
+  x: number
+  y: number
+  width: number
+  height: number
+  tiles: AstHeatmapTile[]
+}
+
+export type AstHeatmap = {
+  type: "heatmap"
+  width: number
+  height: number
+  sectors: AstHeatmapSector[]
+}
+
+export type AstNode = AstComponent | AstStack | AstHeatmap
 
 export type AstDocument = {
   screen: string
@@ -39,6 +66,16 @@ const headingClass = {
   h2: "text-[22px] leading-snug font-semibold tracking-tight",
   h3: "text-[18px] leading-snug font-semibold",
 } as const
+
+const LEVEL_BG: Record<string, string> = {
+  "bullish-1": "bg-bullish-1",
+  "bullish-2": "bg-bullish-2",
+  "bullish-3": "bg-bullish-3",
+  "bearish-1": "bg-bearish-1",
+  "bearish-2": "bg-bearish-2",
+  "bearish-3": "bg-bearish-3",
+  neutral: "bg-neutral",
+}
 
 function renderComponent(node: AstComponent, key: string): ReactNode {
   const props = node.props ?? {}
@@ -119,12 +156,50 @@ function renderComponent(node: AstComponent, key: string): ReactNode {
   }
 }
 
+function renderHeatmap(node: AstHeatmap, key: string): ReactNode {
+  return (
+    <div key={key} className="relative overflow-hidden rounded-md" style={{ width: node.width, height: node.height }}>
+      {node.sectors.map((s) => (
+        <div
+          key={s.sector}
+          className="absolute rounded-md border border-border/70"
+          style={{ left: s.x, top: s.y, width: s.width, height: s.height }}
+        >
+          <span className="absolute left-1.5 top-1 text-xs font-medium text-muted-foreground">
+            {s.sector}
+          </span>
+        </div>
+      ))}
+      {node.sectors.flatMap((s) => s.tiles).map((t) => {
+        const strong = t.level.endsWith("-2") || t.level.endsWith("-3")
+        return (
+          <div
+            key={t.secId}
+            className={cn(
+              "absolute overflow-hidden rounded-[3px] p-1 font-mono text-xs leading-none",
+              LEVEL_BG[t.level] ?? "bg-neutral",
+              strong ? "text-background" : "text-foreground",
+            )}
+            style={{ left: t.x, top: t.y, width: t.width, height: t.height }}
+          >
+            <span>{t.label ?? t.secId}</span>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 function isStack(node: AstNode): node is AstStack {
   return (node as AstStack).type === "stack"
 }
 
+function isHeatmap(node: AstNode): node is AstHeatmap {
+  return (node as AstHeatmap).type === "heatmap"
+}
+
 function renderNode(node: AstNode, index: number): ReactNode {
-  const key = `${index}-${isStack(node) ? "stack" : node.component}`
+  const key = `${index}-${isStack(node) ? "stack" : isHeatmap(node) ? "heatmap" : node.component}`
 
   if (isStack(node)) {
     const horizontal = node.direction === "HORIZONTAL"
@@ -137,6 +212,10 @@ function renderNode(node: AstNode, index: number): ReactNode {
         {node.children.map((child, i) => renderNode(child, i))}
       </div>
     )
+  }
+
+  if (isHeatmap(node)) {
+    return renderHeatmap(node, key)
   }
 
   return renderComponent(node, key)

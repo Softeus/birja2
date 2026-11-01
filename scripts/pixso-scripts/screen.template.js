@@ -136,6 +136,73 @@ async function build(node, parent) {
     return;
   }
 
+  if (node.type === "heatmap") {
+    const box = pixso.createFrame();
+    box.name = "heatmap";
+    parent.appendChild(box);
+    box.layoutMode = "NONE";
+    box.resize(node.width, node.height);
+    box.fills = [];
+    if (parent.layoutMode === "VERTICAL") {
+      const w = parent.width - (parent.paddingLeft ?? 0) - (parent.paddingRight ?? 0);
+      if (w > 0) box.resize(w, node.height);
+    }
+
+    for (const s of node.sectors ?? []) {
+      const sframe = pixso.createFrame();
+      box.appendChild(sframe);
+      sframe.layoutMode = "NONE";
+      sframe.resize(s.width, s.height);
+      sframe.x = s.x;
+      sframe.y = s.y;
+      sframe.fills = [];
+      sframe.strokes = [];
+      const borderVar = varByName.get("color/border");
+      if (borderVar) {
+        try {
+          sframe.strokes = [pixso.variables.setBoundVariableForPaint({ type: "SOLID", color: { r: 1, g: 1, b: 1 } }, "color", borderVar)];
+        } catch { /* noop */ }
+      }
+      sframe.strokeWeight = 1;
+
+      if (s.sector) {
+        const label = pixso.createText();
+        box.appendChild(label);
+        label.characters = s.sector;
+        try { await pixso.loadFontAsync({ family: "Inter", style: "Medium" }); } catch { /* ok */ }
+        label.fontName = { family: "Inter", style: "Medium" };
+        label.fontSize = 12;
+        paint(label, "color/muted-foreground", "fills");
+        label.x = s.x + 4;
+        label.y = s.y + 2;
+      }
+
+      for (const t of s.tiles ?? []) {
+        const tile = pixso.createRectangle();
+        box.appendChild(tile);
+        tile.resize(t.width, t.height);
+        tile.x = t.x;
+        tile.y = t.y;
+        tile.cornerRadius = 3;
+        paint(tile, `color/${t.level}`, "fills");
+
+        const tt = pixso.createText();
+        box.appendChild(tt);
+        tt.characters = t.label ?? t.secId;
+        try { await pixso.loadFontAsync({ family: "Inter", style: "Medium" }); } catch { /* ok */ }
+        tt.fontName = { family: "Inter", style: "Medium" };
+        tt.fontSize = 12;
+        tt.x = t.x + 4;
+        tt.y = t.y + 3;
+        const strong = t.level.endsWith("-2") || t.level.endsWith("-3");
+        paint(tt, strong ? "color/background" : "color/foreground", "fills");
+      }
+    }
+
+    report.instances.push({ component: "heatmap", id: box.id });
+    return;
+  }
+
   const master = masterFor(node.component, node.props);
   if (!master) {
     report.errors.push(`не найден мастер для ${node.component}`);

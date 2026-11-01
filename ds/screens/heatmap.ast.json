@@ -1,0 +1,628 @@
+{
+  "screen": "Heatmap",
+  "title": "Пульс рынка и тепловая карта MOEX",
+  "order": 7,
+  "frame": {
+    "width": 1200,
+    "padding": 24,
+    "gap": 16,
+    "background": "color/background"
+  },
+  "elements": [
+    {
+      "type": "stack",
+      "direction": "HORIZONTAL",
+      "gap": 16,
+      "children": [
+        {
+          "component": "PulseGauge",
+          "props": {
+            "zone": "optimism"
+          },
+          "slots": {
+            "value": "67"
+          }
+        },
+        {
+          "type": "stack",
+          "direction": "VERTICAL",
+          "gap": 4,
+          "children": [
+            {
+              "component": "Text",
+              "slots": {
+                "text": "IMOEX 2514,45 +0,1% · RVI 30,44"
+              }
+            },
+            {
+              "component": "Text",
+              "props": {
+                "variant": "muted"
+              },
+              "slots": {
+                "text": "методика pulse-1 · веса равные · данные ISS"
+              }
+            }
+          ]
+        },
+        {
+          "component": "Button",
+          "props": {
+            "variant": "outline",
+            "size": "default"
+          },
+          "slots": {
+            "label": "Разобрать индекс"
+          }
+        }
+      ]
+    },
+    {
+      "type": "stack",
+      "direction": "HORIZONTAL",
+      "gap": 16,
+      "children": [
+        {
+          "type": "heatmap",
+          "width": 800,
+          "height": 520,
+          "sectors": [
+            {
+              "sector": "ÐÐµÑÑÑ Ð¸ Ð³Ð°Ð·",
+              "x": 6,
+              "y": 0,
+              "width": 566.1,
+              "height": 328.7,
+              "tiles": [
+                {
+                  "secId": "LKOH",
+                  "x": 12,
+                  "y": 20,
+                  "width": 267,
+                  "height": 155.1,
+                  "level": "bearish-1",
+                  "label": "LKOH -0,3%"
+                },
+                {
+                  "secId": "ROSN",
+                  "x": 12,
+                  "y": 177.1,
+                  "width": 267,
+                  "height": 145.6,
+                  "level": "bullish-1",
+                  "label": "ROSN +0,4%"
+                },
+                {
+                  "secId": "NVTK",
+                  "x": 281,
+                  "y": 20,
+                  "width": 159.9,
+                  "height": 213.2,
+                  "level": "bullish-1",
+                  "label": "NVTK +0,4%"
+                },
+                {
+                  "secId": "GAZP",
+                  "x": 442.8,
+                  "y": 20,
+                  "width": 123.3,
+                  "height": 213.2,
+                  "level": "bullish-1",
+                  "label": "GAZP +0,3%"
+                },
+                {
+                  "secId": "TATN",
+                  "x": 281,
+                  "y": 235.2,
+                  "width": 151.7,
+                  "height": 87.4,
+                  "level": "bullish-1",
+                  "label": "TATN +0,3%"
+                },
+                {
+                  "secId": "SNGS",
+                  "x": 434.7,
+                  "y": 235.2,
+                  "width": 68.6,
+                  "height": 87.4,
+                  "level": "bullish-1",
+                  "label": "SNGS +0,7%"
+                },
+                {
+                  "secId": "SNGSP",
+                  "x": 505.3,
+                  "y": 235.2,
+                  "width": 60.8,
+                  "height": 47.2,
+                  "level": "bullish-1",
+                  "label": "SNGSP +0,4%"
+                },
+                {
+                  "secId": "TRNFP",
+                  "x": 505.3,
+                  "y": 284.4,
+                  "width": 38.2,
+                  "height": 38.3,
+                  "level": "bullish-1",
+                  "label": "TRNFP +0,5%"
+                },
+                {
+                  "secId": "TATNP",
+                  "x": 545.6,
+                  "y": 284.4,
+                  "width": 20.5,
+                  "height": 38.3,
+                  "level": "bullish-1",
+                  "label": "TATNP +0,1%"
+                }
+              ]
+            },
+            {
+              "sector": "Ð¤Ð¸Ð½Ð°Ð½ÑÑ",
+              "x": 6,
+              "y": 330.7,
+              "width": 566.1,
+              "height": 183.3,
+              "tiles": [
+                {
+                  "secId": "SBER",
+                  "x": 12,
+                  "y": 350.7,
+                  "width": 362.4,
+                  "height": 157.3,
+                  "level": "bullish-1",
+                  "label": "SBER +0,0%"
+                },
+                {
+                  "secId": "T",
+                  "x": 376.4,
+                  "y": 350.7,
+                  "width": 82.3,
+                  "height": 78.1,
+                  "level": "bullish-1",
+                  "label": "T +0,1%"
+                },
+                {
+                  "secId": "VTBR",
+                  "x": 376.4,
+                  "y": 430.8,
+                  "width": 82.3,
+                  "height": 77.2,
+                  "level": "bullish-1",
+                  "label": "VTBR +0,9%"
+                },
+                {
+                  "secId": "DOMRF",
+                  "x": 460.6,
+                  "y": 350.7,
+                  "width": 52.3,
+                  "height": 62.3,
+                  "level": "bullish-1",
+                  "label": "DOMRF +0,7%"
+                },
+                {
+                  "secId": "MOEX",
+                  "x": 514.9,
+                  "y": 350.7,
+                  "width": 51.2,
+                  "height": 62.3,
+                  "level": "bearish-1",
+                  "label": "MOEX -0,1%"
+                },
+                {
+                  "secId": "CBOM",
+                  "x": 460.6,
+                  "y": 414.9,
+                  "width": 59.7,
+                  "height": 49.5,
+                  "level": "bearish-1",
+                  "label": "CBOM -0,1%"
+                },
+                {
+                  "secId": "SBERP",
+                  "x": 460.6,
+                  "y": 466.4,
+                  "width": 59.7,
+                  "height": 41.6,
+                  "level": "bullish-1",
+                  "label": "SBERP +0,1%"
+                },
+                {
+                  "secId": "SVCB",
+                  "x": 522.4,
+                  "y": 414.9,
+                  "width": 43.7,
+                  "height": 46.6,
+                  "level": "bullish-2",
+                  "label": "SVCB +1,3%"
+                },
+                {
+                  "secId": "BSPB",
+                  "x": 522.4,
+                  "y": 463.6,
+                  "width": 24.6,
+                  "height": 36.5,
+                  "level": "bullish-1",
+                  "label": "BSPB +0,3%"
+                },
+                {
+                  "secId": "AFKS",
+                  "x": 549,
+                  "y": 463.6,
+                  "width": 17.1,
+                  "height": 36.5,
+                  "level": "bullish-1",
+                  "label": "AFKS +0,2%"
+                },
+                {
+                  "secId": "RENI",
+                  "x": 522.4,
+                  "y": 502,
+                  "width": 43.7,
+                  "height": 6,
+                  "level": "bullish-1",
+                  "label": "RENI +0,1%"
+                }
+              ]
+            },
+            {
+              "sector": "ÐÐµÑÐ°Ð»Ð»Ñ Ð¸ Ð´Ð¾Ð±ÑÑÐ°",
+              "x": 574.1,
+              "y": 0,
+              "width": 219.9,
+              "height": 248.2,
+              "tiles": [
+                {
+                  "secId": "GMKN",
+                  "x": 580.1,
+                  "y": 20,
+                  "width": 113.6,
+                  "height": 136.4,
+                  "level": "bullish-1",
+                  "label": "GMKN +0,2%"
+                },
+                {
+                  "secId": "PLZL",
+                  "x": 695.7,
+                  "y": 20,
+                  "width": 92.3,
+                  "height": 136.4,
+                  "level": "bullish-1",
+                  "label": "PLZL +0,3%"
+                },
+                {
+                  "secId": "CHMF",
+                  "x": 580.1,
+                  "y": 158.4,
+                  "width": 108.4,
+                  "height": 46.3,
+                  "level": "bullish-1",
+                  "label": "CHMF +0,1%"
+                },
+                {
+                  "secId": "NLMK",
+                  "x": 580.1,
+                  "y": 206.7,
+                  "width": 108.4,
+                  "height": 35.5,
+                  "level": "bullish-1",
+                  "label": "NLMK +0,7%"
+                },
+                {
+                  "secId": "RUAL",
+                  "x": 690.5,
+                  "y": 158.4,
+                  "width": 65.1,
+                  "height": 49.3,
+                  "level": "bearish-1",
+                  "label": "RUAL -0,2%"
+                },
+                {
+                  "secId": "MAGN",
+                  "x": 690.5,
+                  "y": 209.7,
+                  "width": 65.1,
+                  "height": 32.5,
+                  "level": "bullish-1",
+                  "label": "MAGN +0,5%"
+                },
+                {
+                  "secId": "ALRS",
+                  "x": 757.6,
+                  "y": 158.4,
+                  "width": 30.4,
+                  "height": 41,
+                  "level": "bullish-1",
+                  "label": "ALRS +0,8%"
+                },
+                {
+                  "secId": "UGLD",
+                  "x": 757.6,
+                  "y": 201.4,
+                  "width": 30.4,
+                  "height": 40.8,
+                  "level": "bullish-2",
+                  "label": "UGLD +2,9%"
+                }
+              ]
+            },
+            {
+              "sector": "IT Ð¸ Ð¸Ð½ÑÐµÑÐ½ÐµÑ",
+              "x": 574.1,
+              "y": 250.2,
+              "width": 166.5,
+              "height": 163.3,
+              "tiles": [
+                {
+                  "secId": "YDEX",
+                  "x": 580.1,
+                  "y": 270.2,
+                  "width": 132.1,
+                  "height": 85.3,
+                  "level": "bullish-1",
+                  "label": "YDEX +0,5%"
+                },
+                {
+                  "secId": "OZON",
+                  "x": 580.1,
+                  "y": 357.5,
+                  "width": 132.1,
+                  "height": 50,
+                  "level": "bullish-1",
+                  "label": "OZON +0,2%"
+                },
+                {
+                  "secId": "HEAD",
+                  "x": 714.2,
+                  "y": 270.2,
+                  "width": 20.4,
+                  "height": 46.1,
+                  "level": "bullish-1",
+                  "label": "HEAD +0,6%"
+                },
+                {
+                  "secId": "VKCO",
+                  "x": 714.2,
+                  "y": 318.3,
+                  "width": 20.4,
+                  "height": 34.4,
+                  "level": "bullish-2",
+                  "label": "VKCO +2,9%"
+                },
+                {
+                  "secId": "POSI",
+                  "x": 714.2,
+                  "y": 354.7,
+                  "width": 20.4,
+                  "height": 31.3,
+                  "level": "bullish-1",
+                  "label": "POSI +0,6%"
+                },
+                {
+                  "secId": "CNRU",
+                  "x": 714.2,
+                  "y": 388,
+                  "width": 20.4,
+                  "height": 19.6,
+                  "level": "bullish-1",
+                  "label": "CNRU +0,8%"
+                }
+              ]
+            },
+            {
+              "sector": "ÐÐ¾ÑÑÐµÐ±Ð¸ÑÐµÐ»ÑÑÐºÐ¸Ð¹ ÑÐµÐºÑÐ¾Ñ",
+              "x": 742.6,
+              "y": 250.2,
+              "width": 51.4,
+              "height": 163.3,
+              "tiles": [
+                {
+                  "secId": "X5",
+                  "x": 748.6,
+                  "y": 270.2,
+                  "width": 39.4,
+                  "height": 108.9,
+                  "level": "bullish-1",
+                  "label": "X5 +0,3%"
+                },
+                {
+                  "secId": "MDMG",
+                  "x": 748.6,
+                  "y": 381.1,
+                  "width": 22.1,
+                  "height": 26.4,
+                  "level": "bearish-1",
+                  "label": "MDMG -0,1%"
+                },
+                {
+                  "secId": "RAGR",
+                  "x": 772.6,
+                  "y": 381.1,
+                  "width": 15.4,
+                  "height": 26.4,
+                  "level": "bullish-1",
+                  "label": "RAGR +0,7%"
+                }
+              ]
+            },
+            {
+              "sector": "Ð¥Ð¸Ð¼Ð¸Ñ",
+              "x": 574.1,
+              "y": 415.5,
+              "width": 127.6,
+              "height": 56.8,
+              "tiles": [
+                {
+                  "secId": "PHOR",
+                  "x": 580.1,
+                  "y": 435.5,
+                  "width": 115.6,
+                  "height": 30.8,
+                  "level": "bullish-1",
+                  "label": "PHOR +0,8%"
+                }
+              ]
+            },
+            {
+              "sector": "Ð­Ð»ÐµÐºÑÑÐ¾ÑÐ½ÐµÑÐ³ÐµÑÐ¸ÐºÐ°",
+              "x": 574.1,
+              "y": 474.3,
+              "width": 127.6,
+              "height": 39.7,
+              "tiles": [
+                {
+                  "secId": "IRAO",
+                  "x": 580.1,
+                  "y": 494.3,
+                  "width": 66.7,
+                  "height": 13.7,
+                  "level": "bullish-1",
+                  "label": "IRAO +0,0%"
+                },
+                {
+                  "secId": "ENPG",
+                  "x": 648.8,
+                  "y": 494.3,
+                  "width": 47,
+                  "height": 13.7,
+                  "level": "bullish-1",
+                  "label": "ENPG +0,6%"
+                }
+              ]
+            },
+            {
+              "sector": "Ð¢ÐµÐ»ÐµÐºÐ¾Ð¼",
+              "x": 703.8,
+              "y": 415.5,
+              "width": 51.4,
+              "height": 98.5,
+              "tiles": [
+                {
+                  "secId": "MTSS",
+                  "x": 709.8,
+                  "y": 435.5,
+                  "width": 39.4,
+                  "height": 51.2,
+                  "level": "bullish-1",
+                  "label": "MTSS +0,5%"
+                },
+                {
+                  "secId": "RTKM",
+                  "x": 709.8,
+                  "y": 488.7,
+                  "width": 39.4,
+                  "height": 19.3,
+                  "level": "bullish-1",
+                  "label": "RTKM +0,3%"
+                }
+              ]
+            },
+            {
+              "sector": "Ð¢ÑÐ°Ð½ÑÐ¿Ð¾ÑÑ",
+              "x": 757.2,
+              "y": 415.5,
+              "width": 36.8,
+              "height": 98.5,
+              "tiles": [
+                {
+                  "secId": "FLOT",
+                  "x": 763.2,
+                  "y": 435.5,
+                  "width": 24.8,
+                  "height": 41.5,
+                  "level": "bullish-1",
+                  "label": "FLOT +0,2%"
+                },
+                {
+                  "secId": "AFLT",
+                  "x": 763.2,
+                  "y": 479,
+                  "width": 24.8,
+                  "height": 29,
+                  "level": "bullish-1",
+                  "label": "AFLT +0,5%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "stack",
+          "direction": "VERTICAL",
+          "gap": 8,
+          "children": [
+            {
+              "component": "Heading",
+              "props": {
+                "level": "h3"
+              },
+              "slots": {
+                "text": "SBER"
+              }
+            },
+            {
+              "component": "Text",
+              "slots": {
+                "text": "Ð¡Ð±ÐµÑÐ±Ð°Ð½Ðº"
+              }
+            },
+            {
+              "component": "Text",
+              "slots": {
+                "text": "296,29 ₽ +0,0%"
+              }
+            },
+            {
+              "component": "Sparkline",
+              "props": {
+                "direction": "up"
+              }
+            },
+            {
+              "component": "Separator",
+              "props": {
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "component": "Text",
+              "props": {
+                "variant": "muted"
+              },
+              "slots": {
+                "text": "Капитализация · 6,40 трлн ₽"
+              }
+            },
+            {
+              "component": "Text",
+              "props": {
+                "variant": "muted"
+              },
+              "slots": {
+                "text": "Лот / шаг · 1 / 0,01"
+              }
+            },
+            {
+              "component": "Text",
+              "props": {
+                "variant": "muted"
+              },
+              "slots": {
+                "text": "Оборот · 0,5 млрд ₽"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "component": "Text",
+      "props": {
+        "variant": "muted"
+      },
+      "slots": {
+        "text": "44 бумаги · 9 секторов · источник ISS · обновлено 16:10:27"
+      }
+    }
+  ]
+}
