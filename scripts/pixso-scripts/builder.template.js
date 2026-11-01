@@ -460,6 +460,31 @@ async function buildChild(child, combo, sizeDef, variantDef, variantKey) {
     return rect;
   }
 
+  if (child.type === "vector") {
+    const vector = pixso.createVector();
+    vector.name = child.name ?? "vector";
+    vector.vectorPaths = [{ windingRule: "NONE", data: child.path }];
+    vector.fills = [];
+    vector.strokeWeight = child.strokeWeight ?? 2;
+    vector.strokeCap = "ROUND";
+    vector.strokeJoin = "ROUND";
+
+    const strokeToken = child.colorByVariant?.[combo[variantKey]] ?? child.color;
+    const strokeVar = strokeToken ? varByName.get(strokeToken) : null;
+    const base = { type: "SOLID", color: { r: 0, g: 0, b: 0 } };
+    if (strokeVar) {
+      try {
+        vector.strokes = [pixso.variables.setBoundVariableForPaint(base, "color", strokeVar)];
+      } catch {
+        vector.strokes = [base];
+      }
+    }
+
+    // Размер вектора берём по его пути (resize искажает обводку), позицию задаём из спеки.
+    if (child.width && child.height) vector.resize(child.width, child.height);
+    return vector;
+  }
+
   throw new Error(`неизвестный тип узла: ${child.type}`);
 }
 

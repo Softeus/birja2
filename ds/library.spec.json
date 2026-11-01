@@ -225,16 +225,15 @@
       },
       "children": [
         {
-          "type": "rect",
-          "name": "mark",
-          "width": 8,
-          "height": 8,
+          "type": "vector",
+          "name": "check",
+          "path": "M 3.5 8.5 L 7 12 L 12.5 4",
+          "strokeWeight": 2,
           "x": 4,
           "y": 4,
           "colorByVariant": {
             "true": "color/primary-foreground"
           },
-          "radiusPx": 2,
           "when": {
             "checked": "true"
           }
