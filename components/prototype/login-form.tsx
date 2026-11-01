@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -18,6 +19,7 @@ export function LoginPrototype() {
   const [remember, setRemember] = useState(false)
   const [errors, setErrors] = useState<Errors>({})
   const [status, setStatus] = useState<"idle" | "loading" | "done">("idle")
+  const router = useRouter()
 
   const submit = () => {
     const next: Errors = {}
@@ -27,7 +29,10 @@ export function LoginPrototype() {
     if (Object.keys(next).length) return
 
     setStatus("loading")
-    setTimeout(() => setStatus("done"), 600)
+    setTimeout(() => {
+      setStatus("done")
+      router.push("/prototype/company")
+    }, 600)
   }
 
   return (
@@ -97,7 +102,7 @@ export function LoginPrototype() {
           <Button variant="link" className="px-0">
             Забыли пароль?
           </Button>
-          <Button variant="ghost">Получить доступ</Button>
+          <Button variant="ghost" onClick={() => router.push("/prototype/company")}>Получить доступ</Button>
         </div>
       </div>
     </div>

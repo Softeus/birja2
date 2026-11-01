@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { CheckCircle2 } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
@@ -113,6 +114,7 @@ export function CompanyFlowPrototype() {
   const [agree, setAgree] = useState(false)
   const [sent, setSent] = useState(false)
   const [confirmOpen, setConfirmOpen] = useState(false)
+  const router = useRouter()
 
   const step = STEPS[stepIndex]
   const last = stepIndex === STEPS.length - 1
@@ -174,7 +176,7 @@ export function CompanyFlowPrototype() {
             </CardDescription>
           </CardHeader>
           <CardContent className="flex items-center gap-3">
-            <Button>Запуск!</Button>
+            <Button onClick={() => router.push("/heatmap")}>Запуск!</Button>
             <Button
               variant="outline"
               onClick={() => {
