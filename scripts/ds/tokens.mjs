@@ -188,6 +188,7 @@ const NUMERIC = {
   "font/16": 16,
   "font/18": 18,
   "font/22": 22,
+  "font/24": 24,
   "font/28": 28,
   "stroke/1": 1,
 };

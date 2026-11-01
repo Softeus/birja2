@@ -48,6 +48,7 @@
   --color-sentiment-fear: var(--sentiment-fear);
   --color-sentiment-neutral: var(--sentiment-neutral);
   --color-sentiment-greed: var(--sentiment-greed);
+  --text-24: 1.5rem;
   --text-28: 1.75rem;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

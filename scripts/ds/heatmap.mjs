@@ -23,6 +23,14 @@ const fmtCap = (v) => {
 };
 const fmtTurnover = (v) => (v === null || v === undefined ? "—" : (v / 1e9).toFixed(1).replace(".", ",") + " млрд ₽");
 
+const ZONE_LABEL = {
+  fear: "страх",
+  caution: "осторожность",
+  neutral: "нейтрально",
+  optimism: "оптимизм",
+  greed: "жадность",
+};
+
 function level(changePct) {
   if (changePct === null || changePct === undefined || changePct === 0) return "neutral";
   const abs = Math.abs(changePct);
@@ -87,7 +95,15 @@ const ast = {
       direction: "HORIZONTAL",
       gap: 16,
       children: [
-        { component: "PulseGauge", props: { zone }, slots: { value: "67" } },
+        {
+          type: "stack",
+          direction: "VERTICAL",
+          gap: 0,
+          children: [
+            { component: "PulseGauge", props: { zone }, slots: { value: "67" } },
+            { component: "Text", props: { variant: "sm" }, slots: { text: ZONE_LABEL[zone] ?? "—" } },
+          ],
+        },
         {
           type: "stack",
           direction: "VERTICAL",
@@ -101,7 +117,7 @@ const ast = {
             },
             {
               component: "Text",
-              props: { variant: "muted" },
+              props: { variant: "sm" },
               slots: { text: "методика pulse-1 · веса равные · данные ISS" },
             },
           ],
@@ -124,11 +140,23 @@ const ast = {
           direction: "VERTICAL",
           gap: 8,
           children: [
-            { component: "Heading", props: { level: "h3" }, slots: { text: sber.secId } },
-            { component: "Text", slots: { text: sber.name } },
             {
-              component: "Text",
-              slots: { text: `${fmtPrice(sber.price, sber.decimals)} ${fmtDelta(sber.changePct)}` },
+              type: "stack",
+              direction: "HORIZONTAL",
+              gap: 8,
+              children: [
+                { component: "Heading", props: { level: "h3" }, slots: { text: sber.secId } },
+                { component: "Text", props: { variant: "muted" }, slots: { text: sber.name } },
+              ],
+            },
+            {
+              type: "stack",
+              direction: "HORIZONTAL",
+              gap: 8,
+              children: [
+                { component: "Text", props: { variant: "lg" }, slots: { text: fmtPrice(sber.price, sber.decimals) } },
+                { component: "Text", slots: { text: fmtDelta(sber.changePct) } },
+              ],
             },
             { component: "Sparkline", props: { direction: (sber.changePct ?? 0) >= 0 ? "up" : "down" } },
             { component: "Separator", props: { orientation: "horizontal" } },
@@ -141,7 +169,7 @@ const ast = {
     },
     {
       component: "Text",
-      props: { variant: "muted" },
+      props: { variant: "sm" },
       slots: { text: `${snap.quotes.length} бумаги · ${sectors.length} секторов · источник ISS · обновлено ${snap.index?.updatedAt ?? "—"}` },
     },
   ],

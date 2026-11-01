@@ -407,7 +407,9 @@
       "axes": {
         "variant": [
           "default",
-          "muted"
+          "muted",
+          "sm",
+          "lg"
         ]
       },
       "variantAxis": "variant",
@@ -423,6 +425,12 @@
         },
         "muted": {
           "text": "color/muted-foreground"
+        },
+        "sm": {
+          "text": "color/muted-foreground"
+        },
+        "lg": {
+          "text": "color/foreground"
         }
       },
       "children": [
@@ -444,6 +452,14 @@
         "muted": {
           "fontSize": "font/14",
           "fontStyle": "Regular"
+        },
+        "sm": {
+          "fontSize": "font/12",
+          "fontStyle": "Regular"
+        },
+        "lg": {
+          "fontSize": "font/24",
+          "fontStyle": "Semi Bold"
         }
       },
       "page": "2 Atoms"

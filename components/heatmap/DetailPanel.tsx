@@ -38,7 +38,7 @@ export function DetailPanel({
                 <span className="truncate text-sm text-muted-foreground">{quote.name}</span>
               </div>
               <div className="mt-1 flex items-baseline gap-2">
-                <span className="text-2xl font-semibold tabular-nums">
+                <span className="text-24 font-semibold tabular-nums">
                   {formatPrice(quote.price, quote.decimals)}
                 </span>
                 <span className="text-sm tabular-nums">{formatDelta(quote.changePct)}</span>
