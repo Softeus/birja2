@@ -54,6 +54,8 @@ frame.paddingRight = pad;
 frame.fills = [];
 paint(frame, AST.frame.background ?? "color/background");
 
+const HUG_COMPONENTS = new Set(["Badge", "Checkbox", "Radio", "Switch", "Label"]);
+
 const report = { screen: AST.screen, frameId: frame.id, instances: [], errors: [], missing: [] };
 
 function masterFor(componentName, props) {
@@ -121,7 +123,7 @@ async function build(node, parent) {
     if (node.grow && box.parent?.layoutMode === "HORIZONTAL") {
       box.layoutGrow = Number(node.grow);
       box.primaryAxisSizingMode = "AUTO";
-    } else if (node.stretch !== false && box.parent?.layoutMode) {
+    } else if ((node.stretch ?? !HUG_COMPONENTS.has(node.component)) !== false && box.parent?.layoutMode) {
       box.layoutAlign = "STRETCH";
     }
 
@@ -137,7 +139,7 @@ async function build(node, parent) {
 
   const instance = master.createInstance();
   parent.appendChild(instance);
-  if (node.stretch !== false) {
+  if ((node.stretch ?? !HUG_COMPONENTS.has(node.component)) !== false) {
     try {
       instance.layoutAlign = "STRETCH";
     } catch {
@@ -153,18 +155,28 @@ async function build(node, parent) {
   // оси (layoutGrow), либо по поперечной (layoutAlign), в зависимости от макета.
   try {
     const hasText = instance.findAll && instance.findAll((n) => n.type === "TEXT").length > 0;
+    const stretch = (node.stretch ?? !HUG_COMPONENTS.has(node.component)) !== false;
 
-    if (node.grow && parent.layoutMode === "HORIZONTAL") {
+    if (!stretch) {
+      // Компактные компоненты (Badge, Label, Checkbox, Switch) — по содержимому.
+      if (instance.layoutMode === "HORIZONTAL" || instance.layoutMode === "VERTICAL") {
+        instance.primaryAxisSizingMode = "AUTO";
+        instance.counterAxisSizingMode = "AUTO";
+      }
+      for (const t of instance.findAll((n) => n.type === "TEXT")) {
+        t.textAutoResize = "WIDTH_AND_HEIGHT";
+      }
+    } else if (node.grow && parent.layoutMode === "HORIZONTAL") {
       instance.layoutGrow = Number(node.grow);
       instance.primaryAxisSizingMode = "AUTO";
-    } else if (node.stretch !== false && parent.layoutMode === "HORIZONTAL" && hasText) {
+    } else if (parent.layoutMode === "HORIZONTAL" && hasText) {
       instance.primaryAxisSizingMode = "AUTO";
       for (const t of instance.findAll((n) => n.type === "TEXT")) {
         t.textAutoResize = "WIDTH_AND_HEIGHT";
       }
     }
 
-    if (node.stretch !== false && parent.layoutMode === "VERTICAL" && instance.layoutMode) {
+    if (stretch && parent.layoutMode === "VERTICAL" && instance.layoutMode) {
       const width = parent.width - (parent.paddingLeft ?? 0) - (parent.paddingRight ?? 0);
       if (width > 0) {
         const vertical = instance.layoutMode === "VERTICAL";
