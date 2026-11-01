@@ -227,15 +227,13 @@
         {
           "type": "vector",
           "name": "check",
-          "path": "M 3.5 8.5 L 7 12 L 12.5 4",
-          "strokeWeight": 2,
-          "x": 4,
-          "y": 4,
-          "colorByVariant": {
-            "true": "color/primary-foreground"
-          },
+          "path": "M 13.333 4 L 6 11.333 l -3.333 -3.333",
+          "strokeWeight": 1.33,
           "when": {
             "checked": "true"
+          },
+          "colorByVariant": {
+            "true": "color/primary-foreground"
           }
         }
       ],
@@ -632,6 +630,29 @@
         }
       ],
       "page": "4 Molecules"
+    },
+    {
+      "name": "Icon",
+      "page": "2 Atoms",
+      "iconSet": true,
+      "iconColor": "color/foreground",
+      "axes": {
+        "name": [
+          "check",
+          "x",
+          "search",
+          "chevron-down",
+          "arrow-right",
+          "plus",
+          "eye",
+          "info"
+        ],
+        "size": [
+          "16",
+          "20",
+          "24"
+        ]
+      }
     }
   ],
   "pages": [

@@ -5,7 +5,7 @@
 ## 1. Что уже сделано
 
 - **Токены** (54 переменные, коллекция `Semantic`, режимы Light/Dark) в Pixso и в коде: `tokens.json` — единственный источник.
-- **13 компонентов** в коде (`components/ui/*`, shadcn/ui) и в Pixso (страницы `2 Atoms`, `4 Molecules`).
+- **14 компонентов** в коде (`components/ui/*`, shadcn/ui) и в Pixso (страницы `2 Atoms`, `4 Molecules`).
 - **Контракт** `ds-manifest.json`: ключи компонентов Pixso, допустимые пропсы, слоты — единственный список того, что разрешено использовать.
 - **Пайплайн**: `ds/screens/*.ast.json` → валидатор → сборка экранов в Pixso; тот же AST рендерится в React (`components/ast-renderer.tsx`).
 - **Два эталонных прототипа**: `/prototype/login` (вход) и `/prototype/company` (4-шаговая форма юрлица с валидацией и диалогом).
@@ -37,6 +37,7 @@
 | `Separator` | `orientation`: horizontal, vertical | — |
 | `Card` | — | `title`, `description` |
 | `Dialog` | — | `title`, `description` |
+| `Icon` | `name`: check, x, search, chevron-down, arrow-right, plus, eye, info · `size`: 16, 20, 24 | — |
 
 ## 4. Токены (читать `tokens.json`)
 

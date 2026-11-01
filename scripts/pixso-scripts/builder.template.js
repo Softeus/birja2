@@ -2,6 +2,7 @@
 // Генератор подставляет спецификацию в строку "const SPEC = ..." ниже.
 const SPEC = __SPEC__;
 const TOKENS = __TOKENS__;
+const ICONS = __ICONS__;
 
 const report = { page: null, created: [], errors: [], skipped: [] };
 
@@ -402,6 +403,85 @@ for (const comp of SPEC.components) {
       pageStateForComp.x = 0;
       pageStateForComp.y += pageStateForComp.rowHeight + GRID_GAP;
       pageStateForComp.rowHeight = 0;
+    }
+  } catch (err) {
+    report.errors.push({ component: comp.name, error: String(err && err.message ? err.message : err) });
+  }
+}
+
+// Иконки: Icon собирается из путей lucide (viewBox 24, масштаб под размер варианта).
+for (const comp of SPEC.components.filter((c) => c.iconSet)) {
+  const state = pageState.get(comp.page ?? SPEC.page) ?? pageState.get(SPEC.page);
+  const page = state.page;
+  pixso.currentPage = page;
+
+  try {
+    const existing = page.children.find((c) => (c.type === "COMPONENT_SET" || c.type === "COMPONENT") && c.name === comp.name);
+    if (existing) existing.remove();
+
+    const colorVar = varByName.get(comp.iconColor ?? "color/foreground");
+    const components = [];
+    const nameList = comp.axes?.name ?? [];
+    const sizeList = comp.axes?.size ?? [];
+
+    for (const combo of product(comp.axes)) {
+      const size = Number(combo.size ?? comp.iconSize ?? 24);
+      const node = pixso.createComponent();
+      node.name = Object.entries(combo)
+        .map(([k, v]) => `${k}=${v}`)
+        .join(", ");
+      page.appendChild(node);
+      node.layoutMode = "NONE";
+      node.resize(size, size);
+      node.fills = [];
+      node.x = 32 + Math.max(0, nameList.indexOf(combo.name)) * 90;
+      node.y = 32 + Math.max(0, sizeList.indexOf(combo.size)) * 56;
+
+      // Все подпути иконки — в одном векторе, иначе Pixso выравнивает каждый по своему bbox.
+      const iconData = (ICONS[`${combo.name}@${size}`] ?? []).join(" ");
+      if (iconData) {
+        const vector = pixso.createVector();
+        vector.name = `path/${combo.name}`;
+        vector.vectorPaths = [{ windingRule: "NONE", data: iconData }];
+        vector.fills = [];
+        const base = { type: "SOLID", color: { r: 0, g: 0, b: 0 } };
+        vector.strokes = [colorVar ? pixso.variables.setBoundVariableForPaint(base, "color", colorVar) : base];
+        vector.strokeWeight = Math.max(1, Math.round(((2 * size) / 24) * 100) / 100);
+        vector.strokeCap = "ROUND";
+        vector.strokeJoin = "ROUND";
+        node.appendChild(vector);
+        vector.x = 0;
+        vector.y = 0;
+      }
+
+      components.push(node);
+    }
+
+    let setNode = components[0];
+    if (components.length > 1) {
+      setNode = pixso.combineAsVariants(components, page);
+      setNode.name = comp.name;
+    } else {
+      components[0].name = comp.name;
+    }
+
+    report.created.push({
+      component: comp.name,
+      id: setNode.id,
+      key: setNode.key,
+      type: setNode.type,
+      variants: components.length,
+      variantProperties: Object.keys(comp.axes ?? {}),
+    });
+
+    setNode.x = state.x;
+    setNode.y = state.y;
+    state.x += Math.ceil(setNode.width) + GRID_GAP;
+    state.rowHeight = Math.max(state.rowHeight, Math.ceil(setNode.height));
+    if (state.x > GRID_MAX_WIDTH) {
+      state.x = 0;
+      state.y += state.rowHeight + GRID_GAP;
+      state.rowHeight = 0;
     }
   } catch (err) {
     report.errors.push({ component: comp.name, error: String(err && err.message ? err.message : err) });

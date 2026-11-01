@@ -15,7 +15,8 @@
     "ds:screens": "node scripts/ds/assemble-screen.mjs",
     "ds:sync": "node scripts/ds/tokens.mjs && node scripts/ds/push-tokens.mjs && node scripts/ds/verify-tokens.mjs && node scripts/ds/build-library.mjs && node scripts/ds/validate-ast.mjs && node scripts/ds/assemble-screen.mjs",
     "ds:shots": "node scripts/ds/shots.mjs",
-    "ds:audit": "node scripts/ds/eval.mjs scripts/pixso-scripts/audit-screens.js"
+    "ds:audit": "node scripts/ds/eval.mjs scripts/pixso-scripts/audit-screens.js",
+    "ds:icons": "node scripts/ds/icons.mjs"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
@@ -35,6 +36,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.3",
+    "lucide-static": "^1.66.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   },

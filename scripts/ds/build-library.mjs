@@ -2,6 +2,7 @@
 // ds/library.spec.json + builder.template.js → eval_script в Pixso → ds-manifest.json
 import { readFile, writeFile } from "node:fs/promises";
 import { withPixso } from "../lib/mcp.mjs";
+import { scalePath } from "./icons.mjs";
 
 const SPEC_PATH = process.argv[2] ?? "ds/library.spec.json";
 const TEMPLATE_PATH = "scripts/pixso-scripts/builder.template.js";
@@ -17,9 +18,19 @@ for (const v of tokens.variables) {
   else tokenValues[v.name] = Number(v.values.Light);
 }
 
+// Иконки: пути lucide масштабируем под размеры вариантов (16/20/24).
+const lucide = JSON.parse(await readFile("ds/icons.json", "utf8"));
+const iconPaths = {};
+for (const [name, meta] of Object.entries(lucide)) {
+  for (const size of [16, 20, 24]) {
+    iconPaths[`${name}@${size}`] = meta.paths.map((d) => scalePath(d, size / meta.viewBox));
+  }
+}
+
 const script = template
   .replace("const SPEC = __SPEC__;", `const SPEC = ${JSON.stringify(spec)};`)
-  .replace("const TOKENS = __TOKENS__;", `const TOKENS = ${JSON.stringify(tokenValues)};`);
+  .replace("const TOKENS = __TOKENS__;", `const TOKENS = ${JSON.stringify(tokenValues)};`)
+  .replace("const ICONS = __ICONS__;", `const ICONS = ${JSON.stringify(iconPaths)};`);
 
 const result = await withPixso(async (pixso) => {
   const raw = await pixso.call("eval_script", { script });

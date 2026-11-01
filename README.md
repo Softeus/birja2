@@ -48,6 +48,6 @@ ds/screens/*.ast.json ──► validate ──► Pixso screens ─┐
 
 ## Смоук
 
-- Pixso: `2 Atoms` — 11 примитивов, `4 Molecules` — Card и Dialog, `Screens` — 6 экранов (логин + 4 шага формы юрлица + успех).
+- Pixso: `2 Atoms` — 12 примитивов (включая `Icon` из lucide), `4 Molecules` — Card и Dialog, `Screens` — 6 экранов (логин + 4 шага формы юрлица + успех).
 - React-макеты: `pnpm dev` → `/mock/login`, `/mock/company-step1…3`, `/mock/company-review`, `/mock/company-success`.
 - Интерактивный прототип: `/prototype/company` (4 шага, валидация, диалог подтверждения, экран успеха).

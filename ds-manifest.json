@@ -5,8 +5,8 @@
   "tokensCollection": "Semantic",
   "components": {
     "Button": {
-      "key": "72bcaa8a485ff8454b8c3fc1accf42461f072c9c",
-      "nodeId": "5:4883",
+      "key": "a659f5d0f701bf59cf7c499216ac45353885a60e",
+      "nodeId": "5:5837",
       "type": "COMPONENT_SET",
       "axes": [
         "variant",
@@ -32,8 +32,8 @@
       }
     },
     "Badge": {
-      "key": "a21485c857c1e21e3c75a3903062a2c56e8cc0a4",
-      "nodeId": "5:4892",
+      "key": "4c2e93bdc08cceb1dc64ef9bb110f7609f0e3128",
+      "nodeId": "5:5846",
       "type": "COMPONENT_SET",
       "axes": [
         "variant"
@@ -51,8 +51,8 @@
       }
     },
     "Input": {
-      "key": "82fbc5e340959b9898aee12a376d5f8430d43402",
-      "nodeId": "5:4899",
+      "key": "9a8570491b21bf75693302df430ee216bc1f5d3a",
+      "nodeId": "5:5853",
       "type": "COMPONENT_SET",
       "axes": [
         "state"
@@ -69,8 +69,8 @@
       }
     },
     "Checkbox": {
-      "key": "806532d79c752d19c1050fe1d07dfa35b0244554",
-      "nodeId": "5:4903",
+      "key": "242a16893dad0d9527b35f6176470f7d3de485f1",
+      "nodeId": "5:5857",
       "type": "COMPONENT_SET",
       "axes": [
         "checked"
@@ -84,8 +84,8 @@
       "slots": {}
     },
     "Separator": {
-      "key": "b60402eceffaf4bbf68528eeac9046870c0786f4",
-      "nodeId": "5:4906",
+      "key": "0791c7ac427c51f2d501b483c4ef9a7783bb134f",
+      "nodeId": "5:5860",
       "type": "COMPONENT_SET",
       "axes": [
         "orientation"
@@ -99,8 +99,8 @@
       "slots": {}
     },
     "Label": {
-      "key": "9385fc0e9650c9a7e7800a58eac47f677f052440",
-      "nodeId": "5:4907",
+      "key": "fced231c392e50a9fe8a62aee0dba105bbba4116",
+      "nodeId": "5:5861",
       "type": "COMPONENT",
       "axes": [],
       "props": {},
@@ -109,8 +109,8 @@
       }
     },
     "Card": {
-      "key": "37f01bde38a1ba94423c9e2c60ea07f6d0b8075b",
-      "nodeId": "5:4909",
+      "key": "a5c27e9c8f3a50f5815a47758ecae47ebafd2f42",
+      "nodeId": "5:5863",
       "type": "COMPONENT",
       "axes": [],
       "props": {},
@@ -120,8 +120,8 @@
       }
     },
     "Heading": {
-      "key": "83b81736efa34d8c9eb9d31d65067041fb1c47dc",
-      "nodeId": "5:4918",
+      "key": "dd7d33c9bbb7ef9f023da7624754b18d8e42de5c",
+      "nodeId": "5:5872",
       "type": "COMPONENT_SET",
       "axes": [
         "level"
@@ -138,8 +138,8 @@
       }
     },
     "Text": {
-      "key": "cbe946ae1617ae14470e9dc91349ade0fd047bc2",
-      "nodeId": "5:4923",
+      "key": "f0943443b25484bd28b3dddafbc6e49c0369931d",
+      "nodeId": "5:5877",
       "type": "COMPONENT_SET",
       "axes": [
         "variant"
@@ -155,8 +155,8 @@
       }
     },
     "Textarea": {
-      "key": "fe1eadf5b266794bfbc9d2b09158386dd642b055",
-      "nodeId": "5:4928",
+      "key": "16a76d139d65262b46932bcd38380b353315964b",
+      "nodeId": "5:5882",
       "type": "COMPONENT_SET",
       "axes": [
         "state"
@@ -172,8 +172,8 @@
       }
     },
     "Switch": {
-      "key": "bd6e4460813a2e4df09071104eb4a8ce971bd695",
-      "nodeId": "5:4933",
+      "key": "09bed103eda4e9f21a35f24ddd2937a585a11b94",
+      "nodeId": "5:5887",
       "type": "COMPONENT_SET",
       "axes": [
         "checked"
@@ -187,8 +187,8 @@
       "slots": {}
     },
     "Radio": {
-      "key": "e7c3b784be0b78446462b867c10aa6d708b74a42",
-      "nodeId": "5:4937",
+      "key": "bd4044576a358361e8ffa2552be9c4d53601d91f",
+      "nodeId": "5:5891",
       "type": "COMPONENT_SET",
       "axes": [
         "checked"
@@ -202,8 +202,8 @@
       "slots": {}
     },
     "Dialog": {
-      "key": "fdb0f153f0e8a7293ad4df54d1974af9b09c7e38",
-      "nodeId": "5:4938",
+      "key": "6a36f97af3ddd1c1e0378be1fb0072650b346b20",
+      "nodeId": "5:5892",
       "type": "COMPONENT",
       "axes": [],
       "props": {},
@@ -211,6 +211,33 @@
         "title": "TEXT",
         "description": "TEXT"
       }
+    },
+    "Icon": {
+      "key": "ca59e62ae38b6febb876e713bde1a1ba81f9b0c9",
+      "nodeId": "5:5968",
+      "type": "COMPONENT_SET",
+      "axes": [
+        "name",
+        "size"
+      ],
+      "props": {
+        "name": [
+          "check",
+          "x",
+          "search",
+          "chevron-down",
+          "arrow-right",
+          "plus",
+          "eye",
+          "info"
+        ],
+        "size": [
+          "16",
+          "20",
+          "24"
+        ]
+      },
+      "slots": {}
     }
   }
 }
