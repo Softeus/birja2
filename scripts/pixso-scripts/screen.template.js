@@ -37,6 +37,10 @@ pixso.currentPage = page;
 
 const existing = page.children.find((c) => c.name === AST.screen);
 if (existing) existing.remove();
+// Pixso иногда оставляет дубли вида "Heatmap/черновик" — чистим их тоже.
+for (const c of [...page.children]) {
+  if (c.name === AST.screen || c.name.startsWith(`${AST.screen}/`)) c.remove();
+}
 
 const frame = pixso.createFrame();
 frame.name = AST.screen;
@@ -192,6 +196,10 @@ async function build(node, parent) {
         try { await pixso.loadFontAsync({ family: "Inter", style: "Medium" }); } catch { /* ok */ }
         tt.fontName = { family: "Inter", style: "Medium" };
         tt.fontSize = 12;
+        const font12 = varByName.get("font/12");
+        if (font12) {
+          try { tt.setBoundVariable("fontSize", font12); } catch { /* ok */ }
+        }
         tt.x = t.x + 4;
         tt.y = t.y + 3;
         const strong = t.level.endsWith("-2") || t.level.endsWith("-3");

@@ -13,8 +13,8 @@ const r1 = (n) => Math.round(n * 10) / 10;
 const fmtNum = (v, d = 2) => (v === null || v === undefined ? "—" : v.toFixed(d).replace(".", ","));
 const fmtDelta = (v) => {
   if (v === null || v === undefined) return "";
-  const s = (v > 0 ? "+" : "") + v.toFixed(1).replace(".", ",");
-  return s + "%";
+  const sign = v > 0 ? "+" : v < 0 ? "\u2212" : "";
+  return sign + Math.abs(v).toFixed(2).replace(".", ",") + "%";
 };
 const fmtPrice = (v, d) => (v === null || v === undefined ? "—" : v.toFixed(d ?? 0).replace(".", ",") + " ₽");
 const fmtCap = (v) => {
@@ -39,13 +39,21 @@ function level(changePct) {
   return `${dir}-${l}`;
 }
 
+// Адаптивная подпись плитки: тикер всегда, Δ% при 56×40, цена при ширине ≥ 76 (FR-19).
+function tileLabel({ secId, changePct, price, decimals, width, height }) {
+  const parts = [secId];
+  if (width >= 56 && height >= 40) parts.push(fmtDelta(changePct));
+  if (width >= 76) parts.push(fmtPrice(price, decimals));
+  return parts.join("\n");
+}
+
 // Укладка — та же, что lib/heatmap/layout.ts (d3-hierarchy + squarify).
 const totalCap = snap.quotes.reduce((s, q) => s + (q.cap ?? 0), 0);
 const bySector = new Map();
 for (const q of snap.quotes) {
   const value = q.cap ?? Math.max(1, (q.weight ?? 0) * (totalCap / 100));
   const list = bySector.get(q.sector) ?? [];
-  list.push({ name: q.secId, secId: q.secId, value, changePct: q.changePct });
+  list.push({ name: q.secId, secId: q.secId, value, changePct: q.changePct, price: q.price, decimals: q.decimals });
   bySector.set(q.sector, list);
 }
 
@@ -69,15 +77,21 @@ const sectors = (laidOut.children ?? []).map((s) => ({
   y: r1(s.y0),
   width: r1(s.x1 - s.x0),
   height: r1(s.y1 - s.y0),
-  tiles: (s.children ?? []).map((t) => ({
-    secId: t.data.secId ?? t.data.name,
-    x: r1(t.x0),
-    y: r1(t.y0),
-    width: r1(t.x1 - t.x0),
-    height: r1(t.y1 - t.y0),
-    level: level(t.data.changePct),
-    label: `${t.data.secId} ${fmtDelta(t.data.changePct)}`.trim(),
-  })),
+  tiles: (s.children ?? []).map((t) => {
+    const width = r1(t.x1 - t.x0);
+    const height = r1(t.y1 - t.y0);
+    const secId = t.data.secId ?? t.data.name;
+    const changePct = t.data.changePct;
+    return {
+      secId,
+      x: r1(t.x0),
+      y: r1(t.y0),
+      width,
+      height,
+      level: level(changePct),
+      label: tileLabel({ secId, changePct, price: t.data.price, decimals: t.data.decimals, width, height }),
+    };
+  }),
 }));
 
 const sber = snap.quotes.find((q) => q.secId === "SBER") ?? snap.quotes[0];
