@@ -1,0 +1,14 @@
+{
+  "framework": "shadcn-ui",
+  "base": "radix-ui",
+  "styling": "tailwind-v4",
+  "paths": {
+    "tokens": "app/globals.css",
+    "components": "components/ui",
+    "schema": "ds-manifest.json"
+  },
+  "cva_sources": [
+    { "component": "Button", "file": "components/ui/button.tsx", "cva_export": "buttonVariants" },
+    { "component": "Badge", "file": "components/ui/badge.tsx", "cva_export": "badgeVariants" }
+  ]
+}

@@ -1,0 +1,190 @@
+// Сборщик экрана из UI-AST. Выполняется через eval_script.
+// __AST__ / __MANIFEST__ подставляет scripts/ds/assemble-screen.mjs.
+const AST = __AST__;
+const MANIFEST = __MANIFEST__;
+
+const vars = await pixso.variables.getLocalVariablesAsync();
+const varByName = new Map(vars.map((v) => [v.name, v]));
+
+function hexToRgb(hex) {
+  const h = String(hex).replace("#", "");
+  return { r: parseInt(h.slice(0, 2), 16) / 255, g: parseInt(h.slice(2, 4), 16) / 255, b: parseInt(h.slice(4, 6), 16) / 255 };
+}
+
+function paint(node, tokenName) {
+  const v = varByName.get(tokenName);
+  if (!v) return;
+  const fallback = { type: "SOLID", color: { r: 1, g: 1, b: 1 } };
+  try {
+    node.fills = [pixso.variables.setBoundVariableForPaint(fallback, "color", v)];
+  } catch {
+    /* остаётся как есть */
+  }
+}
+
+async function ensurePage(name) {
+  let page = pixso.root.children.find((c) => c.type === "PAGE" && c.name === name);
+  if (!page) {
+    page = pixso.createPage();
+    page.name = name;
+  }
+  return page;
+}
+
+const page = await ensurePage("Screens");
+pixso.currentPage = page;
+
+const existing = page.children.find((c) => c.name === AST.screen);
+if (existing) existing.remove();
+
+const frame = pixso.createFrame();
+frame.name = AST.screen;
+page.appendChild(frame);
+frame.layoutMode = "VERTICAL";
+frame.resize(AST.frame.width, 10);
+frame.primaryAxisSizingMode = "AUTO";
+frame.counterAxisSizingMode = "FIXED";
+frame.resize(AST.frame.width, frame.height);
+frame.itemSpacing = AST.frame.gap ?? 16;
+const pad = AST.frame.padding ?? 24;
+frame.paddingTop = pad;
+frame.paddingBottom = pad;
+frame.paddingLeft = pad;
+frame.paddingRight = pad;
+frame.fills = [];
+paint(frame, AST.frame.background ?? "color/background");
+
+const report = { screen: AST.screen, frameId: frame.id, instances: [], errors: [], missing: [] };
+
+function masterFor(componentName, props) {
+  const meta = MANIFEST.components[componentName];
+  if (!meta) throw new Error(`нет компонента ${componentName}`);
+  const set = pixso.getNodeById(meta.nodeId);
+  if (!set) throw new Error(`узел ${meta.nodeId} не найден (${componentName})`);
+
+  if (set.type === "COMPONENT") return set;
+
+  const candidates = set.children.filter((c) => c.type === "COMPONENT");
+  const scored = candidates
+    .map((c) => {
+      const own = {};
+      for (const part of c.name.split(",")) {
+        const [k, v] = part.split("=").map((s) => s && s.trim());
+        if (k && v) own[k] = v;
+      }
+      const matches = Object.entries(props ?? {}).every(([k, v]) => own[k] === v);
+      return { node: c, matches, own };
+    })
+    .filter((c) => c.matches);
+
+  return scored[0]?.node ?? candidates[0];
+}
+
+async function setSlotText(instance, slotName, value) {
+  const text = instance.findOne((n) => n.type === "TEXT" && (n.name === slotName || n.name === "label" || n.name === "text"));
+  const all = instance.findAll ? instance.findAll((n) => n.type === "TEXT") : [];
+  const target = all.find((n) => n.name === slotName) ?? text ?? all[0];
+  if (!target) {
+    report.missing.push(`${instance.name}: нет текстового слоя для слота ${slotName}`);
+    return;
+  }
+  try {
+    await pixso.loadFontAsync(target.fontName);
+  } catch {
+    /* шрифт уже загружен */
+  }
+  target.characters = value;
+
+  // Переносы: высота по контенту, ширина наследуется от мастера.
+  try {
+    target.textAutoResize = "HEIGHT";
+  } catch {
+    /* noop */
+  }
+}
+
+async function build(node, parent) {
+  if (node.type === "stack") {
+    const box = pixso.createFrame();
+    box.name = `stack/${node.direction}`;
+    parent.appendChild(box);
+    box.layoutMode = node.direction ?? "VERTICAL";
+    box.primaryAxisSizingMode = "AUTO";
+    box.counterAxisSizingMode = node.direction === "HORIZONTAL" ? "AUTO" : "FIXED";
+    box.itemSpacing = node.gap ?? 12;
+    const p = node.padding ?? 0;
+    box.paddingTop = p;
+    box.paddingBottom = p;
+    box.paddingLeft = p;
+    box.paddingRight = p;
+    box.fills = [];
+    if (node.stretch !== false && box.parent?.layoutMode) box.layoutAlign = "STRETCH";
+    else if (node.stretch !== false && box.parent?.layoutMode === "VERTICAL") box.layoutAlign = "STRETCH";
+
+    for (const child of node.children) await build(child, box);
+    return;
+  }
+
+  const master = masterFor(node.component, node.props);
+  if (!master) {
+    report.errors.push(`не найден мастер для ${node.component}`);
+    return;
+  }
+
+  const instance = master.createInstance();
+  parent.appendChild(instance);
+  if (node.stretch !== false) {
+    try {
+      instance.layoutAlign = "STRETCH";
+    } catch {
+      /* вне автолейаута */
+    }
+  }
+
+  for (const [slot, value] of Object.entries(node.slots ?? {})) {
+    await setSlotText(instance, slot, value);
+  }
+
+  // В автолейауте ширина не наследуется инстансом: растягиваем либо по главной
+  // оси (layoutGrow), либо по поперечной (layoutAlign), в зависимости от макета.
+  try {
+    const hasText = instance.findAll && instance.findAll((n) => n.type === "TEXT").length > 0;
+
+    if (node.stretch !== false && parent.layoutMode === "HORIZONTAL" && hasText) {
+      instance.primaryAxisSizingMode = "AUTO";
+      for (const t of instance.findAll((n) => n.type === "TEXT")) {
+        t.textAutoResize = "WIDTH_AND_HEIGHT";
+      }
+    }
+
+    if (node.stretch !== false && parent.layoutMode === "VERTICAL" && instance.layoutMode) {
+      const width = parent.width - (parent.paddingLeft ?? 0) - (parent.paddingRight ?? 0);
+      if (width > 0) {
+        instance.primaryAxisSizingMode = "FIXED";
+        instance.counterAxisSizingMode = "AUTO";
+        instance.resize(width, instance.height);
+
+        const inner = width - (instance.paddingLeft ?? 0) - (instance.paddingRight ?? 0);
+        for (const t of instance.findAll((n) => n.type === "TEXT")) {
+          if (instance.layoutMode === "HORIZONTAL") {
+            t.layoutGrow = 1;
+            t.textAutoResize = "HEIGHT";
+          } else {
+            t.layoutAlign = "STRETCH";
+            t.textAutoResize = "HEIGHT";
+            t.resize(Math.max(inner, 24), t.height);
+          }
+        }
+      }
+    }
+  } catch {
+    /* noop */
+  }
+
+  report.instances.push({ component: node.component, id: instance.id, master: master.name });
+}
+
+for (const el of AST.elements) await build(el, frame);
+
+pixso.currentPage.selection = [frame];
+return report;

@@ -1,0 +1,216 @@
+{
+  "$schema": "./schemas/ds-manifest.schema.json",
+  "system": "shadcn-pixso-core",
+  "version": "2026-11-01",
+  "tokensCollection": "Semantic",
+  "components": {
+    "Button": {
+      "key": "6426ac75ea2363e9a454833e2b479e10fc6976dd",
+      "nodeId": "4:3719",
+      "type": "COMPONENT_SET",
+      "axes": [
+        "variant",
+        "size"
+      ],
+      "props": {
+        "variant": [
+          "default",
+          "secondary",
+          "outline",
+          "ghost",
+          "destructive",
+          "link"
+        ],
+        "size": [
+          "sm",
+          "default",
+          "lg"
+        ]
+      },
+      "slots": {
+        "label": "TEXT"
+      }
+    },
+    "Badge": {
+      "key": "03d3bd0922ed330292ebaa8444d711a80985f03f",
+      "nodeId": "4:3728",
+      "type": "COMPONENT_SET",
+      "axes": [
+        "variant"
+      ],
+      "props": {
+        "variant": [
+          "default",
+          "secondary",
+          "destructive",
+          "outline"
+        ]
+      },
+      "slots": {
+        "label": "TEXT"
+      }
+    },
+    "Input": {
+      "key": "f91efda2dd4029e8239400a38e554a9d744be038",
+      "nodeId": "4:3735",
+      "type": "COMPONENT_SET",
+      "axes": [
+        "state"
+      ],
+      "props": {
+        "state": [
+          "default",
+          "error",
+          "disabled"
+        ]
+      },
+      "slots": {
+        "placeholder": "TEXT"
+      }
+    },
+    "Checkbox": {
+      "key": "22ba36b5a06c8873279588eae3a09d6a1bc1bf77",
+      "nodeId": "4:3739",
+      "type": "COMPONENT_SET",
+      "axes": [
+        "checked"
+      ],
+      "props": {
+        "checked": [
+          "true",
+          "false"
+        ]
+      },
+      "slots": {}
+    },
+    "Separator": {
+      "key": "660361f0af3c7cf4e98dc126226bc56716238969",
+      "nodeId": "4:3742",
+      "type": "COMPONENT_SET",
+      "axes": [
+        "orientation"
+      ],
+      "props": {
+        "orientation": [
+          "horizontal",
+          "vertical"
+        ]
+      },
+      "slots": {}
+    },
+    "Label": {
+      "key": "16e55b64be8ed5318a48212140143c730d451031",
+      "nodeId": "4:3743",
+      "type": "COMPONENT",
+      "axes": [],
+      "props": {},
+      "slots": {
+        "label": "TEXT"
+      }
+    },
+    "Card": {
+      "key": "6b68fd7cde93b559c090bb6336ea6f4bb3054f3c",
+      "nodeId": "4:3745",
+      "type": "COMPONENT",
+      "axes": [],
+      "props": {},
+      "slots": {
+        "title": "TEXT",
+        "description": "TEXT"
+      }
+    },
+    "Heading": {
+      "key": "b8936710ac15a95fd2f0e4b5aae915cea043784a",
+      "nodeId": "4:3754",
+      "type": "COMPONENT_SET",
+      "axes": [
+        "level"
+      ],
+      "props": {
+        "level": [
+          "h1",
+          "h2",
+          "h3"
+        ]
+      },
+      "slots": {
+        "text": "TEXT"
+      }
+    },
+    "Text": {
+      "key": "0735f3b893e18906545cebc4138a9875efc4591f",
+      "nodeId": "4:3759",
+      "type": "COMPONENT_SET",
+      "axes": [
+        "variant"
+      ],
+      "props": {
+        "variant": [
+          "default",
+          "muted"
+        ]
+      },
+      "slots": {
+        "text": "TEXT"
+      }
+    },
+    "Textarea": {
+      "key": "a236386574911c430472a330b1132f8d99d08646",
+      "nodeId": "4:3764",
+      "type": "COMPONENT_SET",
+      "axes": [
+        "state"
+      ],
+      "props": {
+        "state": [
+          "default",
+          "error"
+        ]
+      },
+      "slots": {
+        "value": "TEXT"
+      }
+    },
+    "Switch": {
+      "key": "69bf9cd903ac0cd049f0001cdff23e618fff088d",
+      "nodeId": "4:3769",
+      "type": "COMPONENT_SET",
+      "axes": [
+        "checked"
+      ],
+      "props": {
+        "checked": [
+          "true",
+          "false"
+        ]
+      },
+      "slots": {}
+    },
+    "Radio": {
+      "key": "50c8670cc8bd07daaaf3b6575b761c64624605f2",
+      "nodeId": "4:3773",
+      "type": "COMPONENT_SET",
+      "axes": [
+        "checked"
+      ],
+      "props": {
+        "checked": [
+          "true",
+          "false"
+        ]
+      },
+      "slots": {}
+    },
+    "Dialog": {
+      "key": "42d0965dafa55310d2fa87757c8515db325cadb5",
+      "nodeId": "4:3774",
+      "type": "COMPONENT",
+      "axes": [],
+      "props": {},
+      "slots": {
+        "title": "TEXT",
+        "description": "TEXT"
+      }
+    }
+  }
+}

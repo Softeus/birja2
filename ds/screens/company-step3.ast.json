@@ -1,0 +1,80 @@
+{
+  "screen": "CompanyStep3",
+  "title": "Данные юридического лица — шаг 3",
+  "frame": { "width": 480, "padding": 24, "gap": 20, "background": "color/background" },
+  "elements": [
+    { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "Шаг 3 из 3" } },
+    { "component": "Heading", "props": { "level": "h1" }, "slots": { "text": "Руководитель и контакты" } },
+    { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "Данные лица, действующего от имени организации." } },
+    { "component": "Separator", "props": { "orientation": "horizontal" } },
+    {
+      "type": "stack",
+      "direction": "VERTICAL",
+      "gap": 16,
+      "children": [
+        {
+          "type": "stack",
+          "direction": "VERTICAL",
+          "gap": 6,
+          "children": [
+            { "component": "Label", "slots": { "label": "ФИО" } },
+            { "component": "Input", "props": { "state": "default" }, "slots": { "placeholder": "Иванов Иван Иванович" } }
+          ]
+        },
+        {
+          "type": "stack",
+          "direction": "VERTICAL",
+          "gap": 6,
+          "children": [
+            { "component": "Label", "slots": { "label": "Должность" } },
+            { "component": "Input", "props": { "state": "default" }, "slots": { "placeholder": "Генеральный директор" } }
+          ]
+        },
+        {
+          "type": "stack",
+          "direction": "VERTICAL",
+          "gap": 6,
+          "children": [
+            { "component": "Label", "slots": { "label": "Email" } },
+            { "component": "Input", "props": { "state": "default" }, "slots": { "placeholder": "name@company.ru" } }
+          ]
+        },
+        {
+          "type": "stack",
+          "direction": "VERTICAL",
+          "gap": 6,
+          "children": [
+            { "component": "Label", "slots": { "label": "Телефон" } },
+            { "component": "Input", "props": { "state": "error" }, "slots": { "placeholder": "+7 (___) ___-__-__ — обязательное поле" } }
+          ]
+        },
+        {
+          "type": "stack",
+          "direction": "HORIZONTAL",
+          "gap": 8,
+          "children": [
+            { "component": "Checkbox", "props": { "checked": "true" } },
+            { "component": "Text", "props": { "variant": "default" }, "slots": { "text": "Согласен на обработку персональных данных" } }
+          ]
+        }
+      ]
+    },
+    {
+      "component": "Card",
+      "slots": {
+        "title": "Проверка займёт до 15 минут",
+        "description": "Мы сверим данные с ЕГРЮЛ и пришлём результат на указанный email."
+      }
+    },
+    { "component": "Separator", "props": { "orientation": "horizontal" } },
+    {
+      "type": "stack",
+      "direction": "HORIZONTAL",
+      "gap": 12,
+      "children": [
+        { "component": "Button", "props": { "variant": "outline", "size": "default" }, "slots": { "label": "Назад" } },
+        { "component": "Button", "props": { "variant": "default", "size": "default" }, "slots": { "label": "Отправить заявку" } }
+      ]
+    }
+  ]
+}

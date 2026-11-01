@@ -1,0 +1,38 @@
+{
+  "screen": "CompanySuccess",
+  "title": "Заявка отправлена",
+  "frame": { "width": 480, "padding": 24, "gap": 20, "background": "color/background" },
+  "elements": [
+    { "component": "Badge", "props": { "variant": "secondary" }, "slots": { "label": "Готово" } },
+    { "component": "Heading", "props": { "level": "h1" }, "slots": { "text": "Заявка отправлена" } },
+    { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "Проверка занимает до 15 минут, результат придёт на указанный email." } },
+    { "component": "Separator", "props": { "orientation": "horizontal" } },
+    {
+      "component": "Card",
+      "slots": {
+        "title": "ООО «Ромашка»",
+        "description": "ИНН 7701234567 · КПП 770101001 · ОГРН 1027700123456"
+      }
+    },
+    {
+      "type": "stack",
+      "direction": "VERTICAL",
+      "gap": 10,
+      "children": [
+        { "component": "Text", "props": { "variant": "default" }, "slots": { "text": "Руководитель: Иванов Иван Иванович" } },
+        { "component": "Text", "props": { "variant": "default" }, "slots": { "text": "Должность: генеральный директор" } },
+        { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "Контакт: name@company.ru" } }
+      ]
+    },
+    { "component": "Separator", "props": { "orientation": "horizontal" } },
+    {
+      "type": "stack",
+      "direction": "HORIZONTAL",
+      "gap": 12,
+      "children": [
+        { "component": "Button", "props": { "variant": "outline", "size": "default" }, "slots": { "label": "Скачать заявку" } },
+        { "component": "Button", "props": { "variant": "default", "size": "default" }, "slots": { "label": "Вернуться в кабинет" } }
+      ]
+    }
+  ]
+}

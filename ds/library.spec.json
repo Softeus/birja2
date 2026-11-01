@@ -1,0 +1,620 @@
+{
+  "page": "Components",
+  "components": [
+    {
+      "name": "Button",
+      "axes": {
+        "variant": [
+          "default",
+          "secondary",
+          "outline",
+          "ghost",
+          "destructive",
+          "link"
+        ],
+        "size": [
+          "sm",
+          "default",
+          "lg"
+        ]
+      },
+      "layout": {
+        "mode": "HORIZONTAL",
+        "justify": "CENTER",
+        "align": "CENTER",
+        "gap": 8
+      },
+      "sizes": {
+        "sm": {
+          "height": 32,
+          "paddingX": 12,
+          "paddingY": 6,
+          "fontSize": 13,
+          "fontStyle": "Medium"
+        },
+        "default": {
+          "height": 36,
+          "paddingX": 16,
+          "paddingY": 8,
+          "fontSize": 14,
+          "fontStyle": "Medium"
+        },
+        "lg": {
+          "height": 44,
+          "paddingX": 24,
+          "paddingY": 10,
+          "fontSize": 16,
+          "fontStyle": "Medium"
+        }
+      },
+      "variants": {
+        "default": {
+          "fill": "color/primary",
+          "text": "color/primary-foreground"
+        },
+        "secondary": {
+          "fill": "color/secondary",
+          "text": "color/secondary-foreground"
+        },
+        "outline": {
+          "fill": "color/background",
+          "text": "color/foreground",
+          "border": "color/border"
+        },
+        "ghost": {
+          "fill": null,
+          "text": "color/foreground"
+        },
+        "destructive": {
+          "fill": "color/destructive",
+          "text": "color/destructive-foreground"
+        },
+        "link": {
+          "fill": null,
+          "text": "color/primary"
+        }
+      },
+      "radius": "radius/default",
+      "children": [
+        {
+          "type": "text",
+          "name": "label",
+          "value": "Button",
+          "fontFamily": "Inter",
+          "fontStyleFromSize": true,
+          "fontSizeFromSize": true,
+          "colorFromVariant": true
+        }
+      ]
+    },
+    {
+      "name": "Badge",
+      "axes": {
+        "variant": [
+          "default",
+          "secondary",
+          "destructive",
+          "outline"
+        ]
+      },
+      "layout": {
+        "mode": "HORIZONTAL",
+        "justify": "CENTER",
+        "align": "CENTER",
+        "gap": 4
+      },
+      "height": 22,
+      "sizes": {
+        "default": {
+          "height": 22,
+          "paddingX": 10,
+          "paddingY": 2,
+          "fontSize": 12,
+          "fontStyle": "Medium"
+        }
+      },
+      "variants": {
+        "default": {
+          "fill": "color/primary",
+          "text": "color/primary-foreground"
+        },
+        "secondary": {
+          "fill": "color/secondary",
+          "text": "color/secondary-foreground"
+        },
+        "destructive": {
+          "fill": "color/destructive",
+          "text": "color/destructive-foreground"
+        },
+        "outline": {
+          "fill": null,
+          "text": "color/foreground",
+          "border": "color/border"
+        }
+      },
+      "radius": "radius/default",
+      "children": [
+        {
+          "type": "text",
+          "name": "label",
+          "value": "Badge",
+          "fontFamily": "Inter",
+          "fontStyle": "Medium",
+          "fontSize": 12,
+          "colorFromVariant": true
+        }
+      ]
+    },
+    {
+      "name": "Input",
+      "axes": {
+        "state": [
+          "default",
+          "error",
+          "disabled"
+        ]
+      },
+      "layout": {
+        "mode": "HORIZONTAL",
+        "justify": "MIN",
+        "align": "CENTER",
+        "gap": 8
+      },
+      "width": 320,
+      "height": 36,
+      "autoWidth": false,
+      "variants": {
+        "default": {
+          "fill": "color/background",
+          "text": "color/muted-foreground",
+          "border": "color/input"
+        },
+        "error": {
+          "fill": "color/background",
+          "text": "color/muted-foreground",
+          "border": "color/destructive"
+        },
+        "disabled": {
+          "fill": "color/muted",
+          "text": "color/muted-foreground",
+          "border": "color/input"
+        }
+      },
+      "radius": "radius/default",
+      "children": [
+        {
+          "type": "text",
+          "name": "placeholder",
+          "value": "Placeholder",
+          "fontFamily": "Inter",
+          "fontStyle": "Regular",
+          "fontSize": 14,
+          "colorFromVariant": true
+        }
+      ],
+      "variantAxis": "state"
+    },
+    {
+      "name": "Checkbox",
+      "axes": {
+        "checked": [
+          "true",
+          "false"
+        ]
+      },
+      "layout": {
+        "mode": "NONE"
+      },
+      "width": 18,
+      "height": 18,
+      "autoWidth": false,
+      "variants": {
+        "true": {
+          "fill": "color/primary",
+          "border": "color/primary"
+        },
+        "false": {
+          "fill": "color/background",
+          "border": "color/input"
+        }
+      },
+      "radius": "radius/sm",
+      "children": [
+        {
+          "type": "rect",
+          "name": "mark",
+          "width": 10,
+          "height": 10,
+          "x": 4,
+          "y": 4,
+          "colorByVariant": {
+            "true": "color/primary-foreground"
+          },
+          "radiusPx": 2,
+          "when": {
+            "checked": "true"
+          }
+        }
+      ],
+      "paddingX": 0,
+      "paddingY": 0,
+      "variantAxis": "checked"
+    },
+    {
+      "name": "Separator",
+      "axes": {
+        "orientation": [
+          "horizontal",
+          "vertical"
+        ]
+      },
+      "layout": {
+        "mode": "NONE"
+      },
+      "dimsByVariant": {
+        "horizontal": {
+          "width": 240,
+          "height": 1
+        },
+        "vertical": {
+          "width": 1,
+          "height": 240
+        }
+      },
+      "autoWidth": false,
+      "variants": {
+        "horizontal": {
+          "fill": "color/border"
+        },
+        "vertical": {
+          "fill": "color/border"
+        }
+      },
+      "children": [],
+      "paddingX": 0,
+      "paddingY": 0,
+      "variantAxis": "orientation"
+    },
+    {
+      "name": "Label",
+      "axes": {},
+      "layout": {
+        "mode": "HORIZONTAL",
+        "justify": "MIN",
+        "align": "CENTER",
+        "gap": 4
+      },
+      "variants": {},
+      "children": [
+        {
+          "type": "text",
+          "name": "label",
+          "value": "Label",
+          "fontFamily": "Inter",
+          "fontStyle": "Medium",
+          "fontSize": 14,
+          "color": "color/foreground"
+        }
+      ]
+    },
+    {
+      "name": "Card",
+      "axes": {},
+      "layout": {
+        "mode": "VERTICAL",
+        "justify": "MIN",
+        "align": "MIN",
+        "gap": 12
+      },
+      "width": 320,
+      "box": {
+        "paddingX": 24,
+        "paddingY": 24
+      },
+      "variants": {
+        "default": {
+          "fill": "color/card",
+          "border": "color/border"
+        }
+      },
+      "radius": "radius/default",
+      "children": [
+        {
+          "type": "text",
+          "name": "title",
+          "value": "Card title",
+          "fontFamily": "Inter",
+          "fontStyle": "Semi Bold",
+          "fontSize": 18,
+          "color": "color/card-foreground",
+          "stretch": true
+        },
+        {
+          "type": "text",
+          "name": "description",
+          "value": "РћРїРёСЃР°РЅРёРµ РєР°СЂС‚РѕС‡РєРё РёР· С‚РѕРєРµРЅРѕРІ Р”РЎ.",
+          "fontFamily": "Inter",
+          "fontStyle": "Regular",
+          "fontSize": 14,
+          "color": "color/muted-foreground",
+          "stretch": true
+        }
+      ]
+    },
+    {
+      "name": "Heading",
+      "axes": {
+        "level": [
+          "h1",
+          "h2",
+          "h3"
+        ]
+      },
+      "variantAxis": "level",
+      "layout": {
+        "mode": "HORIZONTAL",
+        "justify": "MIN",
+        "align": "CENTER",
+        "gap": 0
+      },
+      "variants": {
+        "h1": {
+          "text": "color/foreground"
+        },
+        "h2": {
+          "text": "color/foreground"
+        },
+        "h3": {
+          "text": "color/foreground"
+        }
+      },
+      "children": [
+        {
+          "type": "text",
+          "name": "text",
+          "value": "Заголовок",
+          "fontFamily": "Inter",
+          "colorFromVariant": true,
+          "fontSizeFromSize": true,
+          "fontStyleFromSize": true
+        }
+      ],
+      "sizes": {
+        "h1": {
+          "fontSize": 28,
+          "fontStyle": "Semi Bold"
+        },
+        "h2": {
+          "fontSize": 22,
+          "fontStyle": "Semi Bold"
+        },
+        "h3": {
+          "fontSize": 18,
+          "fontStyle": "Semi Bold"
+        }
+      }
+    },
+    {
+      "name": "Text",
+      "axes": {
+        "variant": [
+          "default",
+          "muted"
+        ]
+      },
+      "variantAxis": "variant",
+      "layout": {
+        "mode": "HORIZONTAL",
+        "justify": "MIN",
+        "align": "CENTER",
+        "gap": 0
+      },
+      "variants": {
+        "default": {
+          "text": "color/foreground"
+        },
+        "muted": {
+          "text": "color/muted-foreground"
+        }
+      },
+      "children": [
+        {
+          "type": "text",
+          "name": "text",
+          "value": "Текст",
+          "fontFamily": "Inter",
+          "colorFromVariant": true,
+          "fontSizeFromSize": true,
+          "fontStyleFromSize": true
+        }
+      ],
+      "sizes": {
+        "default": {
+          "fontSize": 14,
+          "fontStyle": "Regular"
+        },
+        "muted": {
+          "fontSize": 14,
+          "fontStyle": "Regular"
+        }
+      }
+    },
+    {
+      "name": "Textarea",
+      "axes": {
+        "state": [
+          "default",
+          "error"
+        ]
+      },
+      "variantAxis": "state",
+      "layout": {
+        "mode": "VERTICAL",
+        "justify": "MIN",
+        "align": "MIN",
+        "gap": 4
+      },
+      "width": 360,
+      "height": 104,
+      "autoWidth": false,
+      "variants": {
+        "default": {
+          "fill": "color/background",
+          "text": "color/muted-foreground",
+          "border": "color/input"
+        },
+        "error": {
+          "fill": "color/background",
+          "text": "color/muted-foreground",
+          "border": "color/destructive"
+        }
+      },
+      "radius": "radius/default",
+      "paddingX": 12,
+      "paddingY": 10,
+      "children": [
+        {
+          "type": "text",
+          "name": "value",
+          "value": "Описание деятельности компании",
+          "fontFamily": "Inter",
+          "fontStyle": "Regular",
+          "fontSize": 14,
+          "colorFromVariant": true,
+          "stretch": true
+        }
+      ]
+    },
+    {
+      "name": "Switch",
+      "axes": {
+        "checked": [
+          "true",
+          "false"
+        ]
+      },
+      "variantAxis": "checked",
+      "layout": {
+        "mode": "NONE"
+      },
+      "width": 40,
+      "height": 24,
+      "autoWidth": false,
+      "variants": {
+        "true": {
+          "fill": "color/primary"
+        },
+        "false": {
+          "fill": "color/input"
+        }
+      },
+      "radius": "radius/xl",
+      "paddingX": 0,
+      "paddingY": 0,
+      "children": [
+        {
+          "type": "rect",
+          "name": "thumb",
+          "width": 18,
+          "height": 18,
+          "x": 3,
+          "y": 3,
+          "colorByVariant": {
+            "true": "color/background",
+            "false": "color/background"
+          },
+          "radiusPx": 9
+        }
+      ]
+    },
+    {
+      "name": "Radio",
+      "axes": {
+        "checked": [
+          "true",
+          "false"
+        ]
+      },
+      "variantAxis": "checked",
+      "layout": {
+        "mode": "NONE"
+      },
+      "width": 18,
+      "height": 18,
+      "autoWidth": false,
+      "variants": {
+        "true": {
+          "fill": "color/primary",
+          "border": "color/primary"
+        },
+        "false": {
+          "fill": "color/background",
+          "border": "color/input"
+        }
+      },
+      "radiusPx": 9,
+      "paddingX": 0,
+      "paddingY": 0,
+      "children": [
+        {
+          "type": "rect",
+          "name": "dot",
+          "width": 6,
+          "height": 6,
+          "x": 6,
+          "y": 6,
+          "colorByVariant": {
+            "true": "color/primary-foreground"
+          },
+          "radiusPx": 3,
+          "when": {
+            "checked": "true"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dialog",
+      "axes": {},
+      "layout": {
+        "mode": "VERTICAL",
+        "justify": "MIN",
+        "align": "MIN",
+        "gap": 12
+      },
+      "width": 440,
+      "autoWidth": false,
+      "paddingX": 24,
+      "paddingY": 24,
+      "variants": {
+        "default": {
+          "fill": "color/card",
+          "border": "color/border"
+        }
+      },
+      "radius": "radius/xl",
+      "children": [
+        {
+          "type": "text",
+          "name": "title",
+          "value": "Подтверждение",
+          "fontFamily": "Inter",
+          "fontStyle": "Semi Bold",
+          "fontSize": 18,
+          "color": "color/card-foreground",
+          "stretch": true
+        },
+        {
+          "type": "text",
+          "name": "description",
+          "value": "Проверьте данные перед отправкой.",
+          "fontFamily": "Inter",
+          "fontStyle": "Regular",
+          "fontSize": 14,
+          "color": "color/muted-foreground",
+          "stretch": true
+        }
+      ]
+    }
+  ]
+}
