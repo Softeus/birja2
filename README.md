@@ -27,7 +27,7 @@ ds/screens/*.ast.json ──► validate ──► Pixso screens ─┐
 
 | Путь | Назначение |
 |---|---|
-| `ds/library.spec.json` | декларативный спек компонентов (оси, размеры, токены) |
+| `ds/library.spec.json` | декларативный спек компонентов (оси, размеры, токены, страница уровня) |
 | `ds/screens/*.ast.json` | экраны как UI-AST, единственный вход для сборки |
 | `ds-manifest.json` | опубликованный контракт: ключи компонентов, пропсы, слоты |
 | `tokens.json` | сгенерированные токены (не править руками) |
@@ -42,8 +42,12 @@ ds/screens/*.ast.json ──► validate ──► Pixso screens ─┐
 - Локальный MCP: `http://127.0.0.1:3667/mcp` (порт может отличаться — `PIXSO_MCP_URL`).
 - Проверка связи: `node scripts/pixso.mjs tools`.
 
+## Структура в Pixso
+
+Семь страниц по уровням ДС: `1 Foundations`, `2 Atoms`, `3 Layout & Nav`, `4 Molecules`, `5 Domain`, `6 Charts`, `7 Gamification`, плюс `Screens` (макеты) и пользовательская `Page 1`. Правила раскладки и хранения — в [ds/PIXSO-STRUCTURE.md](ds/PIXSO-STRUCTURE.md).
+
 ## Смоук
 
-- Pixso: страница `Components` (13 компонентов) и `Screens` (6 экранов: логин + 4 шага формы юрлица + успех).
+- Pixso: `2 Atoms` — 11 примитивов, `4 Molecules` — Card и Dialog, `Screens` — 6 экранов (логин + 4 шага формы юрлица + успех).
 - React-макеты: `pnpm dev` → `/mock/login`, `/mock/company-step1…3`, `/mock/company-review`, `/mock/company-success`.
 - Интерактивный прототип: `/prototype/company` (4 шага, валидация, диалог подтверждения, экран успеха).

@@ -99,26 +99,92 @@ function findByPath(root, path) {
   return node;
 }
 
-const page = await ensurePage(SPEC.page);
-pixso.currentPage = page;
-report.page = { id: page.id, name: page.name };
+// Страницы уровней: страница = уровень ДС. «Components» переименовываем в «2 Atoms».
+const legacyComponents = pixso.root.children.find((c) => c.type === "PAGE" && c.name === "Components");
+const pageSpecs = SPEC.pages ?? [{ name: SPEC.page }];
+const pages = new Map();
 
-// Чистим страницу от узлов, которых нет в спеке (остатки проб и переименований).
-const keep = new Set(SPEC.components.map((c) => c.name));
-report.removed = [];
-for (const child of [...page.children]) {
-  if ((child.type === "COMPONENT" || child.type === "COMPONENT_SET") && !keep.has(child.name)) {
-    report.removed.push(child.name);
-    child.remove();
+for (const p of pageSpecs) {
+  let page = pixso.root.children.find((c) => c.type === "PAGE" && c.name === p.name);
+  if (!page && legacyComponents && p.name === "2 Atoms") {
+    legacyComponents.name = p.name;
+    page = legacyComponents;
+  }
+  if (!page) {
+    page = pixso.createPage();
+    page.name = p.name;
+  }
+  pages.set(p.name, page);
+}
+
+const defaultPage = pages.get(SPEC.page) ?? pages.values().next().value;
+
+// Чистка и сетка считаются отдельно для каждой страницы уровня.
+const GRID_GAP = 80;
+const GRID_MAX_WIDTH = 1600;
+const pageState = new Map();
+for (const [name, page] of pages) {
+  const keep = new Set(SPEC.components.filter((c) => (c.page ?? SPEC.page) === name).map((c) => c.name));
+  pageState.set(name, { page, keep, x: 0, y: 0, rowHeight: 0, removed: [] });
+
+  for (const child of [...page.children]) {
+    if ((child.type === "COMPONENT" || child.type === "COMPONENT_SET") && !keep.has(child.name)) {
+      pageState.get(name).removed.push(child.name);
+      child.remove();
+    }
   }
 }
 
-// Раскладка наборов: сетка слева направо с равным шагом.
-const GRID_GAP = 80;
-const GRID_MAX_WIDTH = 1600;
-let gridX = 0;
-let gridY = 0;
-let rowHeight = 0;
+report.pages = [...pages].map(([name, page]) => ({ name, id: page.id, removed: pageState.get(name).removed }));
+
+// Заголовок-подпись уровня на каждой странице (идемпотентно, обычные тексты).
+for (const p of pageSpecs) {
+  const page = pages.get(p.name);
+  for (const old of [...page.children]) {
+    if (old.name === "_level_note" || old.name === "_level_title") old.remove();
+  }
+
+  try {
+    await pixso.loadFontAsync({ family: "Inter", style: "Semi Bold" });
+    const title = pixso.createText();
+    title.name = "_level_title";
+    title.fontName = { family: "Inter", style: "Semi Bold" };
+    title.characters = `Уровень ${p.level ?? ""} · ${p.name.replace(/^\d+\s*/, "")}`.trim();
+    title.fontSize = 22;
+    title.textAutoResize = "WIDTH_AND_HEIGHT";
+    page.appendChild(title);
+    paint(title, "color/foreground", "fills");
+    title.x = 0;
+    title.y = -140;
+
+    await pixso.loadFontAsync({ family: "Inter", style: "Regular" });
+    const note = pixso.createText();
+    note.name = "_level_note";
+    note.fontName = { family: "Inter", style: "Regular" };
+    note.characters = p.note ?? "";
+    note.fontSize = 13;
+    note.textAutoResize = "WIDTH_AND_HEIGHT";
+    page.appendChild(note);
+    paint(note, "color/muted-foreground", "fills");
+    note.x = 0;
+    note.y = -108;
+  } catch {
+    /* подпись не критична */
+  }
+}
+
+// Порядок страниц: 1…7, затем Screens, затем пользовательские страницы.
+try {
+  const order = [...pageSpecs.map((p) => pages.get(p.name))];
+  const screensPage = pixso.root.children.find((c) => c.type === "PAGE" && c.name === "Screens");
+  if (screensPage) order.push(screensPage);
+  for (const page of pixso.root.children.filter((c) => c.type === "PAGE")) {
+    if (!order.includes(page)) order.push(page);
+  }
+  order.forEach((page, index) => pixso.root.insertChild(index, page));
+} catch {
+  /* порядок страниц не критичен */
+}
 
 function applyBox(node, box, combo, sizeDef) {
   if (!box) return;
@@ -152,6 +218,9 @@ function applyBox(node, box, combo, sizeDef) {
 }
 
 for (const comp of SPEC.components) {
+  const pageStateForComp = pageState.get(comp.page ?? SPEC.page) ?? pageState.get(SPEC.page);
+  const page = pageStateForComp.page;
+  pixso.currentPage = page;
   try {
     const existing = page.children.find((c) => (c.type === "COMPONENT_SET" || c.type === "COMPONENT") && c.name === comp.name);
     if (existing) {
@@ -279,15 +348,15 @@ for (const comp of SPEC.components) {
       variantProperties: Object.keys(comp.axes ?? {}),
     });
 
-    // Ставим набор в сетку: слева направо, при переполнении — новая строка.
-    setNode.x = gridX;
-    setNode.y = gridY;
-    gridX += Math.ceil(setNode.width) + GRID_GAP;
-    rowHeight = Math.max(rowHeight, Math.ceil(setNode.height));
-    if (gridX > GRID_MAX_WIDTH) {
-      gridX = 0;
-      gridY += rowHeight + GRID_GAP;
-      rowHeight = 0;
+    // Ставим набор в сетку своей страницы: слева направо, при переполнении — новая строка.
+    setNode.x = pageStateForComp.x;
+    setNode.y = pageStateForComp.y;
+    pageStateForComp.x += Math.ceil(setNode.width) + GRID_GAP;
+    pageStateForComp.rowHeight = Math.max(pageStateForComp.rowHeight, Math.ceil(setNode.height));
+    if (pageStateForComp.x > GRID_MAX_WIDTH) {
+      pageStateForComp.x = 0;
+      pageStateForComp.y += pageStateForComp.rowHeight + GRID_GAP;
+      pageStateForComp.rowHeight = 0;
     }
   } catch (err) {
     report.errors.push({ component: comp.name, error: String(err && err.message ? err.message : err) });

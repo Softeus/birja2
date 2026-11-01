@@ -1,5 +1,5 @@
 {
-  "page": "Components",
+  "page": "2 Atoms",
   "components": [
     {
       "name": "Button",
@@ -85,7 +85,8 @@
           "fontSizeFromSize": true,
           "colorFromVariant": true
         }
-      ]
+      ],
+      "page": "2 Atoms"
     },
     {
       "name": "Badge",
@@ -143,7 +144,8 @@
           "fontSize": 12,
           "colorFromVariant": true
         }
-      ]
+      ],
+      "page": "2 Atoms"
     },
     {
       "name": "Input",
@@ -192,7 +194,8 @@
           "colorFromVariant": true
         }
       ],
-      "variantAxis": "state"
+      "variantAxis": "state",
+      "page": "2 Atoms"
     },
     {
       "name": "Checkbox",
@@ -238,7 +241,8 @@
       ],
       "paddingX": 0,
       "paddingY": 0,
-      "variantAxis": "checked"
+      "variantAxis": "checked",
+      "page": "2 Atoms"
     },
     {
       "name": "Separator",
@@ -273,7 +277,8 @@
       "children": [],
       "paddingX": 0,
       "paddingY": 0,
-      "variantAxis": "orientation"
+      "variantAxis": "orientation",
+      "page": "2 Atoms"
     },
     {
       "name": "Label",
@@ -295,7 +300,8 @@
           "fontSize": 14,
           "color": "color/foreground"
         }
-      ]
+      ],
+      "page": "2 Atoms"
     },
     {
       "name": "Card",
@@ -339,7 +345,8 @@
           "color": "color/muted-foreground",
           "stretch": true
         }
-      ]
+      ],
+      "page": "4 Molecules"
     },
     {
       "name": "Heading",
@@ -392,7 +399,8 @@
           "fontSize": 18,
           "fontStyle": "Semi Bold"
         }
-      }
+      },
+      "page": "2 Atoms"
     },
     {
       "name": "Text",
@@ -437,7 +445,8 @@
           "fontSize": 14,
           "fontStyle": "Regular"
         }
-      }
+      },
+      "page": "2 Atoms"
     },
     {
       "name": "Textarea",
@@ -483,7 +492,8 @@
           "colorFromVariant": true,
           "stretch": true
         }
-      ]
+      ],
+      "page": "2 Atoms"
     },
     {
       "name": "Switch",
@@ -525,7 +535,8 @@
           },
           "radiusPx": 9
         }
-      ]
+      ],
+      "page": "2 Atoms"
     },
     {
       "name": "Radio",
@@ -571,7 +582,8 @@
             "checked": "true"
           }
         }
-      ]
+      ],
+      "page": "2 Atoms"
     },
     {
       "name": "Dialog",
@@ -614,7 +626,45 @@
           "color": "color/muted-foreground",
           "stretch": true
         }
-      ]
+      ],
+      "page": "4 Molecules"
+    }
+  ],
+  "pages": [
+    {
+      "name": "1 Foundations",
+      "level": 1,
+      "note": "Токены, типографика, сетка, плотность. Компонентов нет — только переменные."
+    },
+    {
+      "name": "2 Atoms",
+      "level": 2,
+      "note": "Базовые примитивы: действия, ввод, индикаторы, разделители, типографика."
+    },
+    {
+      "name": "3 Layout & Nav",
+      "level": 3,
+      "note": "Каркас экрана и навигация. Пока пусто."
+    },
+    {
+      "name": "4 Molecules",
+      "level": 4,
+      "note": "Составные блоки общего назначения: контейнеры, оверлеи."
+    },
+    {
+      "name": "5 Domain",
+      "level": 5,
+      "note": "Доменные финансовые компоненты. Пока пусто."
+    },
+    {
+      "name": "6 Charts",
+      "level": 6,
+      "note": "Визуализация данных. Не рисуем."
+    },
+    {
+      "name": "7 Gamification",
+      "level": 7,
+      "note": "Обучение и геймификация. Пока пусто."
     }
   ]
 }
