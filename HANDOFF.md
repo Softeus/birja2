@@ -11,21 +11,25 @@ app/globals.css ──► tokens.json ──► Pixso "Semantic" (Light/Dark + �
 components/ui/*.tsx + ds/library.spec.json ──► ComponentSets в Pixso ──► ds-manifest.json
 ds/screens/*.ast.json ──► валидатор ──► экраны в Pixso ─┐
                                                        └─► React-макеты и прототипы
+lucide-static ──► ds/icons.json ──► Icon (8 иконок × 3 размера)
 ```
 
 ## Жёсткие решения (не пересматривать без заказчика)
 
 - Готовые Figma-киты (Obra и т.п.) **не используем**. Только код-first.
 - Прототип — **React**; нативные реакции Pixso не подтверждённым API не пишем.
-- Новые компоненты сейчас **не добавляем**: работаем с тем, что есть.
-- Графики не рисуем.
+- **Эталон внешнего вида — React-прототип** (shadcn). При расхождении правим Pixso под него; обратное — только по прямой просьбе заказчика.
+- Всегда одно юридическое лицо: выбора формы собственности нет.
+- Графики не рисуем. Таблицы — только по отдельному согласованию (исследование сделано, выбор: TanStack Table).
 - Токены — три слоя как в shadcn: semantic-цвета → radius → шкала Tailwind (`space/*`, `font/*`).
+- Новые компоненты — только с явного согласования.
 
 ## Где что лежит
 
 | Путь | Роль |
 |---|---|
 | `ds/library.spec.json` | спек компонентов: оси, размеры, токены, страница уровня (`page`) |
+| `ds/icons.json` | пути lucide в системе 24×24 (генерируется `pnpm ds:icons`) |
 | `ds/screens/*.ast.json` | экраны как UI-AST; порядок задаётся полем `order` |
 | `ds-manifest.json` | контракт для LLM и сборщика: ключи, пропсы, слоты |
 | `tokens.json` | сгенерированные токены (руками не править) |
@@ -37,20 +41,35 @@ ds/screens/*.ast.json ──► валидатор ──► экраны в Pix
 
 ```bash
 pnpm ds:sync     # токены → Pixso, сверка, компоненты, валидация AST, экраны
+pnpm ds:icons    # lucide-static → ds/icons.json (пути 24×24)
 pnpm ds:shots    # скриншоты всех экранов в _meta/shots
 pnpm ds:audit    # detached-инстансы, «сырые» заливки
 pnpm dev         # http://localhost:3000 (прототипы и макеты)
+pnpm build       # проверка типов
 ```
 
 Требуется: Pixso Desktop открыт, файл активен, MCP включён (по умолчанию `http://127.0.0.1:3667/mcp`).
 
 ## Состояние на 01.11.2026
 
-- Токены: 54 переменные (32 цвета, 5 радиусов, 17 числовых), коллекция `Semantic`, Light/Dark.
-- Компоненты: 14 наборов. `2 Atoms` — 12 (включая `Icon` из lucide: 8 иконок × 16/20/24), `4 Molecules` — Card и Dialog. Остальные страницы уровней пустые (1, 3, 5, 6, 7).
-- Экраны: 6 (`Login`, `CompanyStep1/2/3`, `CompanyReview`, `CompanySuccess`), 105 инстансов, 0 detached, 0 «сырых» заливок.
-- Прототипы: `/prototype/login`, `/prototype/company`.
-- Репозиторий: git, осмысленные коммиты, чистое дерево.
+- Токены: 54 переменные — 32 цвета, 5 радиусов (`radius/sm…xl`), 17 числовых (`space/2…32`, `font/12…28`, `stroke/1`). Коллекция `Semantic`, режимы Light/Dark.
+- Компоненты: 14 наборов. `2 Atoms` — 12: Button (6×3), Input (3), Textarea (2), Checkbox (2), Radio (2), Switch (2), Badge (4), Label, Text (2), Heading (3), Separator (2), **Icon (8×3)**. `4 Molecules` — Card, Dialog. Страницы 1, 3, 5, 6, 7 пустые (только подписи уровней).
+- Экраны: 6 — `Login`, `CompanyStep1/2/3`, `CompanyReview`, `CompanySuccess`. 112 инстансов, 0 detached, 0 «сырых» заливок. Степпер — паттерн из `Badge` + `Text` (не компонент).
+- Прототипы: `/prototype/login`, `/prototype/company` (4 шага, условное поле фактического адреса при выключенном Switch, сводка из 9 строк, диалог подтверждения).
+- Репозиторий: git, осмысленные коммиты.
+
+## Метрики (эталон — shadcn)
+
+| Компонент | Значение |
+|---|---|
+| Button | h 32 / 36 / 40, px 12 / 16 / 24, text 14 |
+| Input | h 36, px 12, text 14 |
+| Label | text 14 medium, без паддингов |
+| Checkbox / Radio | 16×16, радиус 4 / круг, галочка — путь lucide |
+| Switch | 32×18, кнопка 16, позиция зависит от состояния |
+| Badge | h 20, px 8, pill (radius 999), text 12 |
+| Textarea | h 64, px 12, py 8 |
+| Зазор подпись→поле | 6 (`space/6`) |
 
 ## Правила работы в Pixso
 
@@ -58,13 +77,7 @@ pnpm dev         # http://localhost:3000 (прототипы и макеты)
 - Страница = уровень ДС; сетка 80 px; заголовки `_level_title` / `_level_note` генерируются.
 - Экраны — только на странице `Screens`, слева направо по `order`, зазор 120 px.
 - Всё, чего нет в спеке, удаляется со страниц уровней автоматически. Страница `Page 1` — собственность заказчика.
-
-## Известные ограничения
-
-- `letterSpacing` в Pixso к переменной не привязывается.
-- Высоты контролов (`height` у Button/Input) — числа в спеке, не токены.
-- `Card`/`Dialog` в инстансах чуть выше контента (внутренние размеры мастер-компонента).
-- Клиентские страницы открывать по `127.0.0.1` или `localhost` — origin разрешён в `next.config.ts`.
+- Векторные дети: `type: "vector"` (путь + обводка), `center: true` — центрирование по bbox контейнера.
 
 ## Особенности Pixso Plugin API (проверено фактически)
 
@@ -72,7 +85,19 @@ pnpm dev         # http://localhost:3000 (прототипы и макеты)
 - Цвет привязывается через `pixso.variables.setBoundVariableForPaint(paint, "color", variable)`; `setBoundVariable("fills", id)` молча не работает.
 - `setBoundVariable` принимает **объект** переменной, не строку id.
 - `resize()` сбрасывает sizing modes — выставлять их после `resize`.
+- Режим темы: `frame.setExplicitVariableModeForCollection(collectionObject, modeId)` (объект коллекции, строка modeId).
 - Шрифтовой стиль Inter: `Semi Bold` (не `SemiBold`).
+- Вектор выравнивается по **своему bbox** → путь надо центрировать вручную; `resize` вектора искажает толщину обводки.
+- Все подпути иконки — в **одном** векторе; относительные пути из отдельных `<path>` требуют префикса `M 0 0`.
+
+## Известные ограничения
+
+- `letterSpacing` в Pixso к переменной не привязывается.
+- Высоты контролов (`height` у Button/Input) — числа в спеке, не токены.
+- `Card`/`Dialog` в инстансах чуть выше контента (внутренние размеры мастер-компонента).
+- `Dialog` собран, но в макетах не используется — нужен пример экрана.
+- Клиентские страницы открывать по `127.0.0.1` или `localhost` — origin разрешён в `next.config.ts`.
+- В корне лежат не мои файлы от внешней LLM: `docs/review-market-pulse.md`, `docs/spec-heatmap-pulse.md`, `moex_market_pulse_sentiment_concept_analysis.md` — не коммичены, не трогать без указания.
 
 ## Как продолжить в новой сессии
 
