@@ -27,23 +27,23 @@
       "sizes": {
         "sm": {
           "height": 32,
-          "paddingX": 12,
-          "paddingY": 6,
-          "fontSize": 13,
+          "paddingX": "space/12",
+          "paddingY": "space/6",
+          "fontSize": "font/13",
           "fontStyle": "Medium"
         },
         "default": {
           "height": 36,
-          "paddingX": 16,
-          "paddingY": 8,
-          "fontSize": 14,
+          "paddingX": "space/16",
+          "paddingY": "space/8",
+          "fontSize": "font/14",
           "fontStyle": "Medium"
         },
         "lg": {
           "height": 44,
-          "paddingX": 24,
-          "paddingY": 10,
-          "fontSize": 16,
+          "paddingX": "space/24",
+          "paddingY": "space/10",
+          "fontSize": "font/16",
           "fontStyle": "Medium"
         }
       },
@@ -108,9 +108,9 @@
       "sizes": {
         "default": {
           "height": 22,
-          "paddingX": 10,
-          "paddingY": 2,
-          "fontSize": 12,
+          "paddingX": "space/10",
+          "paddingY": "space/2",
+          "fontSize": "font/12",
           "fontStyle": "Medium"
         }
       },
@@ -141,7 +141,7 @@
           "value": "Badge",
           "fontFamily": "Inter",
           "fontStyle": "Medium",
-          "fontSize": 12,
+          "fontSize": "font/12",
           "colorFromVariant": true
         }
       ],
@@ -190,12 +190,14 @@
           "value": "Placeholder",
           "fontFamily": "Inter",
           "fontStyle": "Regular",
-          "fontSize": 14,
+          "fontSize": "font/14",
           "colorFromVariant": true
         }
       ],
       "variantAxis": "state",
-      "page": "2 Atoms"
+      "page": "2 Atoms",
+      "paddingX": "space/12",
+      "paddingY": "space/8"
     },
     {
       "name": "Checkbox",
@@ -239,8 +241,8 @@
           }
         }
       ],
-      "paddingX": 0,
-      "paddingY": 0,
+      "paddingX": "space/0",
+      "paddingY": "space/0",
       "variantAxis": "checked",
       "page": "2 Atoms"
     },
@@ -275,8 +277,8 @@
         }
       },
       "children": [],
-      "paddingX": 0,
-      "paddingY": 0,
+      "paddingX": "space/0",
+      "paddingY": "space/0",
       "variantAxis": "orientation",
       "page": "2 Atoms"
     },
@@ -297,7 +299,7 @@
           "value": "Label",
           "fontFamily": "Inter",
           "fontStyle": "Medium",
-          "fontSize": 14,
+          "fontSize": "font/14",
           "color": "color/foreground"
         }
       ],
@@ -314,8 +316,8 @@
       },
       "width": 320,
       "box": {
-        "paddingX": 24,
-        "paddingY": 24
+        "paddingX": "space/24",
+        "paddingY": "space/24"
       },
       "variants": {
         "default": {
@@ -331,7 +333,7 @@
           "value": "Card title",
           "fontFamily": "Inter",
           "fontStyle": "Semi Bold",
-          "fontSize": 18,
+          "fontSize": "font/18",
           "color": "color/card-foreground",
           "stretch": true
         },
@@ -341,7 +343,7 @@
           "value": "РћРїРёСЃР°РЅРёРµ РєР°СЂС‚РѕС‡РєРё РёР· С‚РѕРєРµРЅРѕРІ Р”РЎ.",
           "fontFamily": "Inter",
           "fontStyle": "Regular",
-          "fontSize": 14,
+          "fontSize": "font/14",
           "color": "color/muted-foreground",
           "stretch": true
         }
@@ -388,15 +390,15 @@
       ],
       "sizes": {
         "h1": {
-          "fontSize": 28,
+          "fontSize": "font/28",
           "fontStyle": "Semi Bold"
         },
         "h2": {
-          "fontSize": 22,
+          "fontSize": "font/22",
           "fontStyle": "Semi Bold"
         },
         "h3": {
-          "fontSize": 18,
+          "fontSize": "font/18",
           "fontStyle": "Semi Bold"
         }
       },
@@ -438,11 +440,11 @@
       ],
       "sizes": {
         "default": {
-          "fontSize": 14,
+          "fontSize": "font/14",
           "fontStyle": "Regular"
         },
         "muted": {
-          "fontSize": 14,
+          "fontSize": "font/14",
           "fontStyle": "Regular"
         }
       },
@@ -479,8 +481,8 @@
         }
       },
       "radius": "radius/default",
-      "paddingX": 12,
-      "paddingY": 10,
+      "paddingX": "space/12",
+      "paddingY": "space/10",
       "children": [
         {
           "type": "text",
@@ -488,7 +490,7 @@
           "value": "Описание деятельности компании",
           "fontFamily": "Inter",
           "fontStyle": "Regular",
-          "fontSize": 14,
+          "fontSize": "font/14",
           "colorFromVariant": true,
           "stretch": true
         }
@@ -519,8 +521,8 @@
         }
       },
       "radius": "radius/xl",
-      "paddingX": 0,
-      "paddingY": 0,
+      "paddingX": "space/0",
+      "paddingY": "space/0",
       "children": [
         {
           "type": "rect",
@@ -564,8 +566,8 @@
         }
       },
       "radiusPx": 9,
-      "paddingX": 0,
-      "paddingY": 0,
+      "paddingX": "space/0",
+      "paddingY": "space/0",
       "children": [
         {
           "type": "rect",
@@ -596,8 +598,8 @@
       },
       "width": 440,
       "autoWidth": false,
-      "paddingX": 24,
-      "paddingY": 24,
+      "paddingX": "space/24",
+      "paddingY": "space/24",
       "variants": {
         "default": {
           "fill": "color/card",
@@ -612,7 +614,7 @@
           "value": "Подтверждение",
           "fontFamily": "Inter",
           "fontStyle": "Semi Bold",
-          "fontSize": 18,
+          "fontSize": "font/18",
           "color": "color/card-foreground",
           "stretch": true
         },
@@ -622,7 +624,7 @@
           "value": "Проверьте данные перед отправкой.",
           "fontFamily": "Inter",
           "fontStyle": "Regular",
-          "fontSize": 14,
+          "fontSize": "font/14",
           "color": "color/muted-foreground",
           "stretch": true
         }

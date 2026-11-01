@@ -37,8 +37,20 @@ function paint(node, tokenName, field = "fills") {
   return false;
 }
 
-function bindNumber(node, field, tokenName) {
-  const value = TOKENS[tokenName];
+/** Числовое значение: либо число, либо имя FLOAT-токена (space/16, font/14). */
+function numValue(v, fallback) {
+  if (v === undefined || v === null) return fallback;
+  if (typeof v === "number") return v;
+  const token = TOKENS[v];
+  return typeof token === "number" ? token : Number(v);
+}
+
+/** Имя токена, если значение задано строкой из шкалы. */
+function numToken(v) {
+  return typeof v === "string" && typeof TOKENS[v] === "number" ? v : null;
+}
+
+function bindNumber(node, field, tokenName) {  const value = TOKENS[tokenName];
   const v = varByName.get(tokenName);
   if (v) {
     try {
@@ -192,12 +204,24 @@ function applyBox(node, box, combo, sizeDef) {
   if (box.width) node.resize(box.width, node.height);
   if (box.height) node.resize(node.width, box.height);
   if (box.paddingX !== undefined) {
-    node.paddingLeft = box.paddingX;
-    node.paddingRight = box.paddingX;
+    const px = numValue(box.paddingX, 0);
+    node.paddingLeft = px;
+    node.paddingRight = px;
+    const t = numToken(box.paddingX);
+    if (t) {
+      bindNumber(node, "paddingLeft", t);
+      bindNumber(node, "paddingRight", t);
+    }
   }
   if (box.paddingY !== undefined) {
-    node.paddingTop = box.paddingY;
-    node.paddingBottom = box.paddingY;
+    const py = numValue(box.paddingY, 0);
+    node.paddingTop = py;
+    node.paddingBottom = py;
+    const t = numToken(box.paddingY);
+    if (t) {
+      bindNumber(node, "paddingTop", t);
+      bindNumber(node, "paddingBottom", t);
+    }
   }
 
   if (box.fill !== undefined) {
@@ -293,10 +317,26 @@ for (const comp of SPEC.components) {
       }
 
       if (!isAbsolute) {
-        node.paddingTop = comp.paddingY ?? sizeDef.paddingY ?? 8;
-        node.paddingBottom = comp.paddingY ?? sizeDef.paddingY ?? 8;
-        node.paddingLeft = comp.paddingX ?? sizeDef.paddingX ?? 12;
-        node.paddingRight = comp.paddingX ?? sizeDef.paddingX ?? 12;
+        const padXsrc = comp.paddingX ?? sizeDef.paddingX ?? 12;
+        const padYsrc = comp.paddingY ?? sizeDef.paddingY ?? 8;
+        const padX = numValue(padXsrc, 12);
+        const padY = numValue(padYsrc, 8);
+
+        node.paddingLeft = padX;
+        node.paddingRight = padX;
+        node.paddingTop = padY;
+        node.paddingBottom = padY;
+
+        const padXtoken = numToken(padXsrc);
+        if (padXtoken) {
+          bindNumber(node, "paddingLeft", padXtoken);
+          bindNumber(node, "paddingRight", padXtoken);
+        }
+        const padYtoken = numToken(padYsrc);
+        if (padYtoken) {
+          bindNumber(node, "paddingTop", padYtoken);
+          bindNumber(node, "paddingBottom", padYtoken);
+        }
       }
 
       applyBox(node, comp.box, combo, sizeDef);
@@ -378,7 +418,10 @@ async function buildChild(child, combo, sizeDef, variantDef, variantKey) {
     text.name = child.name ?? "text";
     text.fontName = { family: fontFamily, style: fontStyle };
     text.characters = child.value ?? "Text";
-    text.fontSize = child.fontSizeFromSize ? sizeDef.fontSize ?? 14 : child.fontSize ?? 14;
+    const fontSource = child.fontSizeFromSize ? sizeDef.fontSize ?? 14 : child.fontSize ?? 14;
+    text.fontSize = numValue(fontSource, 14);
+    const fontToken = numToken(fontSource);
+    if (fontToken) bindNumber(text, "fontSize", fontToken);
 
     let colorToken = child.color;
     if (child.colorFromVariant) colorToken = variantDef.text;

@@ -94,6 +94,31 @@ const tokens = {
   variables,
 };
 
+// Числовая шкала: производные Tailwind (4px-шаг) и размеры шрифта. Одна шкала на код и макет.
+const NUMERIC = {
+  "space/2": 2,
+  "space/4": 4,
+  "space/6": 6,
+  "space/8": 8,
+  "space/10": 10,
+  "space/12": 12,
+  "space/16": 16,
+  "space/24": 24,
+  "space/32": 32,
+  "font/12": 12,
+  "font/13": 13,
+  "font/14": 14,
+  "font/16": 16,
+  "font/18": 18,
+  "font/22": 22,
+  "font/28": 28,
+  "stroke/1": 1,
+};
+
+for (const [name, value] of Object.entries(NUMERIC)) {
+  tokens.variables.push({ name, type: "number", values: { Light: value, Dark: value } });
+}
+
 await writeFile(OUT_PATH, `${JSON.stringify(tokens, null, 2)}\n`, "utf8");
 
 console.log(`tokens: ${variables.length} (${variables.filter((v) => v.type === "color").length} color, число)`);

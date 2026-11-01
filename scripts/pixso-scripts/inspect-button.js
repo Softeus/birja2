@@ -1,19 +1,18 @@
-// Что реально привязано у варианта Button: fills/radius/размеры.
-const set = pixso.currentPage.children.find((c) => c.name === "Button");
+// Что привязано у варианта Button: fills/radius/padding/fontSize.
+const page = pixso.root.children.find((c) => c.type === "PAGE" && c.name === "2 Atoms");
+const set = page.children.find((c) => c.name === "Button");
 const child = set.children.find((c) => c.name.includes("variant=default") && c.name.includes("size=default"));
 const text = child.children.find((c) => c.type === "TEXT");
 
+const names = await pixso.variables.getLocalVariablesAsync();
+const byId = new Map(names.map((v) => [v.id, v.name]));
+const pretty = (bv) =>
+  Object.fromEntries(
+    Object.entries(bv ?? {}).map(([k, arr]) => [k, (Array.isArray(arr) ? arr : [arr]).map((a) => byId.get(a.id) ?? a.id)]),
+  );
+
 return {
-  node: { name: child.name, w: child.width, h: child.height, cornerRadius: child.cornerRadius },
-  fills: child.fills,
-  boundVariables: child.boundVariables,
-  text: {
-    characters: text?.characters,
-    fontSize: text?.fontSize,
-    fills: text?.fills,
-    boundVariables: text?.boundVariables,
-    width: text?.width,
-    height: text?.height,
-  },
-  childrenCount: set.children.length,
+  node: { w: child.width, h: child.height, padding: [child.paddingLeft, child.paddingTop] },
+  bound: pretty(child.boundVariables),
+  text: { fontSize: text.fontSize, bound: pretty(text.boundVariables) },
 };
