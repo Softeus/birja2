@@ -44,6 +44,6 @@ ds/screens/*.ast.json ──► validate ──► Pixso screens ─┐
 
 ## Смоук
 
-- Pixso: страница `Components` (13 компонентов) и `Screens` (5 экранов: 4 шага формы юрлица + успех).
-- React-макеты: `pnpm dev` → `/mock/company-step1`, `/mock/company-step2`, `/mock/company-step3`, `/mock/company-review`, `/mock/company-success`.
+- Pixso: страница `Components` (13 компонентов) и `Screens` (6 экранов: логин + 4 шага формы юрлица + успех).
+- React-макеты: `pnpm dev` → `/mock/login`, `/mock/company-step1…3`, `/mock/company-review`, `/mock/company-success`.
 - Интерактивный прототип: `/prototype/company` (4 шага, валидация, диалог подтверждения, экран успеха).

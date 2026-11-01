@@ -24,8 +24,8 @@
 | Привязки | Заливки/обводки/радиус привязаны к переменным (`setBoundVariableForPaint`), аудит экранов: 0 detached, 0 «сырых» заливок |
 | Контракт | `ds-manifest.json`: ключи компонентов, допустимые пропсы, слоты |
 | AST | `schemas/ui-ast.schema.json`, валидатор `ds:ast` (3 экрана валидны), сборщик `ds:screens` |
-| Экраны | `CompanyStep1/2/3`, `CompanyReview`, `CompanySuccess`: 19/20/18/23/11 инстансов, 0 ошибок, 0 detached, 0 «сырых» заливок |
-| React | тот же AST рендерится на shadcn: `/mock/company-step1…3`, `/mock/company-review`, `/mock/company-success` |
+| Экраны | `Login`, `CompanyStep1/2/3`, `CompanyReview`, `CompanySuccess`: 14/19/20/18/23/11 инстансов, 0 ошибок, 0 detached, 0 «сырых» заливок |
+| React | тот же AST рендерится на shadcn: `/mock/login`, `/mock/company-step1…3`, `/mock/company-review`, `/mock/company-success` |
 | Прототип | `app/prototype/company` — 4 шага, валидация ИНН/КПП/ОГРН/email/телефона, Switch, RadioGroup, Checkbox, диалог подтверждения, экран успеха |
 | Библиотека v2 | + Textarea (2 состояния), Switch (2), Radio (2), Dialog (1) — 13 наборов |
 
