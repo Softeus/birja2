@@ -7,6 +7,15 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -22,7 +31,6 @@ type Field = {
   kind?: "text" | "email" | "tel" | "textarea"
   required?: boolean
   pattern?: { re: RegExp; hint: string }
-  hint?: string
 }
 
 type Step = {
@@ -36,7 +44,7 @@ const STEPS: Step[] = [
   {
     id: "org",
     title: "Данные организации",
-    subtitle: "Шаг 1 из 3 · реквизиты по выписке ЕГРЮЛ",
+    subtitle: "Шаг 1 из 4 · реквизиты по выписке ЕГРЮЛ",
     fields: [
       { name: "name", label: "Полное наименование", placeholder: "ООО «Ромашка»", required: true },
       { name: "inn", label: "ИНН", placeholder: "10 цифр", required: true, pattern: { re: /^\d{10}$/, hint: "ИНН — ровно 10 цифр" } },
@@ -48,7 +56,7 @@ const STEPS: Step[] = [
   {
     id: "address",
     title: "Адреса",
-    subtitle: "Шаг 2 из 3 · юридический и фактический адрес",
+    subtitle: "Шаг 2 из 4 · юридический и фактический адрес",
     fields: [
       { name: "legalAddress", label: "Юридический адрес", placeholder: "123456, Москва, ул. Ленина, д. 1", required: true },
       { name: "postalCode", label: "Индекс", placeholder: "123456", pattern: { re: /^\d{6}$/, hint: "Индекс — 6 цифр" } },
@@ -58,7 +66,7 @@ const STEPS: Step[] = [
   {
     id: "contact",
     title: "Руководитель и контакты",
-    subtitle: "Шаг 3 из 3 · лицо, действующее от имени организации",
+    subtitle: "Шаг 3 из 4 · лицо, действующее от имени организации",
     fields: [
       { name: "ceo", label: "ФИО руководителя", placeholder: "Иванов Иван Иванович", required: true },
       { name: "position", label: "Должность", placeholder: "Генеральный директор", required: true },
@@ -66,6 +74,23 @@ const STEPS: Step[] = [
       { name: "phone", label: "Телефон", placeholder: "+7 (999) 123-45-67", kind: "tel", required: true, pattern: { re: /^\+?[\d\s()-]{10,18}$/, hint: "Телефон — от 10 до 18 символов" } },
     ],
   },
+  {
+    id: "review",
+    title: "Проверка данных",
+    subtitle: "Шаг 4 из 4 · всё ли верно",
+    fields: [],
+  },
+]
+
+const REVIEW_ROWS: { label: string; key: string }[] = [
+  { label: "Организация", key: "name" },
+  { label: "ИНН / КПП", key: "inn" },
+  { label: "ОГРН", key: "ogrn" },
+  { label: "Юридический адрес", key: "legalAddress" },
+  { label: "Руководитель", key: "ceo" },
+  { label: "Должность", key: "position" },
+  { label: "Email", key: "email" },
+  { label: "Телефон", key: "phone" },
 ]
 
 export function CompanyFlowPrototype() {
@@ -76,6 +101,7 @@ export function CompanyFlowPrototype() {
   const [agree, setAgree] = useState(false)
   const [ownership, setOwnership] = useState("ooo")
   const [sent, setSent] = useState(false)
+  const [confirmOpen, setConfirmOpen] = useState(false)
 
   const step = STEPS[stepIndex]
   const last = stepIndex === STEPS.length - 1
@@ -104,17 +130,18 @@ export function CompanyFlowPrototype() {
   const next = () => {
     if (!validate()) return
     if (last) {
-      if (!agree) {
-        setErrors({ agree: "Нужно согласие на обработку данных" })
-        return
-      }
-      setSent(true)
+      setConfirmOpen(true)
       return
     }
     setStepIndex((i) => Math.min(i + 1, STEPS.length - 1))
   }
 
   const back = () => setStepIndex((i) => Math.max(0, i - 1))
+
+  const submit = () => {
+    setConfirmOpen(false)
+    setSent(true)
+  }
 
   if (sent) {
     return (
@@ -133,7 +160,13 @@ export function CompanyFlowPrototype() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Button variant="outline" onClick={() => { setSent(false); setStepIndex(0) }}>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setSent(false)
+                setStepIndex(0)
+              }}
+            >
               Заполнить ещё раз
             </Button>
           </CardContent>
@@ -157,72 +190,91 @@ export function CompanyFlowPrototype() {
         <h1 className="text-[28px] leading-tight font-semibold tracking-tight">{step.title}</h1>
         <Separator />
 
-        <div className="flex flex-col gap-4">
-          {step.fields.map((field) => (
-            <div key={field.name} className="flex flex-col gap-1.5">
-              <Label htmlFor={field.name}>
-                {field.label}
-                {field.required && <span className="text-destructive"> *</span>}
-              </Label>
-
-              {field.kind === "textarea" ? (
-                <Textarea
-                  id={field.name}
-                  placeholder={field.placeholder}
-                  value={values[field.name] ?? ""}
-                  aria-invalid={Boolean(errors[field.name]) || undefined}
-                  onChange={(e) => setValue(field.name, e.target.value)}
-                />
-              ) : (
-                <Input
-                  id={field.name}
-                  type={field.kind ?? "text"}
-                  placeholder={field.placeholder}
-                  value={values[field.name] ?? ""}
-                  aria-invalid={Boolean(errors[field.name]) || undefined}
-                  onChange={(e) => setValue(field.name, e.target.value)}
-                />
-              )}
-
-              {errors[field.name] && <p className="text-destructive text-xs">{errors[field.name]}</p>}
-            </div>
-          ))}
-
-          {step.id === "address" && (
-            <div className="flex items-center gap-2">
-              <Switch id="same-address" checked={sameAddress} onCheckedChange={setSameAddress} />
-              <Label htmlFor="same-address">Фактический адрес совпадает с юридическим</Label>
-            </div>
-          )}
-
-          {step.id === "contact" && (
-            <>
-              <div className="flex flex-col gap-2">
-                <Label>Форма собственности</Label>
-                <RadioGroup value={ownership} onValueChange={setOwnership} className="flex gap-4">
-                  {[
-                    { value: "ooo", label: "ООО" },
-                    { value: "ao", label: "АО" },
-                    { value: "ip", label: "ИП" },
-                  ].map((item) => (
-                    <div key={item.value} className="flex items-center gap-2">
-                      <RadioGroupItem value={item.value} id={`own-${item.value}`} />
-                      <Label htmlFor={`own-${item.value}`}>{item.label}</Label>
-                    </div>
-                  ))}
-                </RadioGroup>
+        {step.id === "review" ? (
+          <div className="flex flex-col gap-3">
+            {REVIEW_ROWS.map((row) => (
+              <div key={row.key} className="flex flex-col gap-0.5">
+                <span className="text-muted-foreground text-xs">{row.label}</span>
+                <span className="text-sm">{values[row.key] || "—"}</span>
               </div>
+            ))}
+            <Separator />
+            <div className={cn("flex items-start gap-2", errors.agree && "text-destructive")}>
+              <Checkbox id="agree-review" checked={agree} onCheckedChange={(v) => setAgree(Boolean(v))} />
+              <div>
+                <Label htmlFor="agree-review">Подтверждаю достоверность данных</Label>
+                {errors.agree && <p className="text-xs">{errors.agree}</p>}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-4">
+            {step.fields.map((field) => (
+              <div key={field.name} className="flex flex-col gap-1.5">
+                <Label htmlFor={field.name}>
+                  {field.label}
+                  {field.required && <span className="text-destructive"> *</span>}
+                </Label>
 
-              <div className={cn("flex items-start gap-2", errors.agree && "text-destructive")}>
-                <Checkbox id="agree" checked={agree} onCheckedChange={(v) => setAgree(Boolean(v))} />
-                <div>
-                  <Label htmlFor="agree">Согласен на обработку персональных данных</Label>
-                  {errors.agree && <p className="text-xs">{errors.agree}</p>}
+                {field.kind === "textarea" ? (
+                  <Textarea
+                    id={field.name}
+                    placeholder={field.placeholder}
+                    value={values[field.name] ?? ""}
+                    aria-invalid={Boolean(errors[field.name]) || undefined}
+                    onChange={(e) => setValue(field.name, e.target.value)}
+                  />
+                ) : (
+                  <Input
+                    id={field.name}
+                    type={field.kind ?? "text"}
+                    placeholder={field.placeholder}
+                    value={values[field.name] ?? ""}
+                    aria-invalid={Boolean(errors[field.name]) || undefined}
+                    onChange={(e) => setValue(field.name, e.target.value)}
+                  />
+                )}
+
+                {errors[field.name] && <p className="text-destructive text-xs">{errors[field.name]}</p>}
+              </div>
+            ))}
+
+            {step.id === "address" && (
+              <div className="flex items-center gap-2">
+                <Switch id="same-address" checked={sameAddress} onCheckedChange={setSameAddress} />
+                <Label htmlFor="same-address">Фактический адрес совпадает с юридическим</Label>
+              </div>
+            )}
+
+            {step.id === "contact" && (
+              <>
+                <div className="flex flex-col gap-2">
+                  <Label>Форма собственности</Label>
+                  <RadioGroup value={ownership} onValueChange={setOwnership} className="flex gap-4">
+                    {[
+                      { value: "ooo", label: "ООО" },
+                      { value: "ao", label: "АО" },
+                      { value: "ip", label: "ИП" },
+                    ].map((item) => (
+                      <div key={item.value} className="flex items-center gap-2">
+                        <RadioGroupItem value={item.value} id={`own-${item.value}`} />
+                        <Label htmlFor={`own-${item.value}`}>{item.label}</Label>
+                      </div>
+                    ))}
+                  </RadioGroup>
                 </div>
-              </div>
-            </>
-          )}
-        </div>
+
+                <div className={cn("flex items-start gap-2", errors.agree && "text-destructive")}>
+                  <Checkbox id="agree" checked={agree} onCheckedChange={(v) => setAgree(Boolean(v))} />
+                  <div>
+                    <Label htmlFor="agree">Согласен на обработку персональных данных</Label>
+                    {errors.agree && <p className="text-xs">{errors.agree}</p>}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        )}
 
         <Separator />
 
@@ -230,7 +282,31 @@ export function CompanyFlowPrototype() {
           <Button variant="outline" onClick={back} disabled={stepIndex === 0}>
             Назад
           </Button>
-          <Button onClick={next}>{last ? "Отправить заявку" : "Далее"}</Button>
+
+          {last ? (
+            <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+              <DialogTrigger asChild>
+                <Button>Отправить заявку</Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Отправить заявку?</DialogTitle>
+                  <DialogDescription>
+                    Данные уйдут на проверку в ЕГРЮЛ. Изменить реквизиты после отправки нельзя.
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setConfirmOpen(false)}>
+                    Отмена
+                  </Button>
+                  <Button onClick={submit}>Подтвердить</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          ) : (
+            <Button onClick={next}>Далее</Button>
+          )}
+
           <span className="text-muted-foreground ml-auto text-xs">
             {Object.keys(values).filter((k) => values[k]).length} заполнено
           </span>

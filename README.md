@@ -19,6 +19,8 @@ ds/screens/*.ast.json ──► validate ──► Pixso screens ─┐
 | `pnpm ds:build` | `ds/library.spec.json` → ComponentSets в Pixso + `ds-manifest.json` |
 | `pnpm ds:ast` | валидация `ds/screens/*.ast.json` против манифеста |
 | `pnpm ds:screens` | сборка экранов из AST в Pixso |
+| `pnpm ds:shots` | скриншоты всех собранных экранов в `_meta/shots` |
+| `pnpm ds:audit` | аудит экранов: detached-инстансы, «сырые» заливки |
 | `pnpm ds:sync` | весь пайплайн одной командой |
 
 ## Структура
@@ -42,6 +44,6 @@ ds/screens/*.ast.json ──► validate ──► Pixso screens ─┐
 
 ## Смоук
 
-- Pixso: страница `Components` (13 компонентов) и `Screens` (4 экрана: 3 шага формы юрлица + успех).
-- React-макеты: `pnpm dev` → `/mock/company-step1`, `/mock/company-step2`, `/mock/company-step3`, `/mock/company-success`.
-- Интерактивный прототип: `/prototype/company` (валидация, переходы, экран успеха).
+- Pixso: страница `Components` (13 компонентов) и `Screens` (5 экранов: 4 шага формы юрлица + успех).
+- React-макеты: `pnpm dev` → `/mock/company-step1`, `/mock/company-step2`, `/mock/company-step3`, `/mock/company-review`, `/mock/company-success`.
+- Интерактивный прототип: `/prototype/company` (4 шага, валидация, диалог подтверждения, экран успеха).

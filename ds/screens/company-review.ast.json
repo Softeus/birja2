@@ -1,0 +1,108 @@
+{
+  "screen": "CompanyReview",
+  "title": "Проверка данных юрлица",
+  "frame": { "width": 480, "padding": 24, "gap": 20, "background": "color/background" },
+  "elements": [
+    { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "Шаг 4 из 4" } },
+    { "component": "Heading", "props": { "level": "h1" }, "slots": { "text": "Проверка данных" } },
+    { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "Сверьте реквизиты перед отправкой заявки." } },
+    { "component": "Separator", "props": { "orientation": "horizontal" } },
+    {
+      "type": "stack",
+      "direction": "VERTICAL",
+      "gap": 14,
+      "children": [
+        {
+          "type": "stack",
+          "direction": "VERTICAL",
+          "gap": 2,
+          "children": [
+            { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "Организация" } },
+            { "component": "Text", "props": { "variant": "default" }, "slots": { "text": "ООО «Ромашка»" } }
+          ]
+        },
+        {
+          "type": "stack",
+          "direction": "HORIZONTAL",
+          "gap": 16,
+          "children": [
+            {
+              "type": "stack",
+              "direction": "VERTICAL",
+              "gap": 2,
+              "grow": 1,
+              "children": [
+                { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "ИНН" } },
+                { "component": "Text", "props": { "variant": "default" }, "slots": { "text": "7701234567" } }
+              ]
+            },
+            {
+              "type": "stack",
+              "direction": "VERTICAL",
+              "gap": 2,
+              "grow": 1,
+              "children": [
+                { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "КПП" } },
+                { "component": "Text", "props": { "variant": "default" }, "slots": { "text": "770101001" } }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "stack",
+          "direction": "VERTICAL",
+          "gap": 2,
+          "children": [
+            { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "Юридический адрес" } },
+            { "component": "Text", "props": { "variant": "default" }, "slots": { "text": "123456, Москва, ул. Ленина, д. 1" } }
+          ]
+        },
+        {
+          "type": "stack",
+          "direction": "VERTICAL",
+          "gap": 2,
+          "children": [
+            { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "Руководитель" } },
+            { "component": "Text", "props": { "variant": "default" }, "slots": { "text": "Иванов Иван Иванович, генеральный директор" } }
+          ]
+        },
+        {
+          "type": "stack",
+          "direction": "VERTICAL",
+          "gap": 2,
+          "children": [
+            { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "Контакты" } },
+            { "component": "Text", "props": { "variant": "default" }, "slots": { "text": "name@company.ru · +7 (999) 123-45-67" } }
+          ]
+        }
+      ]
+    },
+    { "component": "Separator", "props": { "orientation": "horizontal" } },
+    {
+      "type": "stack",
+      "direction": "HORIZONTAL",
+      "gap": 8,
+      "children": [
+        { "component": "Checkbox", "props": { "checked": "true" } },
+        { "component": "Text", "props": { "variant": "default" }, "slots": { "text": "Подтверждаю достоверность данных" } }
+      ]
+    },
+    {
+      "component": "Card",
+      "slots": {
+        "title": "Отправить заявку?",
+        "description": "Данные уйдут на проверку в ЕГРЮЛ. Изменить реквизиты после отправки нельзя."
+      }
+    },
+    { "component": "Separator", "props": { "orientation": "horizontal" } },
+    {
+      "type": "stack",
+      "direction": "HORIZONTAL",
+      "gap": 12,
+      "children": [
+        { "component": "Button", "props": { "variant": "outline", "size": "default" }, "slots": { "label": "Назад" } },
+        { "component": "Button", "props": { "variant": "default", "size": "default" }, "slots": { "label": "Отправить заявку" } }
+      ]
+    }
+  ]
+}

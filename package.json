@@ -13,7 +13,9 @@
     "ds:build": "node scripts/ds/build-library.mjs",
     "ds:ast": "node scripts/ds/validate-ast.mjs",
     "ds:screens": "node scripts/ds/assemble-screen.mjs",
-    "ds:sync": "node scripts/ds/tokens.mjs && node scripts/ds/push-tokens.mjs && node scripts/ds/verify-tokens.mjs && node scripts/ds/build-library.mjs && node scripts/ds/validate-ast.mjs && node scripts/ds/assemble-screen.mjs"
+    "ds:sync": "node scripts/ds/tokens.mjs && node scripts/ds/push-tokens.mjs && node scripts/ds/verify-tokens.mjs && node scripts/ds/build-library.mjs && node scripts/ds/validate-ast.mjs && node scripts/ds/assemble-screen.mjs",
+    "ds:shots": "node scripts/ds/shots.mjs",
+    "ds:audit": "node scripts/ds/eval.mjs scripts/pixso-scripts/audit-screens.js"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
