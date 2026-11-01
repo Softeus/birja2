@@ -60,7 +60,7 @@ export default function HeatmapPage() {
   }
 
   return (
-    <div className="dark flex h-screen flex-col bg-background text-foreground">
+    <div className="flex h-screen flex-col bg-background text-foreground">
       <header className="shrink-0 border-b px-6 py-3">
         <div className="flex items-center gap-5">
           <PulseGauge value={pulse?.value ?? null} zone={pulse?.zone ?? null} />
