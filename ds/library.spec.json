@@ -229,6 +229,7 @@
           "name": "check",
           "path": "M 13.333 4 L 6 11.333 l -3.333 -3.333",
           "strokeWeight": 1.33,
+          "center": true,
           "when": {
             "checked": "true"
           },

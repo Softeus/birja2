@@ -362,8 +362,13 @@ for (const comp of SPEC.components) {
         node.appendChild(childNode);
         const childX = child.xByVariant?.[combo[variantKey]] ?? child.x;
         const childY = child.yByVariant?.[combo[variantKey]] ?? child.y;
-        if (childX !== undefined) childNode.x = childX;
-        if (childY !== undefined) childNode.y = childY;
+        if (child.center) {
+          childNode.x = Math.round((node.width - childNode.width) / 2);
+          childNode.y = Math.round((node.height - childNode.height) / 2);
+        } else {
+          if (childX !== undefined) childNode.x = childX;
+          if (childY !== undefined) childNode.y = childY;
+        }
 
         // Для узлов без автолейаута заливка надёжнее применяется после appendChild.
         if (child.type === "rect") {
@@ -437,8 +442,11 @@ for (const comp of SPEC.components.filter((c) => c.iconSet)) {
       node.x = 32 + Math.max(0, nameList.indexOf(combo.name)) * 90;
       node.y = 32 + Math.max(0, sizeList.indexOf(combo.size)) * 56;
 
-      // Все подпути иконки — в одном векторе, иначе Pixso выравнивает каждый по своему bbox.
-      const iconData = (ICONS[`${combo.name}@${size}`] ?? []).join(" ");
+      // Все подпути — в одном векторе. Относительные пути из отдельных <path>
+      // отсчитываются от (0,0), поэтому перед ними ставим M 0 0.
+      const iconData = (ICONS[`${combo.name}@${size}`] ?? [])
+        .map((d, index) => (index > 0 && /^[mlhvcsqta]/.test(d) ? `M 0 0 ${d}` : d))
+        .join(" ");
       if (iconData) {
         const vector = pixso.createVector();
         vector.name = `path/${combo.name}`;
@@ -450,8 +458,9 @@ for (const comp of SPEC.components.filter((c) => c.iconSet)) {
         vector.strokeCap = "ROUND";
         vector.strokeJoin = "ROUND";
         node.appendChild(vector);
-        vector.x = 0;
-        vector.y = 0;
+        // Центрируем по bbox внутри контейнера.
+        vector.x = Math.round((size - vector.width) / 2);
+        vector.y = Math.round((size - vector.height) / 2);
       }
 
       components.push(node);
