@@ -33,7 +33,7 @@
         "variant": "muted"
       },
       "slots": {
-        "text": "Проверка занимает до 15 минут, результат придёт на указанный email."
+        "text": "Данные компании ООО «Ромашка» приняты. Проверка занимает до 15 минут, результат придёт на name@company.ru."
       }
     },
     {
@@ -43,78 +43,15 @@
       }
     },
     {
-      "component": "Card",
+      "component": "Button",
+      "props": {
+        "variant": "outline",
+        "size": "default"
+      },
       "slots": {
-        "title": "ООО «Ромашка»",
-        "description": "ИНН 7701234567 · КПП 770101001 · ОГРН 1027700123456"
-      }
-    },
-    {
-      "type": "stack",
-      "direction": "VERTICAL",
-      "gap": 10,
-      "children": [
-        {
-          "component": "Text",
-          "props": {
-            "variant": "default"
-          },
-          "slots": {
-            "text": "Руководитель: Иванов Иван Иванович"
-          }
-        },
-        {
-          "component": "Text",
-          "props": {
-            "variant": "default"
-          },
-          "slots": {
-            "text": "Должность: генеральный директор"
-          }
-        },
-        {
-          "component": "Text",
-          "props": {
-            "variant": "muted"
-          },
-          "slots": {
-            "text": "Контакт: name@company.ru"
-          }
-        }
-      ]
-    },
-    {
-      "component": "Separator",
-      "props": {
-        "orientation": "horizontal"
-      }
-    },
-    {
-      "type": "stack",
-      "direction": "HORIZONTAL",
-      "gap": 12,
-      "children": [
-        {
-          "component": "Button",
-          "props": {
-            "variant": "outline",
-            "size": "default"
-          },
-          "slots": {
-            "label": "Скачать заявку"
-          }
-        },
-        {
-          "component": "Button",
-          "props": {
-            "variant": "default",
-            "size": "default"
-          },
-          "slots": {
-            "label": "Вернуться в кабинет"
-          }
-        }
-      ]
+        "label": "Заполнить ещё раз"
+      },
+      "stretch": false
     }
   ]
 }

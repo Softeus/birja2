@@ -86,69 +86,29 @@
       }
     },
     {
-      "component": "Heading",
-      "props": {
-        "level": "h3"
-      },
-      "slots": {
-        "text": "Юридический адрес"
-      }
-    },
-    {
       "type": "stack",
       "direction": "VERTICAL",
-      "gap": 12,
+      "gap": 16,
       "children": [
         {
           "type": "stack",
-          "direction": "HORIZONTAL",
-          "gap": 12,
+          "direction": "VERTICAL",
+          "gap": 6,
           "children": [
             {
-              "type": "stack",
-              "direction": "VERTICAL",
-              "gap": 6,
-              "children": [
-                {
-                  "component": "Label",
-                  "slots": {
-                    "label": "Индекс"
-                  }
-                },
-                {
-                  "component": "Input",
-                  "props": {
-                    "state": "default"
-                  },
-                  "slots": {
-                    "placeholder": "123456"
-                  }
-                }
-              ],
-              "grow": 1
+              "component": "Label",
+              "slots": {
+                "label": "Юридический адрес *"
+              }
             },
             {
-              "type": "stack",
-              "direction": "VERTICAL",
-              "gap": 6,
-              "children": [
-                {
-                  "component": "Label",
-                  "slots": {
-                    "label": "Город"
-                  }
-                },
-                {
-                  "component": "Input",
-                  "props": {
-                    "state": "default"
-                  },
-                  "slots": {
-                    "placeholder": "Москва"
-                  }
-                }
-              ],
-              "grow": 1
+              "component": "Input",
+              "props": {
+                "state": "default"
+              },
+              "slots": {
+                "placeholder": "123456, Москва, ул. Ленина, д. 1"
+              }
             }
           ]
         },
@@ -160,7 +120,7 @@
             {
               "component": "Label",
               "slots": {
-                "label": "Улица, дом, офис"
+                "label": "Индекс"
               }
             },
             {
@@ -169,69 +129,51 @@
                 "state": "default"
               },
               "slots": {
-                "placeholder": "ул. Ленина, д. 1, оф. 10"
+                "placeholder": "123456"
               }
             }
           ]
-        }
-      ]
-    },
-    {
-      "component": "Separator",
-      "props": {
-        "orientation": "horizontal"
-      }
-    },
-    {
-      "component": "Heading",
-      "props": {
-        "level": "h3"
-      },
-      "slots": {
-        "text": "Фактический адрес"
-      }
-    },
-    {
-      "type": "stack",
-      "direction": "HORIZONTAL",
-      "gap": 8,
-      "children": [
-        {
-          "component": "Checkbox",
-          "props": {
-            "checked": "false"
-          }
         },
         {
-          "component": "Text",
-          "props": {
-            "variant": "default"
-          },
-          "slots": {
-            "text": "Совпадает с юридическим адресом"
-          }
-        }
-      ]
-    },
-    {
-      "type": "stack",
-      "direction": "VERTICAL",
-      "gap": 6,
-      "children": [
-        {
-          "component": "Label",
-          "slots": {
-            "label": "Адрес доставки корреспонденции"
-          }
+          "type": "stack",
+          "direction": "VERTICAL",
+          "gap": 6,
+          "children": [
+            {
+              "component": "Label",
+              "slots": {
+                "label": "Адрес для корреспонденции"
+              }
+            },
+            {
+              "component": "Input",
+              "props": {
+                "state": "default"
+              },
+              "slots": {
+                "placeholder": "Если отличается от юридического"
+              }
+            }
+          ]
         },
         {
-          "component": "Input",
-          "props": {
-            "state": "default"
-          },
-          "slots": {
-            "placeholder": "Если отличается от юридического"
-          }
+          "type": "stack",
+          "direction": "HORIZONTAL",
+          "gap": 8,
+          "children": [
+            {
+              "component": "Switch",
+              "props": {
+                "checked": "true"
+              }
+            },
+            {
+              "component": "Label",
+              "slots": {
+                "label": "Фактический адрес совпадает с юридическим"
+              }
+            }
+          ]
         }
       ]
     },
@@ -249,7 +191,7 @@
         {
           "component": "Button",
           "props": {
-            "variant": "ghost",
+            "variant": "outline",
             "size": "default"
           },
           "slots": {

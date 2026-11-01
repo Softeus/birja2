@@ -117,60 +117,76 @@
         },
         {
           "type": "stack",
-          "direction": "HORIZONTAL",
-          "gap": 16,
+          "direction": "VERTICAL",
+          "gap": 2,
           "children": [
             {
-              "type": "stack",
-              "direction": "VERTICAL",
-              "gap": 2,
-              "grow": 1,
-              "children": [
-                {
-                  "component": "Text",
-                  "props": {
-                    "variant": "muted"
-                  },
-                  "slots": {
-                    "text": "ИНН"
-                  }
-                },
-                {
-                  "component": "Text",
-                  "props": {
-                    "variant": "default"
-                  },
-                  "slots": {
-                    "text": "7701234567"
-                  }
-                }
-              ]
+              "component": "Text",
+              "props": {
+                "variant": "muted"
+              },
+              "slots": {
+                "text": "ИНН"
+              }
             },
             {
-              "type": "stack",
-              "direction": "VERTICAL",
-              "gap": 2,
-              "grow": 1,
-              "children": [
-                {
-                  "component": "Text",
-                  "props": {
-                    "variant": "muted"
-                  },
-                  "slots": {
-                    "text": "КПП"
-                  }
-                },
-                {
-                  "component": "Text",
-                  "props": {
-                    "variant": "default"
-                  },
-                  "slots": {
-                    "text": "770101001"
-                  }
-                }
-              ]
+              "component": "Text",
+              "props": {
+                "variant": "default"
+              },
+              "slots": {
+                "text": "7701234567"
+              }
+            }
+          ]
+        },
+        {
+          "type": "stack",
+          "direction": "VERTICAL",
+          "gap": 2,
+          "children": [
+            {
+              "component": "Text",
+              "props": {
+                "variant": "muted"
+              },
+              "slots": {
+                "text": "КПП"
+              }
+            },
+            {
+              "component": "Text",
+              "props": {
+                "variant": "default"
+              },
+              "slots": {
+                "text": "770101001"
+              }
+            }
+          ]
+        },
+        {
+          "type": "stack",
+          "direction": "VERTICAL",
+          "gap": 2,
+          "children": [
+            {
+              "component": "Text",
+              "props": {
+                "variant": "muted"
+              },
+              "slots": {
+                "text": "ОГРН"
+              }
+            },
+            {
+              "component": "Text",
+              "props": {
+                "variant": "default"
+              },
+              "slots": {
+                "text": "1027700123456"
+              }
             }
           ]
         },
@@ -219,7 +235,7 @@
                 "variant": "default"
               },
               "slots": {
-                "text": "Иванов Иван Иванович, генеральный директор"
+                "text": "Иванов Иван Иванович"
               }
             }
           ]
@@ -235,7 +251,7 @@
                 "variant": "muted"
               },
               "slots": {
-                "text": "Контакты"
+                "text": "Должность"
               }
             },
             {
@@ -244,7 +260,57 @@
                 "variant": "default"
               },
               "slots": {
-                "text": "name@company.ru · +7 (999) 123-45-67"
+                "text": "Генеральный директор"
+              }
+            }
+          ]
+        },
+        {
+          "type": "stack",
+          "direction": "VERTICAL",
+          "gap": 2,
+          "children": [
+            {
+              "component": "Text",
+              "props": {
+                "variant": "muted"
+              },
+              "slots": {
+                "text": "Email"
+              }
+            },
+            {
+              "component": "Text",
+              "props": {
+                "variant": "default"
+              },
+              "slots": {
+                "text": "name@company.ru"
+              }
+            }
+          ]
+        },
+        {
+          "type": "stack",
+          "direction": "VERTICAL",
+          "gap": 2,
+          "children": [
+            {
+              "component": "Text",
+              "props": {
+                "variant": "muted"
+              },
+              "slots": {
+                "text": "Телефон"
+              }
+            },
+            {
+              "component": "Text",
+              "props": {
+                "variant": "default"
+              },
+              "slots": {
+                "text": "+7 (999) 123-45-67"
               }
             }
           ]
@@ -269,22 +335,12 @@
           }
         },
         {
-          "component": "Text",
-          "props": {
-            "variant": "default"
-          },
+          "component": "Label",
           "slots": {
-            "text": "Подтверждаю достоверность данных"
+            "label": "Подтверждаю достоверность данных"
           }
         }
       ]
-    },
-    {
-      "component": "Card",
-      "slots": {
-        "title": "Отправить заявку?",
-        "description": "Данные уйдут на проверку в ЕГРЮЛ. Изменить реквизиты после отправки нельзя."
-      }
     },
     {
       "component": "Separator",

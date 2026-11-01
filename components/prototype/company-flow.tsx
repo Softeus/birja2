@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
@@ -36,7 +35,8 @@ type Field = {
 type Step = {
   id: string
   title: string
-  subtitle: string
+  step: string
+  description: string
   fields: Field[]
 }
 
@@ -44,7 +44,8 @@ const STEPS: Step[] = [
   {
     id: "org",
     title: "Данные организации",
-    subtitle: "Шаг 1 из 4 · реквизиты по выписке ЕГРЮЛ",
+    step: "Шаг 1 из 4",
+    description: "Заполните реквизиты по выписке ЕГРЮЛ.",
     fields: [
       { name: "name", label: "Полное наименование", placeholder: "ООО «Ромашка»", required: true },
       { name: "inn", label: "ИНН", placeholder: "10 цифр", required: true, pattern: { re: /^\d{10}$/, hint: "ИНН — ровно 10 цифр" } },
@@ -56,7 +57,8 @@ const STEPS: Step[] = [
   {
     id: "address",
     title: "Адреса",
-    subtitle: "Шаг 2 из 4 · юридический и фактический адрес",
+    step: "Шаг 2 из 4",
+    description: "Юридический и фактический адрес организации.",
     fields: [
       { name: "legalAddress", label: "Юридический адрес", placeholder: "123456, Москва, ул. Ленина, д. 1", required: true },
       { name: "postalCode", label: "Индекс", placeholder: "123456", pattern: { re: /^\d{6}$/, hint: "Индекс — 6 цифр" } },
@@ -66,7 +68,8 @@ const STEPS: Step[] = [
   {
     id: "contact",
     title: "Руководитель и контакты",
-    subtitle: "Шаг 3 из 4 · лицо, действующее от имени организации",
+    step: "Шаг 3 из 4",
+    description: "Данные лица, действующего от имени организации.",
     fields: [
       { name: "ceo", label: "ФИО руководителя", placeholder: "Иванов Иван Иванович", required: true },
       { name: "position", label: "Должность", placeholder: "Генеральный директор", required: true },
@@ -77,14 +80,16 @@ const STEPS: Step[] = [
   {
     id: "review",
     title: "Проверка данных",
-    subtitle: "Шаг 4 из 4 · всё ли верно",
+    step: "Шаг 4 из 4",
+    description: "Сверьте реквизиты перед отправкой заявки.",
     fields: [],
   },
 ]
 
 const REVIEW_ROWS: { label: string; key: string }[] = [
   { label: "Организация", key: "name" },
-  { label: "ИНН / КПП", key: "inn" },
+  { label: "ИНН", key: "inn" },
+  { label: "КПП", key: "kpp" },
   { label: "ОГРН", key: "ogrn" },
   { label: "Юридический адрес", key: "legalAddress" },
   { label: "Руководитель", key: "ceo" },
@@ -93,18 +98,27 @@ const REVIEW_ROWS: { label: string; key: string }[] = [
   { label: "Телефон", key: "phone" },
 ]
 
+const ACTUAL_ADDRESS_FIELD: Field = {
+  name: "actualAddress",
+  label: "Фактический адрес",
+  placeholder: "Если отличается от юридического",
+  required: true,
+}
+
 export function CompanyFlowPrototype() {
   const [stepIndex, setStepIndex] = useState(0)
   const [values, setValues] = useState<Record<string, string>>({})
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [sameAddress, setSameAddress] = useState(true)
   const [agree, setAgree] = useState(false)
-  const [ownership, setOwnership] = useState("ooo")
   const [sent, setSent] = useState(false)
   const [confirmOpen, setConfirmOpen] = useState(false)
 
   const step = STEPS[stepIndex]
   const last = stepIndex === STEPS.length - 1
+
+  const activeFields: Field[] =
+    step.id === "address" && !sameAddress ? [...step.fields, ACTUAL_ADDRESS_FIELD] : step.fields
 
   const setValue = (name: string, value: string) => {
     setValues((prev) => ({ ...prev, [name]: value }))
@@ -118,7 +132,7 @@ export function CompanyFlowPrototype() {
 
   const validate = () => {
     const next: Record<string, string> = {}
-    for (const field of step.fields) {
+    for (const field of activeFields) {
       const value = (values[field.name] ?? "").trim()
       if (field.required && !value) next[field.name] = "Обязательное поле"
       else if (value && field.pattern && !field.pattern.re.test(value)) next[field.name] = field.pattern.hint
@@ -184,10 +198,11 @@ export function CompanyFlowPrototype() {
               {i + 1}
             </Badge>
           ))}
-          <span className="text-muted-foreground ml-1 text-xs">{step.subtitle}</span>
+          <span className="text-muted-foreground ml-1 text-xs">{step.step}</span>
         </div>
 
         <h1 className="text-[28px] leading-tight font-semibold tracking-tight">{step.title}</h1>
+        <p className="text-muted-foreground text-sm">{step.description}</p>
         <Separator />
 
         {step.id === "review" ? (
@@ -209,7 +224,7 @@ export function CompanyFlowPrototype() {
           </div>
         ) : (
           <div className="flex flex-col gap-4">
-            {step.fields.map((field) => (
+            {activeFields.map((field) => (
               <div key={field.name} className="flex flex-col gap-1.5">
                 <Label htmlFor={field.name}>
                   {field.label}
@@ -247,31 +262,13 @@ export function CompanyFlowPrototype() {
             )}
 
             {step.id === "contact" && (
-              <>
-                <div className="flex flex-col gap-2">
-                  <Label>Форма собственности</Label>
-                  <RadioGroup value={ownership} onValueChange={setOwnership} className="flex gap-4">
-                    {[
-                      { value: "ooo", label: "ООО" },
-                      { value: "ao", label: "АО" },
-                      { value: "ip", label: "ИП" },
-                    ].map((item) => (
-                      <div key={item.value} className="flex items-center gap-2">
-                        <RadioGroupItem value={item.value} id={`own-${item.value}`} />
-                        <Label htmlFor={`own-${item.value}`}>{item.label}</Label>
-                      </div>
-                    ))}
-                  </RadioGroup>
+              <div className={cn("flex items-start gap-2", errors.agree && "text-destructive")}>
+                <Checkbox id="agree" checked={agree} onCheckedChange={(v) => setAgree(Boolean(v))} />
+                <div>
+                  <Label htmlFor="agree">Согласен на обработку персональных данных</Label>
+                  {errors.agree && <p className="text-xs">{errors.agree}</p>}
                 </div>
-
-                <div className={cn("flex items-start gap-2", errors.agree && "text-destructive")}>
-                  <Checkbox id="agree" checked={agree} onCheckedChange={(v) => setAgree(Boolean(v))} />
-                  <div>
-                    <Label htmlFor="agree">Согласен на обработку персональных данных</Label>
-                    {errors.agree && <p className="text-xs">{errors.agree}</p>}
-                  </div>
-                </div>
-              </>
+              </div>
             )}
           </div>
         )}

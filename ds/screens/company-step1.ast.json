@@ -98,7 +98,7 @@
             {
               "component": "Label",
               "slots": {
-                "label": "Полное наименование"
+                "label": "Полное наименование *"
               }
             },
             {
@@ -120,7 +120,7 @@
             {
               "component": "Label",
               "slots": {
-                "label": "ИНН"
+                "label": "ИНН *"
               }
             },
             {
@@ -142,7 +142,7 @@
             {
               "component": "Label",
               "slots": {
-                "label": "КПП"
+                "label": "КПП *"
               }
             },
             {
@@ -164,16 +164,16 @@
             {
               "component": "Label",
               "slots": {
-                "label": "ОГРН"
+                "label": "ОГРН *"
               }
             },
             {
               "component": "Input",
               "props": {
-                "state": "error"
+                "state": "default"
               },
               "slots": {
-                "placeholder": "13 цифр — проверьте значение"
+                "placeholder": "13 цифр"
               }
             }
           ]
@@ -186,38 +186,16 @@
             {
               "component": "Label",
               "slots": {
-                "label": "Код ОКВЭД"
+                "label": "Описание деятельности"
               }
             },
             {
-              "component": "Input",
+              "component": "Textarea",
               "props": {
-                "state": "disabled"
+                "state": "default"
               },
               "slots": {
-                "placeholder": "Заполнится автоматически"
-              }
-            }
-          ]
-        },
-        {
-          "type": "stack",
-          "direction": "HORIZONTAL",
-          "gap": 8,
-          "children": [
-            {
-              "component": "Checkbox",
-              "props": {
-                "checked": "true"
-              }
-            },
-            {
-              "component": "Text",
-              "props": {
-                "variant": "muted"
-              },
-              "slots": {
-                "text": "Данные совпадают с выпиской ЕГРЮЛ"
+                "value": "Чем занимается компания"
               }
             }
           ]

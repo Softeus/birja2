@@ -98,7 +98,7 @@
             {
               "component": "Label",
               "slots": {
-                "label": "ФИО"
+                "label": "ФИО руководителя *"
               }
             },
             {
@@ -120,7 +120,7 @@
             {
               "component": "Label",
               "slots": {
-                "label": "Должность"
+                "label": "Должность *"
               }
             },
             {
@@ -142,7 +142,7 @@
             {
               "component": "Label",
               "slots": {
-                "label": "Email"
+                "label": "Email *"
               }
             },
             {
@@ -164,16 +164,16 @@
             {
               "component": "Label",
               "slots": {
-                "label": "Телефон"
+                "label": "Телефон *"
               }
             },
             {
               "component": "Input",
               "props": {
-                "state": "error"
+                "state": "default"
               },
               "slots": {
-                "placeholder": "+7 (___) ___-__-__ — обязательное поле"
+                "placeholder": "+7 (999) 123-45-67"
               }
             }
           ]
@@ -190,24 +190,14 @@
               }
             },
             {
-              "component": "Text",
-              "props": {
-                "variant": "default"
-              },
+              "component": "Label",
               "slots": {
-                "text": "Согласен на обработку персональных данных"
+                "label": "Согласен на обработку персональных данных"
               }
             }
           ]
         }
       ]
-    },
-    {
-      "component": "Card",
-      "slots": {
-        "title": "Проверка займёт до 15 минут",
-        "description": "Мы сверим данные с ЕГРЮЛ и пришлём результат на указанный email."
-      }
     },
     {
       "component": "Separator",
@@ -237,7 +227,7 @@
             "size": "default"
           },
           "slots": {
-            "label": "Отправить заявку"
+            "label": "Далее"
           }
         }
       ]
