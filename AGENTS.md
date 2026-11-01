@@ -1,3 +1,14 @@
+# Проект birja2 — правила
+
+Перед любой работой прочитай `HANDOFF.md` (брифинг: решения, команды, состояние, ограничения) и `ds/PIXSO-STRUCTURE.md` (как хранятся компоненты в Pixso).
+
+Коротко о главном:
+
+- Источник истины — код (`app/globals.css`, `components/ui/*`, `ds/library.spec.json`). Pixso наполняется только скриптами `scripts/ds/*`; руками в Pixso ничего не переставляем.
+- Экраны описываются как UI-AST в `ds/screens/*.ast.json`, собираются `pnpm ds:screens`, порядок — поле `order`.
+- Полный цикл: `pnpm ds:sync`. Проверки: `pnpm ds:verify`, `pnpm ds:ast`, `pnpm ds:audit`, скриншоты `pnpm ds:shots`.
+- Новые компоненты, страницы и графики не добавляем без явного согласования. Сначала проверить фактами, показать план и цену, ждать «делай».
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 ## This is NOT the Next.js you know
