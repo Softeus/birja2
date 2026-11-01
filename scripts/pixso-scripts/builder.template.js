@@ -317,8 +317,10 @@ for (const comp of SPEC.components) {
       }
 
       if (!isAbsolute) {
-        const padXsrc = comp.paddingX ?? sizeDef.paddingX ?? 12;
-        const padYsrc = comp.paddingY ?? sizeDef.paddingY ?? 8;
+        // Текстовые атомы (без своей ширины/высоты) не имеют внутренних отступов.
+        const isTextAtom = !explicitWidth && !height && !comp.box;
+        const padXsrc = comp.paddingX ?? sizeDef.paddingX ?? (isTextAtom ? 0 : 12);
+        const padYsrc = comp.paddingY ?? sizeDef.paddingY ?? (isTextAtom ? 0 : 8);
         const padX = numValue(padXsrc, 12);
         const padY = numValue(padYsrc, 8);
 
@@ -351,13 +353,16 @@ for (const comp of SPEC.components) {
         node.strokeAlign = "INSIDE";
       }
       if (comp.radius) bindNumber(node, "cornerRadius", comp.radius);
+      if (comp.radiusPx) node.cornerRadius = comp.radiusPx;
 
       for (const child of comp.children ?? []) {
         if (child.when && !Object.entries(child.when).every(([k, v]) => combo[k] === v)) continue;
         const childNode = await buildChild(child, combo, sizeDef, variantDef, variantKey);
         node.appendChild(childNode);
-        if (child.x !== undefined) childNode.x = child.x;
-        if (child.y !== undefined) childNode.y = child.y;
+        const childX = child.xByVariant?.[combo[variantKey]] ?? child.x;
+        const childY = child.yByVariant?.[combo[variantKey]] ?? child.y;
+        if (childX !== undefined) childNode.x = childX;
+        if (childY !== undefined) childNode.y = childY;
 
         // Для узлов без автолейаута заливка надёжнее применяется после appendChild.
         if (child.type === "rect") {

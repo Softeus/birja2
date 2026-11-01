@@ -29,7 +29,7 @@
           "height": 32,
           "paddingX": "space/12",
           "paddingY": "space/6",
-          "fontSize": "font/13",
+          "fontSize": "font/14",
           "fontStyle": "Medium"
         },
         "default": {
@@ -40,10 +40,10 @@
           "fontStyle": "Medium"
         },
         "lg": {
-          "height": 44,
+          "height": 40,
           "paddingX": "space/24",
           "paddingY": "space/10",
-          "fontSize": "font/16",
+          "fontSize": "font/14",
           "fontStyle": "Medium"
         }
       },
@@ -104,11 +104,11 @@
         "align": "CENTER",
         "gap": 4
       },
-      "height": 22,
+      "height": 20,
       "sizes": {
         "default": {
-          "height": 22,
-          "paddingX": "space/10",
+          "height": 20,
+          "paddingX": "space/8",
           "paddingY": "space/2",
           "fontSize": "font/12",
           "fontStyle": "Medium"
@@ -133,7 +133,6 @@
           "border": "color/border"
         }
       },
-      "radius": "radius/default",
       "children": [
         {
           "type": "text",
@@ -145,7 +144,8 @@
           "colorFromVariant": true
         }
       ],
-      "page": "2 Atoms"
+      "page": "2 Atoms",
+      "radiusPx": 999
     },
     {
       "name": "Input",
@@ -210,8 +210,8 @@
       "layout": {
         "mode": "NONE"
       },
-      "width": 18,
-      "height": 18,
+      "width": 16,
+      "height": 16,
       "autoWidth": false,
       "variants": {
         "true": {
@@ -223,13 +223,12 @@
           "border": "color/input"
         }
       },
-      "radius": "radius/sm",
       "children": [
         {
           "type": "rect",
           "name": "mark",
-          "width": 10,
-          "height": 10,
+          "width": 8,
+          "height": 8,
           "x": 4,
           "y": 4,
           "colorByVariant": {
@@ -244,7 +243,8 @@
       "paddingX": "space/0",
       "paddingY": "space/0",
       "variantAxis": "checked",
-      "page": "2 Atoms"
+      "page": "2 Atoms",
+      "radiusPx": 4
     },
     {
       "name": "Separator",
@@ -466,7 +466,7 @@
         "gap": 4
       },
       "width": 360,
-      "height": 104,
+      "height": 64,
       "autoWidth": false,
       "variants": {
         "default": {
@@ -482,7 +482,7 @@
       },
       "radius": "radius/default",
       "paddingX": "space/12",
-      "paddingY": "space/10",
+      "paddingY": "space/8",
       "children": [
         {
           "type": "text",
@@ -509,8 +509,8 @@
       "layout": {
         "mode": "NONE"
       },
-      "width": 40,
-      "height": 24,
+      "width": 32,
+      "height": 18,
       "autoWidth": false,
       "variants": {
         "true": {
@@ -520,25 +520,28 @@
           "fill": "color/input"
         }
       },
-      "radius": "radius/xl",
       "paddingX": "space/0",
       "paddingY": "space/0",
       "children": [
         {
           "type": "rect",
           "name": "thumb",
-          "width": 18,
-          "height": 18,
-          "x": 3,
-          "y": 3,
+          "width": 16,
+          "height": 16,
+          "y": 1,
           "colorByVariant": {
             "true": "color/background",
             "false": "color/background"
           },
-          "radiusPx": 9
+          "radiusPx": 8,
+          "xByVariant": {
+            "true": 15,
+            "false": 1
+          }
         }
       ],
-      "page": "2 Atoms"
+      "page": "2 Atoms",
+      "radiusPx": 9
     },
     {
       "name": "Radio",
@@ -552,8 +555,8 @@
       "layout": {
         "mode": "NONE"
       },
-      "width": 18,
-      "height": 18,
+      "width": 16,
+      "height": 16,
       "autoWidth": false,
       "variants": {
         "true": {
@@ -565,21 +568,21 @@
           "border": "color/input"
         }
       },
-      "radiusPx": 9,
+      "radiusPx": 8,
       "paddingX": "space/0",
       "paddingY": "space/0",
       "children": [
         {
           "type": "rect",
           "name": "dot",
-          "width": 6,
-          "height": 6,
-          "x": 6,
-          "y": 6,
+          "width": 8,
+          "height": 8,
+          "x": 4,
+          "y": 4,
           "colorByVariant": {
             "true": "color/primary-foreground"
           },
-          "radiusPx": 3,
+          "radiusPx": 4,
           "when": {
             "checked": "true"
           }

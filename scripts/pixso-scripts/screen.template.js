@@ -192,9 +192,11 @@ async function build(node, parent) {
           instance.primaryAxisSizingMode = "AUTO";
           instance.counterAxisSizingMode = "FIXED";
         } else {
+          // Горизонтальные инстансы: ширина из контейнера, высота — как в мастере.
+          const masterCounter = master.counterAxisSizingMode;
           instance.primaryAxisSizingMode = "FIXED";
-          instance.counterAxisSizingMode = "AUTO";
           instance.resize(width, instance.height);
+          instance.counterAxisSizingMode = masterCounter ?? "AUTO";
         }
 
         const inner = width - (instance.paddingLeft ?? 0) - (instance.paddingRight ?? 0);
