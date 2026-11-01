@@ -1,12 +1,47 @@
 {
   "screen": "CompanyStep1",
   "title": "Данные юридического лица — шаг 1",
-  "frame": { "width": 480, "padding": 24, "gap": 20, "background": "color/background" },
+  "order": 2,
+  "frame": {
+    "width": 480,
+    "padding": 24,
+    "gap": 20,
+    "background": "color/background"
+  },
   "elements": [
-    { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "Шаг 1 из 3" } },
-    { "component": "Heading", "props": { "level": "h1" }, "slots": { "text": "Данные организации" } },
-    { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "Заполните реквизиты по выписке ЕГРЮЛ." } },
-    { "component": "Separator", "props": { "orientation": "horizontal" } },
+    {
+      "component": "Text",
+      "props": {
+        "variant": "muted"
+      },
+      "slots": {
+        "text": "Шаг 1 из 3"
+      }
+    },
+    {
+      "component": "Heading",
+      "props": {
+        "level": "h1"
+      },
+      "slots": {
+        "text": "Данные организации"
+      }
+    },
+    {
+      "component": "Text",
+      "props": {
+        "variant": "muted"
+      },
+      "slots": {
+        "text": "Заполните реквизиты по выписке ЕГРЮЛ."
+      }
+    },
+    {
+      "component": "Separator",
+      "props": {
+        "orientation": "horizontal"
+      }
+    },
     {
       "type": "stack",
       "direction": "VERTICAL",
@@ -17,8 +52,21 @@
           "direction": "VERTICAL",
           "gap": 6,
           "children": [
-            { "component": "Label", "slots": { "label": "Полное наименование" } },
-            { "component": "Input", "props": { "state": "default" }, "slots": { "placeholder": "ООО «Ромашка»" } }
+            {
+              "component": "Label",
+              "slots": {
+                "label": "Полное наименование"
+              }
+            },
+            {
+              "component": "Input",
+              "props": {
+                "state": "default"
+              },
+              "slots": {
+                "placeholder": "ООО «Ромашка»"
+              }
+            }
           ]
         },
         {
@@ -26,8 +74,21 @@
           "direction": "VERTICAL",
           "gap": 6,
           "children": [
-            { "component": "Label", "slots": { "label": "ИНН" } },
-            { "component": "Input", "props": { "state": "default" }, "slots": { "placeholder": "10 цифр" } }
+            {
+              "component": "Label",
+              "slots": {
+                "label": "ИНН"
+              }
+            },
+            {
+              "component": "Input",
+              "props": {
+                "state": "default"
+              },
+              "slots": {
+                "placeholder": "10 цифр"
+              }
+            }
           ]
         },
         {
@@ -35,8 +96,21 @@
           "direction": "VERTICAL",
           "gap": 6,
           "children": [
-            { "component": "Label", "slots": { "label": "КПП" } },
-            { "component": "Input", "props": { "state": "default" }, "slots": { "placeholder": "9 цифр" } }
+            {
+              "component": "Label",
+              "slots": {
+                "label": "КПП"
+              }
+            },
+            {
+              "component": "Input",
+              "props": {
+                "state": "default"
+              },
+              "slots": {
+                "placeholder": "9 цифр"
+              }
+            }
           ]
         },
         {
@@ -44,8 +118,21 @@
           "direction": "VERTICAL",
           "gap": 6,
           "children": [
-            { "component": "Label", "slots": { "label": "ОГРН" } },
-            { "component": "Input", "props": { "state": "error" }, "slots": { "placeholder": "13 цифр — проверьте значение" } }
+            {
+              "component": "Label",
+              "slots": {
+                "label": "ОГРН"
+              }
+            },
+            {
+              "component": "Input",
+              "props": {
+                "state": "error"
+              },
+              "slots": {
+                "placeholder": "13 цифр — проверьте значение"
+              }
+            }
           ]
         },
         {
@@ -53,8 +140,21 @@
           "direction": "VERTICAL",
           "gap": 6,
           "children": [
-            { "component": "Label", "slots": { "label": "Код ОКВЭД" } },
-            { "component": "Input", "props": { "state": "disabled" }, "slots": { "placeholder": "Заполнится автоматически" } }
+            {
+              "component": "Label",
+              "slots": {
+                "label": "Код ОКВЭД"
+              }
+            },
+            {
+              "component": "Input",
+              "props": {
+                "state": "disabled"
+              },
+              "slots": {
+                "placeholder": "Заполнится автоматически"
+              }
+            }
           ]
         },
         {
@@ -62,20 +162,56 @@
           "direction": "HORIZONTAL",
           "gap": 8,
           "children": [
-            { "component": "Checkbox", "props": { "checked": "true" } },
-            { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "Данные совпадают с выпиской ЕГРЮЛ" } }
+            {
+              "component": "Checkbox",
+              "props": {
+                "checked": "true"
+              }
+            },
+            {
+              "component": "Text",
+              "props": {
+                "variant": "muted"
+              },
+              "slots": {
+                "text": "Данные совпадают с выпиской ЕГРЮЛ"
+              }
+            }
           ]
         }
       ]
     },
-    { "component": "Separator", "props": { "orientation": "horizontal" } },
+    {
+      "component": "Separator",
+      "props": {
+        "orientation": "horizontal"
+      }
+    },
     {
       "type": "stack",
       "direction": "HORIZONTAL",
       "gap": 12,
       "children": [
-        { "component": "Button", "props": { "variant": "outline", "size": "default" }, "slots": { "label": "Назад" } },
-        { "component": "Button", "props": { "variant": "default", "size": "default" }, "slots": { "label": "Далее" } }
+        {
+          "component": "Button",
+          "props": {
+            "variant": "outline",
+            "size": "default"
+          },
+          "slots": {
+            "label": "Назад"
+          }
+        },
+        {
+          "component": "Button",
+          "props": {
+            "variant": "default",
+            "size": "default"
+          },
+          "slots": {
+            "label": "Далее"
+          }
+        }
       ]
     }
   ]

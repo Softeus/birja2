@@ -103,6 +103,23 @@ const page = await ensurePage(SPEC.page);
 pixso.currentPage = page;
 report.page = { id: page.id, name: page.name };
 
+// Чистим страницу от узлов, которых нет в спеке (остатки проб и переименований).
+const keep = new Set(SPEC.components.map((c) => c.name));
+report.removed = [];
+for (const child of [...page.children]) {
+  if ((child.type === "COMPONENT" || child.type === "COMPONENT_SET") && !keep.has(child.name)) {
+    report.removed.push(child.name);
+    child.remove();
+  }
+}
+
+// Раскладка наборов: сетка слева направо с равным шагом.
+const GRID_GAP = 80;
+const GRID_MAX_WIDTH = 1600;
+let gridX = 0;
+let gridY = 0;
+let rowHeight = 0;
+
 function applyBox(node, box, combo, sizeDef) {
   if (!box) return;
 
@@ -261,6 +278,17 @@ for (const comp of SPEC.components) {
       variants: components.length,
       variantProperties: Object.keys(comp.axes ?? {}),
     });
+
+    // Ставим набор в сетку: слева направо, при переполнении — новая строка.
+    setNode.x = gridX;
+    setNode.y = gridY;
+    gridX += Math.ceil(setNode.width) + GRID_GAP;
+    rowHeight = Math.max(rowHeight, Math.ceil(setNode.height));
+    if (gridX > GRID_MAX_WIDTH) {
+      gridX = 0;
+      gridY += rowHeight + GRID_GAP;
+      rowHeight = 0;
+    }
   } catch (err) {
     report.errors.push({ component: comp.name, error: String(err && err.message ? err.message : err) });
   }

@@ -1,6 +1,7 @@
 {
   "screen": "CompanyStep2",
   "title": "Данные юридического лица — шаг 2",
+  "order": 3,
   "frame": {
     "width": 480,
     "padding": 24,

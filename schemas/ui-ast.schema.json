@@ -49,6 +49,10 @@
       "items": {
         "$ref": "#/definitions/element"
       }
+    },
+    "order": {
+      "type": "number",
+      "description": "Порядок экрана в потоке (слева направо)"
     }
   },
   "definitions": {

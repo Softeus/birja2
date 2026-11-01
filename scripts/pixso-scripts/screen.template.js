@@ -2,6 +2,7 @@
 // __AST__ / __MANIFEST__ подставляет scripts/ds/assemble-screen.mjs.
 const AST = __AST__;
 const MANIFEST = __MANIFEST__;
+const POS = __POS__;
 
 const vars = await pixso.variables.getLocalVariablesAsync();
 const varByName = new Map(vars.map((v) => [v.name, v]));
@@ -53,6 +54,10 @@ frame.paddingLeft = pad;
 frame.paddingRight = pad;
 frame.fills = [];
 paint(frame, AST.frame.background ?? "color/background");
+
+// Раскладка потока: строго слева направо, выравнивание по верхнему краю.
+frame.x = POS?.x ?? 0;
+frame.y = POS?.y ?? 0;
 
 const HUG_COMPONENTS = new Set(["Badge", "Checkbox", "Radio", "Switch", "Label"]);
 
