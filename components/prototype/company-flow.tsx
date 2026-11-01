@@ -173,7 +173,8 @@ export function CompanyFlowPrototype() {
               {values.email || "указанный email"}.
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex items-center gap-3">
+            <Button>Запуск!</Button>
             <Button
               variant="outline"
               onClick={() => {

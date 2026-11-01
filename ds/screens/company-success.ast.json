@@ -43,15 +43,31 @@
       }
     },
     {
-      "component": "Button",
-      "props": {
-        "variant": "outline",
-        "size": "default"
-      },
-      "slots": {
-        "label": "Заполнить ещё раз"
-      },
-      "stretch": false
+      "type": "stack",
+      "direction": "HORIZONTAL",
+      "gap": 12,
+      "children": [
+        {
+          "component": "Button",
+          "props": {
+            "variant": "default",
+            "size": "default"
+          },
+          "slots": {
+            "label": "Запуск!"
+          }
+        },
+        {
+          "component": "Button",
+          "props": {
+            "variant": "outline",
+            "size": "default"
+          },
+          "slots": {
+            "label": "Заполнить ещё раз"
+          }
+        }
+      ]
     }
   ]
 }
