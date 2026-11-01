@@ -24,14 +24,13 @@ export function LoginPrototype() {
   const submit = () => {
     const next: Errors = {}
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) next.email = "Введите рабочий email"
-    if (password.length < 8) next.password = "Минимум 8 символов"
     setErrors(next)
     if (Object.keys(next).length) return
 
     setStatus("loading")
     setTimeout(() => {
       setStatus("done")
-      router.push("/prototype/company")
+      router.push("/heatmap")
     }, 600)
   }
 
