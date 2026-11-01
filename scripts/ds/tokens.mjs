@@ -94,6 +94,83 @@ const tokens = {
   variables,
 };
 
+// --- Primitive-слой: мастер-палитра. Semantic ссылается на неё алиасами. ---
+const PALETTE = {
+  "neutral-0": { hex: "#FFFFFF", alpha: 255 },
+  "neutral-0a10": { hex: "#FFFFFF", alpha: 26 },
+  "neutral-0a15": { hex: "#FFFFFF", alpha: 38 },
+  "neutral-50": { hex: "#FAFAFA", alpha: 255 },
+  "neutral-100": { hex: "#F5F5F5", alpha: 255 },
+  "neutral-200": { hex: "#E5E5E5", alpha: 255 },
+  "neutral-400": { hex: "#A1A1A1", alpha: 255 },
+  "neutral-500": { hex: "#737373", alpha: 255 },
+  "neutral-800": { hex: "#262626", alpha: 255 },
+  "neutral-900": { hex: "#171717", alpha: 255 },
+  "neutral-950": { hex: "#0A0A0A", alpha: 255 },
+  "red-600": { hex: "#E40016", alpha: 255 },
+  "red-300": { hex: "#FF6568", alpha: 255 },
+};
+
+const PRIMITIVE_MAP = {
+  "color/background": { Light: "neutral-0", Dark: "neutral-950" },
+  "color/foreground": { Light: "neutral-950", Dark: "neutral-50" },
+  "color/card": { Light: "neutral-0", Dark: "neutral-900" },
+  "color/card-foreground": { Light: "neutral-950", Dark: "neutral-50" },
+  "color/popover": { Light: "neutral-0", Dark: "neutral-900" },
+  "color/popover-foreground": { Light: "neutral-950", Dark: "neutral-50" },
+  "color/primary": { Light: "neutral-900", Dark: "neutral-200" },
+  "color/primary-foreground": { Light: "neutral-50", Dark: "neutral-900" },
+  "color/secondary": { Light: "neutral-100", Dark: "neutral-800" },
+  "color/secondary-foreground": { Light: "neutral-900", Dark: "neutral-50" },
+  "color/muted": { Light: "neutral-100", Dark: "neutral-800" },
+  "color/muted-foreground": { Light: "neutral-500", Dark: "neutral-400" },
+  "color/accent": { Light: "neutral-100", Dark: "neutral-800" },
+  "color/accent-foreground": { Light: "neutral-900", Dark: "neutral-50" },
+  "color/destructive": { Light: "red-600", Dark: "red-300" },
+  "color/destructive-foreground": { Light: "neutral-50", Dark: "neutral-50" },
+  "color/border": { Light: "neutral-200", Dark: "neutral-0a10" },
+  "color/input": { Light: "neutral-200", Dark: "neutral-0a15" },
+  "color/ring": { Light: "neutral-400", Dark: "neutral-500" },
+  "color/sidebar": { Light: "neutral-50", Dark: "neutral-900" },
+  "color/sidebar-foreground": { Light: "neutral-950", Dark: "neutral-50" },
+  "color/sidebar-primary-foreground": { Light: "neutral-50", Dark: "neutral-50" },
+  "color/sidebar-accent": { Light: "neutral-100", Dark: "neutral-800" },
+  "color/sidebar-accent-foreground": { Light: "neutral-900", Dark: "neutral-50" },
+  "color/sidebar-border": { Light: "neutral-200", Dark: "neutral-0a10" },
+  "color/sidebar-ring": { Light: "neutral-400", Dark: "neutral-500" },
+};
+
+const primitiveWarnings = [];
+for (const variable of variables) {
+  const map = PRIMITIVE_MAP[variable.name];
+  if (!map) continue;
+
+  variable.alias = {};
+  for (const mode of tokens.modes) {
+    const primitiveName = map[mode];
+    const primitive = PALETTE[primitiveName];
+    if (!primitive) {
+      primitiveWarnings.push(`${variable.name}/${mode}: нет primitive ${primitiveName}`);
+      continue;
+    }
+    const expectedAlpha = variable.alpha?.[mode] ?? 255;
+    if (primitive.hex !== variable.values[mode] || primitive.alpha !== expectedAlpha) {
+      primitiveWarnings.push(
+        `${variable.name}/${mode}: ${variable.values[mode]}/${expectedAlpha} ≠ ${primitiveName} ${primitive.hex}/${primitive.alpha}`,
+      );
+    }
+    variable.alias[mode] = `primitive/${primitiveName}`;
+  }
+}
+
+tokens.primitives = Object.entries(PALETTE).map(([name, value]) => ({
+  name: `primitive/${name}`,
+  type: "color",
+  values: { Default: value.hex },
+  alpha: { Default: value.alpha },
+}));
+
+
 // Числовая шкала: производные Tailwind (4px-шаг) и размеры шрифта. Одна шкала на код и макет.
 const NUMERIC = {
   "space/2": 2,

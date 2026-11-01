@@ -14,7 +14,7 @@ ds/screens/*.ast.json ──► validate ──► Pixso screens ─┐
 | Команда | Что делает |
 |---|---|
 | `pnpm ds:tokens` | `app/globals.css` → `tokens.json` (oklch → sRGB, Light/Dark) |
-| `pnpm ds:push` | `tokens.json` → Pixso, коллекция `Semantic` (write_variables) |
+| `pnpm ds:push` | `tokens.json` → Pixso: коллекции `Primitive` и `Semantic`, затем алиасы semantic → primitive |
 | `pnpm ds:verify` | обратная сверка Pixso ↔ `tokens.json`, exit 1 при расхождении |
 | `pnpm ds:build` | `ds/library.spec.json` → ComponentSets в Pixso + `ds-manifest.json` |
 | `pnpm ds:ast` | валидация `ds/screens/*.ast.json` против манифеста |
@@ -30,7 +30,7 @@ ds/screens/*.ast.json ──► validate ──► Pixso screens ─┐
 | `ds/library.spec.json` | декларативный спек компонентов (оси, размеры, токены, страница уровня) |
 | `ds/screens/*.ast.json` | экраны как UI-AST, единственный вход для сборки |
 | `ds-manifest.json` | опубликованный контракт: ключи компонентов, пропсы, слоты |
-| `tokens.json` | сгенерированные токены (не править руками): цвета Light/Dark, шкала `radius/*`, числовая `space/*`, `font/*`, `stroke/1` |
+| `tokens.json` | сгенерированные токены (руками не править): палитра `Primitive`, семантика Light/Dark (26 цветов — алиасы), `radius/*`, `space/*`, `font/*`, `stroke/1` |
 | `scripts/ds/*` | пайплайн: токены, генератор библиотеки, валидатор, сборщик |
 | `scripts/pixso-scripts/*` | скрипты, исполняемые в Pixso через `eval_script` |
 | `components/ui/*` | кодовая библиотека (shadcn/ui) |

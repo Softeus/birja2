@@ -52,7 +52,7 @@ pnpm build       # проверка типов
 
 ## Состояние на 01.11.2026
 
-- Токены: 54 переменные — 32 цвета, 5 радиусов (`radius/sm…xl`), 17 числовых (`space/2…32`, `font/12…28`, `stroke/1`). Коллекция `Semantic`, режимы Light/Dark.
+- Токены: коллекция `Primitive` (13 значений мастер-палитры) + `Semantic` (54 переменные: 32 цвета, 5 радиусов, 17 числовых). 26 цветовых токенов — алиасы на `Primitive`, Light/Dark ссылаются на разные ступени.
 - Компоненты: 14 наборов. `2 Atoms` — 12: Button (6×3), Input (3), Textarea (2), Checkbox (2), Radio (2), Switch (2), Badge (4), Label, Text (2), Heading (3), Separator (2), **Icon (8×3)**. `4 Molecules` — Card, Dialog. Страницы 1, 3, 5, 6, 7 пустые (только подписи уровней).
 - Экраны: 6 — `Login`, `CompanyStep1/2/3`, `CompanyReview`, `CompanySuccess`. 112 инстансов, 0 detached, 0 «сырых» заливок. Степпер — паттерн из `Badge` + `Text` (не компонент).
 - Прототипы: `/prototype/login`, `/prototype/company` (4 шага, условное поле фактического адреса при выключенном Switch, сводка из 9 строк, диалог подтверждения).
@@ -89,6 +89,7 @@ pnpm build       # проверка типов
 - Шрифтовой стиль Inter: `Semi Bold` (не `SemiBold`).
 - Вектор выравнивается по **своему bbox** → путь надо центрировать вручную; `resize` вектора искажает толщину обводки.
 - Все подпути иконки — в **одном** векторе; относительные пути из отдельных `<path>` требуют префикса `M 0 0`.
+- `write_variables` (MCP) **не принимает алиасы** (`failed to parse variable value`); алиасы ставятся только через Plugin API: `pixso.variables.createVariableAlias(source)` + `target.setValueForMode(modeId, alias)`.
 
 ## Известные ограничения
 
