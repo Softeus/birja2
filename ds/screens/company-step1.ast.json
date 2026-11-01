@@ -10,13 +10,56 @@
   },
   "elements": [
     {
-      "component": "Text",
-      "props": {
-        "variant": "muted"
-      },
-      "slots": {
-        "text": "Шаг 1 из 3"
-      }
+      "type": "stack",
+      "direction": "HORIZONTAL",
+      "gap": 8,
+      "children": [
+        {
+          "component": "Badge",
+          "props": {
+            "variant": "default"
+          },
+          "slots": {
+            "label": "1"
+          }
+        },
+        {
+          "component": "Badge",
+          "props": {
+            "variant": "outline"
+          },
+          "slots": {
+            "label": "2"
+          }
+        },
+        {
+          "component": "Badge",
+          "props": {
+            "variant": "outline"
+          },
+          "slots": {
+            "label": "3"
+          }
+        },
+        {
+          "component": "Badge",
+          "props": {
+            "variant": "outline"
+          },
+          "slots": {
+            "label": "4"
+          }
+        },
+        {
+          "component": "Text",
+          "props": {
+            "variant": "muted"
+          },
+          "slots": {
+            "text": "Шаг 1 из 4"
+          }
+        }
+      ]
     },
     {
       "component": "Heading",
