@@ -5,8 +5,8 @@
   "tokensCollection": "Semantic",
   "components": {
     "Button": {
-      "key": "6426ac75ea2363e9a454833e2b479e10fc6976dd",
-      "nodeId": "4:3719",
+      "key": "87bb5a6ec852cd345346817ea0158814c7507e2b",
+      "nodeId": "5:508",
       "type": "COMPONENT_SET",
       "axes": [
         "variant",
@@ -32,8 +32,8 @@
       }
     },
     "Badge": {
-      "key": "03d3bd0922ed330292ebaa8444d711a80985f03f",
-      "nodeId": "4:3728",
+      "key": "6d620acc340c2772ab005948a375024617600d75",
+      "nodeId": "5:517",
       "type": "COMPONENT_SET",
       "axes": [
         "variant"
@@ -51,8 +51,8 @@
       }
     },
     "Input": {
-      "key": "f91efda2dd4029e8239400a38e554a9d744be038",
-      "nodeId": "4:3735",
+      "key": "77fbfb194d2945a3a70ab7ddb453d9fde91ee44f",
+      "nodeId": "5:524",
       "type": "COMPONENT_SET",
       "axes": [
         "state"
@@ -69,8 +69,8 @@
       }
     },
     "Checkbox": {
-      "key": "22ba36b5a06c8873279588eae3a09d6a1bc1bf77",
-      "nodeId": "4:3739",
+      "key": "65f09538f8d587dfddbc3b8cda6766562d5515e1",
+      "nodeId": "5:528",
       "type": "COMPONENT_SET",
       "axes": [
         "checked"
@@ -84,8 +84,8 @@
       "slots": {}
     },
     "Separator": {
-      "key": "660361f0af3c7cf4e98dc126226bc56716238969",
-      "nodeId": "4:3742",
+      "key": "35595329e8865efccf810792ecd302acdaadc30b",
+      "nodeId": "5:531",
       "type": "COMPONENT_SET",
       "axes": [
         "orientation"
@@ -99,8 +99,8 @@
       "slots": {}
     },
     "Label": {
-      "key": "16e55b64be8ed5318a48212140143c730d451031",
-      "nodeId": "4:3743",
+      "key": "8a7ed002c6bd662d43f6715dfe193a4a1fda7a83",
+      "nodeId": "5:532",
       "type": "COMPONENT",
       "axes": [],
       "props": {},
@@ -109,8 +109,8 @@
       }
     },
     "Card": {
-      "key": "6b68fd7cde93b559c090bb6336ea6f4bb3054f3c",
-      "nodeId": "4:3745",
+      "key": "7630150fb923009219043ba178d05c8b2049c586",
+      "nodeId": "5:534",
       "type": "COMPONENT",
       "axes": [],
       "props": {},
@@ -120,8 +120,8 @@
       }
     },
     "Heading": {
-      "key": "b8936710ac15a95fd2f0e4b5aae915cea043784a",
-      "nodeId": "4:3754",
+      "key": "efe2de9533d9ee643b84d7ea8dab8c2cecb80866",
+      "nodeId": "5:543",
       "type": "COMPONENT_SET",
       "axes": [
         "level"
@@ -138,8 +138,8 @@
       }
     },
     "Text": {
-      "key": "0735f3b893e18906545cebc4138a9875efc4591f",
-      "nodeId": "4:3759",
+      "key": "9ee357a683ae127cb6db94385bdc91e9c47aa425",
+      "nodeId": "5:548",
       "type": "COMPONENT_SET",
       "axes": [
         "variant"
@@ -155,8 +155,8 @@
       }
     },
     "Textarea": {
-      "key": "a236386574911c430472a330b1132f8d99d08646",
-      "nodeId": "4:3764",
+      "key": "7fbd9088f2072ea772607ea59238090fd6348b68",
+      "nodeId": "5:553",
       "type": "COMPONENT_SET",
       "axes": [
         "state"
@@ -172,8 +172,8 @@
       }
     },
     "Switch": {
-      "key": "69bf9cd903ac0cd049f0001cdff23e618fff088d",
-      "nodeId": "4:3769",
+      "key": "809aa33b897a00cb6b797c9469f537867f2f2b37",
+      "nodeId": "5:558",
       "type": "COMPONENT_SET",
       "axes": [
         "checked"
@@ -187,8 +187,8 @@
       "slots": {}
     },
     "Radio": {
-      "key": "50c8670cc8bd07daaaf3b6575b761c64624605f2",
-      "nodeId": "4:3773",
+      "key": "c96e9cce5ded1265240716cbd405ddbd28e47401",
+      "nodeId": "5:562",
       "type": "COMPONENT_SET",
       "axes": [
         "checked"
@@ -202,8 +202,8 @@
       "slots": {}
     },
     "Dialog": {
-      "key": "42d0965dafa55310d2fa87757c8515db325cadb5",
-      "nodeId": "4:3774",
+      "key": "b183046e3726c0bc2b4d87a54e30b96437e2d042",
+      "nodeId": "5:563",
       "type": "COMPONENT",
       "axes": [],
       "props": {},

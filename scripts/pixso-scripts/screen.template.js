@@ -118,8 +118,12 @@ async function build(node, parent) {
     box.paddingLeft = p;
     box.paddingRight = p;
     box.fills = [];
-    if (node.stretch !== false && box.parent?.layoutMode) box.layoutAlign = "STRETCH";
-    else if (node.stretch !== false && box.parent?.layoutMode === "VERTICAL") box.layoutAlign = "STRETCH";
+    if (node.grow && box.parent?.layoutMode === "HORIZONTAL") {
+      box.layoutGrow = Number(node.grow);
+      box.primaryAxisSizingMode = "AUTO";
+    } else if (node.stretch !== false && box.parent?.layoutMode) {
+      box.layoutAlign = "STRETCH";
+    }
 
     for (const child of node.children) await build(child, box);
     return;
@@ -150,7 +154,10 @@ async function build(node, parent) {
   try {
     const hasText = instance.findAll && instance.findAll((n) => n.type === "TEXT").length > 0;
 
-    if (node.stretch !== false && parent.layoutMode === "HORIZONTAL" && hasText) {
+    if (node.grow && parent.layoutMode === "HORIZONTAL") {
+      instance.layoutGrow = Number(node.grow);
+      instance.primaryAxisSizingMode = "AUTO";
+    } else if (node.stretch !== false && parent.layoutMode === "HORIZONTAL" && hasText) {
       instance.primaryAxisSizingMode = "AUTO";
       for (const t of instance.findAll((n) => n.type === "TEXT")) {
         t.textAutoResize = "WIDTH_AND_HEIGHT";
@@ -160,13 +167,22 @@ async function build(node, parent) {
     if (node.stretch !== false && parent.layoutMode === "VERTICAL" && instance.layoutMode) {
       const width = parent.width - (parent.paddingLeft ?? 0) - (parent.paddingRight ?? 0);
       if (width > 0) {
-        instance.primaryAxisSizingMode = "FIXED";
-        instance.counterAxisSizingMode = "AUTO";
-        instance.resize(width, instance.height);
+        const vertical = instance.layoutMode === "VERTICAL";
+        if (vertical) {
+          // Вертикальные компоненты (Card, Dialog) тянутся по ширине, высота — по контенту.
+          instance.counterAxisSizingMode = "FIXED";
+          instance.resize(width, instance.height);
+          instance.primaryAxisSizingMode = "AUTO";
+          instance.counterAxisSizingMode = "FIXED";
+        } else {
+          instance.primaryAxisSizingMode = "FIXED";
+          instance.counterAxisSizingMode = "AUTO";
+          instance.resize(width, instance.height);
+        }
 
         const inner = width - (instance.paddingLeft ?? 0) - (instance.paddingRight ?? 0);
         for (const t of instance.findAll((n) => n.type === "TEXT")) {
-          if (instance.layoutMode === "HORIZONTAL") {
+          if (!vertical) {
             t.layoutGrow = 1;
             t.textAutoResize = "HEIGHT";
           } else {

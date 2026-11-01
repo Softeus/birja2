@@ -1,13 +1,55 @@
 {
   "screen": "CompanyStep2",
   "title": "Данные юридического лица — шаг 2",
-  "frame": { "width": 480, "padding": 24, "gap": 20, "background": "color/background" },
+  "frame": {
+    "width": 480,
+    "padding": 24,
+    "gap": 20,
+    "background": "color/background"
+  },
   "elements": [
-    { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "Шаг 2 из 3" } },
-    { "component": "Heading", "props": { "level": "h1" }, "slots": { "text": "Адреса" } },
-    { "component": "Text", "props": { "variant": "muted" }, "slots": { "text": "Юридический и фактический адрес организации." } },
-    { "component": "Separator", "props": { "orientation": "horizontal" } },
-    { "component": "Heading", "props": { "level": "h3" }, "slots": { "text": "Юридический адрес" } },
+    {
+      "component": "Text",
+      "props": {
+        "variant": "muted"
+      },
+      "slots": {
+        "text": "Шаг 2 из 3"
+      }
+    },
+    {
+      "component": "Heading",
+      "props": {
+        "level": "h1"
+      },
+      "slots": {
+        "text": "Адреса"
+      }
+    },
+    {
+      "component": "Text",
+      "props": {
+        "variant": "muted"
+      },
+      "slots": {
+        "text": "Юридический и фактический адрес организации."
+      }
+    },
+    {
+      "component": "Separator",
+      "props": {
+        "orientation": "horizontal"
+      }
+    },
+    {
+      "component": "Heading",
+      "props": {
+        "level": "h3"
+      },
+      "slots": {
+        "text": "Юридический адрес"
+      }
+    },
     {
       "type": "stack",
       "direction": "VERTICAL",
@@ -23,18 +65,46 @@
               "direction": "VERTICAL",
               "gap": 6,
               "children": [
-                { "component": "Label", "slots": { "label": "Индекс" } },
-                { "component": "Input", "props": { "state": "default" }, "slots": { "placeholder": "123456" } }
-              ]
+                {
+                  "component": "Label",
+                  "slots": {
+                    "label": "Индекс"
+                  }
+                },
+                {
+                  "component": "Input",
+                  "props": {
+                    "state": "default"
+                  },
+                  "slots": {
+                    "placeholder": "123456"
+                  }
+                }
+              ],
+              "grow": 1
             },
             {
               "type": "stack",
               "direction": "VERTICAL",
               "gap": 6,
               "children": [
-                { "component": "Label", "slots": { "label": "Город" } },
-                { "component": "Input", "props": { "state": "default" }, "slots": { "placeholder": "Москва" } }
-              ]
+                {
+                  "component": "Label",
+                  "slots": {
+                    "label": "Город"
+                  }
+                },
+                {
+                  "component": "Input",
+                  "props": {
+                    "state": "default"
+                  },
+                  "slots": {
+                    "placeholder": "Москва"
+                  }
+                }
+              ],
+              "grow": 1
             }
           ]
         },
@@ -43,21 +113,60 @@
           "direction": "VERTICAL",
           "gap": 6,
           "children": [
-            { "component": "Label", "slots": { "label": "Улица, дом, офис" } },
-            { "component": "Input", "props": { "state": "default" }, "slots": { "placeholder": "ул. Ленина, д. 1, оф. 10" } }
+            {
+              "component": "Label",
+              "slots": {
+                "label": "Улица, дом, офис"
+              }
+            },
+            {
+              "component": "Input",
+              "props": {
+                "state": "default"
+              },
+              "slots": {
+                "placeholder": "ул. Ленина, д. 1, оф. 10"
+              }
+            }
           ]
         }
       ]
     },
-    { "component": "Separator", "props": { "orientation": "horizontal" } },
-    { "component": "Heading", "props": { "level": "h3" }, "slots": { "text": "Фактический адрес" } },
+    {
+      "component": "Separator",
+      "props": {
+        "orientation": "horizontal"
+      }
+    },
+    {
+      "component": "Heading",
+      "props": {
+        "level": "h3"
+      },
+      "slots": {
+        "text": "Фактический адрес"
+      }
+    },
     {
       "type": "stack",
       "direction": "HORIZONTAL",
       "gap": 8,
       "children": [
-        { "component": "Checkbox", "props": { "checked": "false" } },
-        { "component": "Text", "props": { "variant": "default" }, "slots": { "text": "Совпадает с юридическим адресом" } }
+        {
+          "component": "Checkbox",
+          "props": {
+            "checked": "false"
+          }
+        },
+        {
+          "component": "Text",
+          "props": {
+            "variant": "default"
+          },
+          "slots": {
+            "text": "Совпадает с юридическим адресом"
+          }
+        }
       ]
     },
     {
@@ -65,18 +174,54 @@
       "direction": "VERTICAL",
       "gap": 6,
       "children": [
-        { "component": "Label", "slots": { "label": "Адрес доставки корреспонденции" } },
-        { "component": "Input", "props": { "state": "default" }, "slots": { "placeholder": "Если отличается от юридического" } }
+        {
+          "component": "Label",
+          "slots": {
+            "label": "Адрес доставки корреспонденции"
+          }
+        },
+        {
+          "component": "Input",
+          "props": {
+            "state": "default"
+          },
+          "slots": {
+            "placeholder": "Если отличается от юридического"
+          }
+        }
       ]
     },
-    { "component": "Separator", "props": { "orientation": "horizontal" } },
+    {
+      "component": "Separator",
+      "props": {
+        "orientation": "horizontal"
+      }
+    },
     {
       "type": "stack",
       "direction": "HORIZONTAL",
       "gap": 12,
       "children": [
-        { "component": "Button", "props": { "variant": "ghost", "size": "default" }, "slots": { "label": "Назад" } },
-        { "component": "Button", "props": { "variant": "default", "size": "default" }, "slots": { "label": "Далее" } }
+        {
+          "component": "Button",
+          "props": {
+            "variant": "ghost",
+            "size": "default"
+          },
+          "slots": {
+            "label": "Назад"
+          }
+        },
+        {
+          "component": "Button",
+          "props": {
+            "variant": "default",
+            "size": "default"
+          },
+          "slots": {
+            "label": "Далее"
+          }
+        }
       ]
     }
   ]

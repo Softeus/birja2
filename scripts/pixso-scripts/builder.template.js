@@ -188,8 +188,10 @@ for (const comp of SPEC.components) {
         node.resize(width, height ?? node.height);
       } else if (isVertical) {
         node.counterAxisSizingMode = "FIXED";
-        node.primaryAxisSizingMode = "AUTO";
         node.resize(width, node.height);
+        // resize() сбрасывает sizing modes: высота по контенту, ширина фиксирована.
+        node.primaryAxisSizingMode = "AUTO";
+        node.counterAxisSizingMode = "FIXED";
       } else if (height) {
         node.counterAxisSizingMode = "FIXED";
         node.resize(width, height);
