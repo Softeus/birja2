@@ -4,7 +4,7 @@
 
 ## 1. Что уже сделано
 
-- **Токены** (54 переменные: 32 цвета, 5 радиусов, 17 числовых `space/*`/`font/*`; коллекция `Semantic`, режимы Light/Dark) — `tokens.json` единственный источник.
+- **Токены**: коллекция `Primitive` (13 значений мастер-палитры) + `Semantic` (54 переменные: 32 цвета, 5 радиусов, 17 числовых). 26 цветовых semantic-токенов — алиасы на Primitive, режимы Light/Dark берут разные ступени. `tokens.json` — единственный источник.
 - **14 компонентов** в коде (`components/ui/*`, shadcn/ui) и в Pixso (страницы `2 Atoms`, `4 Molecules`), включая систему иконок `Icon` (8 иконок lucide × 16/20/24).
 - **Контракт** `ds-manifest.json`: ключи компонентов Pixso, допустимые пропсы, слоты — единственный список того, что разрешено использовать.
 - **Пайплайн**: `ds/screens/*.ast.json` → валидатор → сборка экранов в Pixso; тот же AST рендерится в React (`components/ast-renderer.tsx`).
@@ -19,6 +19,7 @@
 4. Графики не рисуем. Таблицы — только если согласованы отдельно.
 5. Один экран = один `ds/screens/*.ast.json` с полем `order`.
 6. Токены не хардкодить: цвета и размеры — только из переменных шкалы.
+7. Привязка — только к `Semantic`. Хочешь поменять оттенок во всей системе — меняешь ступень в `Primitive`, а не 20 semantic-токенов.
 
 ## 3. Каталог компонентов (из `ds-manifest.json`)
 
@@ -41,6 +42,15 @@
 
 ## 4. Токены (читать `tokens.json`)
 
+Два слоя переменных в Pixso:
+
+| Коллекция | Режимы | Что внутри |
+|---|---|---|
+| `Primitive` | `Default` | Мастер-палитра: `primitive/neutral-0…950`, `primitive/neutral-0a10`, `primitive/neutral-0a15`, `primitive/red-600`, `primitive/red-300` |
+| `Semantic` | `Light`, `Dark` | То, к чему привязываются слои: `color/*`, `radius/*`, `space/*`, `font/*`, `stroke/*` |
+
+- **26 цветовых semantic-токенов — алиасы на Primitive.** Light и Dark ссылаются на разные ступени одной палитры; менять оттенок нужно в Primitive, а не в Semantic.
+- Компоненты и слои привязываются **только к Semantic**. Прямая привязка к `primitive/*` — ошибка.
 - Цвета: `color/background`, `color/foreground`, `color/card`, `color/card-foreground`, `color/popover`, `color/popover-foreground`, `color/primary`, `color/primary-foreground`, `color/secondary`, `color/secondary-foreground`, `color/muted`, `color/muted-foreground`, `color/accent`, `color/accent-foreground`, `color/destructive`, `color/destructive-foreground`, `color/border`, `color/input`, `color/ring`, `color/chart-1…5`, `color/sidebar*`.
 - Радиусы: `radius/sm` (6), `radius/md` (8), `radius/default` (10), `radius/lg` (10), `radius/xl` (14).
 - Числовая шкала: `space/2,4,6,8,10,12,16,24,32`, `font/12,13,14,16,18,22,28`, `stroke/1`.

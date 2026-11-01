@@ -21,7 +21,7 @@ lucide-static ──► ds/icons.json ──► Icon (8 иконок × 3 раз
 - **Эталон внешнего вида — React-прототип** (shadcn). При расхождении правим Pixso под него; обратное — только по прямой просьбе заказчика.
 - Всегда одно юридическое лицо: выбора формы собственности нет.
 - Графики не рисуем. Таблицы — только по отдельному согласованию (исследование сделано, выбор: TanStack Table).
-- Токены — три слоя как в shadcn: semantic-цвета → radius → шкала Tailwind (`space/*`, `font/*`).
+- Токены — четыре слоя: `Primitive` (мастер-палитра) → `Semantic` (цвета-алиасы, radius, шкала Tailwind `space/*`, `font/*`). Компоненты привязываются только к Semantic; оттенок меняется в Primitive. Токенизируется не всё (см. «Известные ограничения»).
 - Новые компоненты — только с явного согласования.
 
 ## Где что лежит
@@ -32,7 +32,7 @@ lucide-static ──► ds/icons.json ──► Icon (8 иконок × 3 раз
 | `ds/icons.json` | пути lucide в системе 24×24 (генерируется `pnpm ds:icons`) |
 | `ds/screens/*.ast.json` | экраны как UI-AST; порядок задаётся полем `order` |
 | `ds-manifest.json` | контракт для LLM и сборщика: ключи, пропсы, слоты |
-| `tokens.json` | сгенерированные токены (руками не править) |
+| `tokens.json` | сгенерированные токены (руками не править): `primitives[]` (палитра) + `variables[]` (семантика, у 26 цветов поле `alias` на примитив) |
 | `scripts/ds/*` | пайплайн; `scripts/pixso-scripts/*` — код, исполняемый в Pixso |
 | `components/ui/*` | кодовая библиотека (shadcn) |
 | `components/prototype/*` | интерактивные прототипы |
@@ -98,7 +98,7 @@ pnpm build       # проверка типов
 - `Card`/`Dialog` в инстансах чуть выше контента (внутренние размеры мастер-компонента).
 - `Dialog` собран, но в макетах не используется — нужен пример экрана.
 - Клиентские страницы открывать по `127.0.0.1` или `localhost` — origin разрешён в `next.config.ts`.
-- В корне лежат не мои файлы от внешней LLM: `docs/review-market-pulse.md`, `docs/spec-heatmap-pulse.md`, `moex_market_pulse_sentiment_concept_analysis.md` — не коммичены, не трогать без указания.
+- В корне и в `docs/` лежат файлы внешней LLM (не мои, untracked): `docs/01-brief.md … 08-worklog.md`, `docs/README.md`, `docs/review-market-pulse.md`, `docs/spec-heatmap-pulse.md`, `moex_market_pulse_sentiment_concept_analysis.md` — не коммитить и не править без указания заказчика.
 
 ## Как продолжить в новой сессии
 
